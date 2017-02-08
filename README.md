@@ -23,7 +23,9 @@ npm run deploy
 (make sure aws credentials are set up)
 
 
-
+## live
+[http://komposer.s3-website-ap-southeast-2.amazonaws.com/](http://komposer.s3-website-ap-southeast-2.amazonaws.com/)
+```
 
 
 

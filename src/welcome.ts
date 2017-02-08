@@ -1,4 +1,5 @@
-import { Dot } from './models/Dot';
+import { Dot } from './models/dot';
+import { Location } from './models/location';
 import interact from 'interact.js'
 import { KSamplePlayer } from './libs/kSamplePlayer'
 import { KLoop } from './models/kloop'
@@ -9,32 +10,22 @@ export class Welcome {
   somenum: number = 0;
   player: KSamplePlayer;
 
+
+  soundUlrs = [
+    "https://s3-ap-southeast-2.amazonaws.com/ksounds/CH.WAV",
+    "https://s3-ap-southeast-2.amazonaws.com/ksounds/TR-808Rim02.wav",
+    "https://s3-ap-southeast-2.amazonaws.com/ksounds/MoM Tap Kick 55-10.wav",
+    "https://s3-ap-southeast-2.amazonaws.com/ksounds/MoM Klick 08 57-08.wav",
+    "https://s3-ap-southeast-2.amazonaws.com/ksounds/MoM Klick 10 57-10.wav",
+    "https://s3-ap-southeast-2.amazonaws.com/ksounds/MoM Klick 06 57-06.wav"
+  ];
+
   constructor() {
 
-    const soundUlrs = [
-      "https://s3-ap-southeast-2.amazonaws.com/ksounds/CH.WAV",
-      "https://s3-ap-southeast-2.amazonaws.com/ksounds/TR-808Rim02.wav",
-      "https://s3-ap-southeast-2.amazonaws.com/ksounds/MoM Tap Kick 55-10.wav",
-      "https://s3-ap-southeast-2.amazonaws.com/ksounds/MoM Klick 08 57-08.wav",
-      "https://s3-ap-southeast-2.amazonaws.com/ksounds/MoM Klick 10 57-10.wav",
-      "https://s3-ap-southeast-2.amazonaws.com/ksounds/MoM Klick 06 57-06.wav"
-    ];
-
-    this.dots = [
-      { id: 1, loop: new KLoop(soundUlrs[0], "16n"), pos: { x: 0, y: 0 } },
-      { id: 2, loop: new KLoop(soundUlrs[1], "4n"), pos: { x: 20, y: 45 } },
-      { id: 3, loop: new KLoop(soundUlrs[2], "8n"), pos: { x: 300, y: 50 } },
-      { id: 4, loop: new KLoop(soundUlrs[3], "32n"), pos: { x: 200, y: 50 } },
-      { id: 5, loop: new KLoop(soundUlrs[4], "16n"), pos: { x: 200, y: 250 } },
-      { id: 6, loop: new KLoop(soundUlrs[5], "8n"), pos: { x: 200, y: 50 } },
-    ];
 
     this.player = new KSamplePlayer();
     this.player.start();
 
-    this.dots.forEach(dot => {
-      this.player.addSound(dot.loop);
-    });
 
 
   }
@@ -43,61 +34,68 @@ export class Welcome {
   startTriggerDot(dot: Dot) {
     console.log(dot);
 
-    this.player.on(dot.loop);
+    if (dot) this.player.on(dot.loop);
   }
 
   stopTriggerDot(dot: Dot) {
-    this.player.off(dot.loop);
+    if (dot) this.player.off(dot.loop);
   }
 
-  dotLoaded(e) {
-    console.log('loadedloadedloadedloadedloadedloadedloaded');
+
+  placeDot(e) {
+
     console.log(e);
 
-    // PLACE INITIAL  X Y HERE
-
-    //    debugger;
+    this.moveElement(e.target, e.detail);
 
   }
 
-  itemDropped(item, target, source, sibling, itemVM, siblingVM) {
-    console.log(target);
 
-    //do things in here
-  }
+  // itemDropped(item, target, source, sibling, itemVM, siblingVM) {
+  //   console.log(target);
+
+  //   //do things in here
+  // }
 
 
   attached() {
 
-    //this.player.on("https://s3-ap-southeast-2.amazonaws.com/ksounds/CH.WAV");
-
-
-    // const draggys = document.getElementsByClassName('draggable');
-    // const draggablesArr = Array.from(draggys);
-
-    // const dotmap: { [id: number]: Dot } = {};
-    // this.dots.forEach(d => dotmap[d.id] = d);
-
-    // console.log(dotmap);
-    // debugger;
+    // NOTE
+    // do this at some point?
+    // http://codepen.io/taye/pen/YPyLxE
 
 
 
-    setInterval(() => {
-      this.somenum++;
+    this.dots = [
+      { id: 1, loop: new KLoop(this.soundUlrs[0], "16n"), pos: { x: 0, y: 0 } },
+      { id: 2, loop: new KLoop(this.soundUlrs[1], "4n"), pos: { x: 20, y: 1 } },
+      { id: 3, loop: new KLoop(this.soundUlrs[2], "8n"), pos: { x: 300, y: 2 } },
+      { id: 4, loop: new KLoop(this.soundUlrs[3], "32n"), pos: { x: 200, y: 10 } },
+      { id: 5, loop: new KLoop(this.soundUlrs[4], "16n"), pos: { x: 150, y: 90 } },
+      { id: 6, loop: new KLoop(this.soundUlrs[5], "8n"), pos: { x: 90, y: 50 } },
+      { id: 7, loop: new KLoop(this.soundUlrs[0], "12n"), pos: { x: 20, y: 10 } },
+    ];
 
-    }, 1000);
-
-    this.dots.forEach(d => {
-      //      d.textContent = 'zzz'
-
-      // const x = Math.random() * 100.0;
-      // const y = Math.random() * 100.0;
-
-      //      this.move(d, { dotmap., y })
+    this.dots.forEach(dot => {
+      this.player.addSound(dot.loop);
     });
 
+  }
 
+  // makes a new random sound for now
+  newDot() {
+    const beats = ['8n', '12n', '16n', '23n'];
+    const sound = this.soundUlrs[Math.floor(this.soundUlrs.length * Math.random())]
+    const beat = beats[Math.floor(beats.length * Math.random())]
+    const x = Math.floor(300 * Math.random());
+    const y = Math.floor(300 * Math.random());
+
+    var dot = { id: 7, loop: new KLoop(sound, beat), pos: { x: x, y: y } };
+    console.log('NEW dot');
+    console.log(dot);
+
+    this.dots.push(dot);
+    this.player.addSound(dot.loop);
   }
 
   dotOver() {
@@ -105,7 +103,7 @@ export class Welcome {
 
   }
 
-  moveElement(customEvent) {
+  moveElementOnEvent(customEvent) {
 
     // debugger;
     let event = customEvent.detail;
@@ -115,20 +113,28 @@ export class Welcome {
     let x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
     let y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
-    this.move(target, { x, y })
+    this.moveElement(target, { x, y })
 
   }
 
 
-  move(target, {x, y}) {
+  moveElement(element, {x, y}) {
+
+    console.log('DOR LOC --------------------');
+    console.log(element);
+    console.log(x);
+    console.log(y);
+
+    // debugger;
+
     // translate the element
-    target.style.webkitTransform =
-      target.style.transform =
+    element.style.webkitTransform =
+      element.style.transform =
       'translate(' + x + 'px, ' + y + 'px)';
 
     // update the posiion attributes
-    target.setAttribute('data-x', x);
-    target.setAttribute('data-y', y);
+    element.setAttribute('data-x', x);
+    element.setAttribute('data-y', y);
 
   }
 

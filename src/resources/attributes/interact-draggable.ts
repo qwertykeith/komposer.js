@@ -3,6 +3,9 @@
 
 import { inject, bindable, bindingMode } from 'aurelia-framework';
 
+import { Location } from '../../models/location';
+import { Dot } from '../../models/dot';
+
 // import * as interact from "interact.js";
 const interact = require('interact.js');
 
@@ -12,47 +15,21 @@ export class InteractDraggableCustomAttribute {
   // we make options bindable, so that the interact draggable options can be customized declaratively
   //@bindable({ defaultBindingMode: bindingMode.oneTime }) options;
 
-  @bindable({ defaultBindingMode: bindingMode.twoWay })
-  options: string;
-
   @bindable()
-  test: string
-
-
-  // @bindable({
-  //     name: 'options',
-  //     defaultBindingMode: bindingMode.oneTime,
-  //     defaultValue: {}
-  // }) options;
+  position: Location;
 
   constructor(private element: HTMLElement) { }
 
 
-
-  testChanged(newValue, oldValue) {
-    console.log('*********');
-    console.log(newValue);
-    console.log(oldValue);
-    debugger;
-
-  }
-
-  bind() {
-    console.log('00000');
-
-    console.log(this);
-
-  }
-
-
   attached() {
 
+
+    this.dispatch('locationchange', this.position);
+
+
+    console.log(this.position);
+
     console.log('options');
-
-    console.log(this.options);
-    console.log(this.test);
-
-    if (this.options) alert('it worked');
 
     const defaultOptions = {
       // enable inertial throwing
@@ -67,12 +44,12 @@ export class InteractDraggableCustomAttribute {
       autoScroll: true,
     };
 
-    // this.element.onload = (event) => {
-    //   this.dispatch('interact-load', event);
-    // }
-
     this.element.onmouseover = (event) => {
+      console.log('pppp');
+      console.log(this.position);
+      //      debugger;
       this.dispatch('interact-mouseover', event);
+
     }
 
     this.element.onmousedown = (event) => {
@@ -102,7 +79,7 @@ export class InteractDraggableCustomAttribute {
 
     interact(this.element)
       // we can set default options if we want, overriding any options that were passed in
-      .draggable(Object.assign({}, this.options || defaultOptions))
+      .draggable(Object.assign({}, defaultOptions))
       // for each event, we dispatch an bubbling, HTML5 CustomEvent, which the aurelia
       // binding engine will be able to listen for
       .on('dragstart', (event) => this.dispatch('interact-dragstart', event))

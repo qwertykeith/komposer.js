@@ -3,19 +3,41 @@
 
     <div class="live-demo">
 
-
-
-      <div repeat.for="dot of dots" class="draggable" 
-        loaded.delegate="dotLoaded($event)"
-        interact-draggable 
+        <!--<dot-view class="draggable"
+                interact-draggable 
         interact-mouseover.delegate="dotOver()" 
         interact-mousedown.delegate="startTriggerDot(dot)" 
         interact-onmouseenter.delegate="startTriggerDot(dot)" 
         interact-mouseleave.delegate="stopTriggerDot(dot)" 
         interact-onmouseup.delegate="stopTriggerDot(dot)" 
-        interact-dragmove.delegate="moveElement($event)">
-        <dot-view dot.bind="dot"></dot>
-      </div>
+        interact-dragmove.delegate="moveElementOnEvent($event)"
+
+        >
+        </dot-view>
+-->
+
+<button click.trigger="newDot()">New Dot</button>
+
+        <!--note this annoyingly has to be a div-->
+        <div repeat.for="dot of dots" 
+                class="draggable"                
+                interact-draggable="position.bind:dot.pos" 
+                locationchange.delegate="placeDot($event)"
+                interact-mouseover.delegate="dotOver()" 
+                interact-mousedown.delegate="startTriggerDot(dot)" 
+                interact-onmouseenter.delegate="startTriggerDot(dot)" 
+                interact-mouseleave.delegate="stopTriggerDot(dot)" 
+                interact-onmouseup.delegate="stopTriggerDot(dot)" 
+                interact-dragmove.delegate="moveElementOnEvent($event)"
+        >
+
+          <!--<dot-view dot.bind="dot"></dot-view>-->
+
+        </div>
+
+
+
+
 
 
     </div>
