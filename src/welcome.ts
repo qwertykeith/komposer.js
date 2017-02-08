@@ -1,12 +1,13 @@
 import { Dot } from './models/Dot';
 import interact from 'interact.js'
-import { TestPlay } from './libs/testPlay'
+import { KSamplePlayer } from './libs/kSamplePlayer'
+import { KLoop } from './models/kloop'
 
 export class Welcome {
 
   dots: Dot[];
   somenum: number = 0;
-  player: TestPlay;
+  player: KSamplePlayer;
 
   constructor() {
 
@@ -20,19 +21,19 @@ export class Welcome {
     ];
 
     this.dots = [
-      { id: 1, soundUrl: soundUlrs[0], pos: { x: 10, y: 100 } },
-      { id: 2, soundUrl: soundUlrs[1], pos: { x: 40, y: 45 } },
-      { id: 3, soundUrl: soundUlrs[2], pos: { x: 200, y: 50 } },
-      { id: 3, soundUrl: soundUlrs[3], pos: { x: 120, y: 50 } },
-      { id: 3, soundUrl: soundUlrs[4], pos: { x: 110, y: 20 } },
-      { id: 3, soundUrl: soundUlrs[5], pos: { x: 180, y: 60 } },
+      { id: 1, loop: new KLoop(soundUlrs[0], "16n"), pos: { x: 0, y: 0 } },
+      { id: 2, loop: new KLoop(soundUlrs[1], "4n"), pos: { x: 20, y: 45 } },
+      { id: 3, loop: new KLoop(soundUlrs[2], "8n"), pos: { x: 300, y: 50 } },
+      { id: 4, loop: new KLoop(soundUlrs[3], "32n"), pos: { x: 200, y: 50 } },
+      { id: 5, loop: new KLoop(soundUlrs[4], "16n"), pos: { x: 200, y: 250 } },
+      { id: 6, loop: new KLoop(soundUlrs[5], "8n"), pos: { x: 200, y: 50 } },
     ];
 
-    this.player = new TestPlay();
+    this.player = new KSamplePlayer();
     this.player.start();
 
-    soundUlrs.forEach(url => {
-      this.player.addSound(url);
+    this.dots.forEach(dot => {
+      this.player.addSound(dot.loop);
     });
 
 
@@ -42,20 +43,20 @@ export class Welcome {
   startTriggerDot(dot: Dot) {
     console.log(dot);
 
-    this.player.on(dot.soundUrl);
+    this.player.on(dot.loop);
   }
 
   stopTriggerDot(dot: Dot) {
-    this.player.off(dot.soundUrl);
+    this.player.off(dot.loop);
   }
 
   dotLoaded(e) {
     console.log('loadedloadedloadedloadedloadedloadedloaded');
     console.log(e);
 
-// PLACE INITIAL  X Y HERE
+    // PLACE INITIAL  X Y HERE
 
-//    debugger;
+    //    debugger;
 
   }
 
