@@ -82,9 +82,14 @@ export class Welcome {
 
   }
 
+
+  newDotTriplets() {
+    this.newDot(['6n', '12n', '24n']);
+  }
+
   // makes a new random sound for now
-  newDot() {
-    const beats = ['8n', '12n', '16n', '23n'];
+  newDot(theBeats) {
+    const beats = theBeats || ['8n', '16n', '32n'];
     const sound = this.soundUlrs[Math.floor(this.soundUlrs.length * Math.random())]
     const beat = beats[Math.floor(beats.length * Math.random())]
     const x = Math.floor(300 * Math.random());
