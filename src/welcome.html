@@ -1,0 +1,25 @@
+<template>
+  <section class="au-animate">
+
+    <div class="live-demo">
+
+
+
+      <div repeat.for="dot of dots" class="draggable" 
+        loaded.delegate="dotLoaded($event)"
+        interact-draggable 
+        interact-mouseover.delegate="dotOver()" 
+        interact-mousedown.delegate="startTriggerDot(dot)" 
+        interact-onmouseenter.delegate="startTriggerDot(dot)" 
+        interact-mouseleave.delegate="stopTriggerDot(dot)" 
+        interact-onmouseup.delegate="stopTriggerDot(dot)" 
+        interact-dragmove.delegate="moveElement($event)">
+        <dot-view dot.bind="dot"></dot>
+      </div>
+
+
+    </div>
+
+    </form>
+  </section>
+</template>
