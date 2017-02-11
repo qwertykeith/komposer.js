@@ -1,5 +1,6 @@
 export function configure(aurelia) {
     aurelia.globalResources(
-      './dot-view'
+      './dot-view',
+      './loop-view'
       );
 }
