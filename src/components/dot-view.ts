@@ -22,13 +22,14 @@ export class DotViewCustomElement {
 
   }
 
-  public dotChanged(newValue: string, oldValue: string): void {
-      console.log('VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV');
-    console.log('DDDDDD');
-    console.log(newValue);
-//    this.dispatch('newDot', newValue);
-//    debugger;
-  }
+
+  //   public dotChanged(newValue: string, oldValue: string): void {
+  //       console.log('VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV');
+  //     console.log('DDDDDD');
+  //     console.log(newValue);
+  // //    this.dispatch('newDot', newValue);
+  // //    debugger;
+  //   }
 
   attached(argument) {
 
@@ -48,7 +49,7 @@ export class DotViewCustomElement {
 
     // };
 
-//    debugger;
+    //    debugger;
 
 
   }

@@ -96,16 +96,22 @@ export class Welcome {
     //   this.player.addSound(dot.loop);
     // });
 
-const beats=['8n','16n','8n','16n','8n','12n','16n','8n','12n','16n','32n'];
-// const beats=['4n','8n','12n','16n','32n'];
-
-    // randomly add stuff
-    for (let i = 0; i < 200; i++) {
-      this.newDot(beats);
-    }
+    this.newRandom();
 
   }
 
+  newRandom() {
+
+    this.dots = [];
+
+    const beats = ['8n', '16n', '8n', '16n', '8n', '12n', '16n', '8n', '12n', '16n', '32n'];
+    // const beats=['4n','8n','12n','16n','32n'];
+
+    // randomly add stuff
+    for (let i = 0; i < 100; i++) {
+      this.newDot(beats);
+    }
+  }
 
   newDotTriplets() {
     this.newDot(['6n', '12n', '24n']);
@@ -116,8 +122,8 @@ const beats=['8n','16n','8n','16n','8n','12n','16n','8n','12n','16n','32n'];
     const beats = theBeats || ['8n', '16n', '32n'];
     const sound = this.soundUlrs[Math.floor(this.soundUlrs.length * Math.random())]
     const beat = beats[Math.floor(beats.length * Math.random())]
-    const x = Math.floor(400 * Math.random());
-    const y = Math.floor(400 * Math.random());
+    const x = Math.floor(300 * Math.random());
+    const y = Math.floor(330 * Math.random());
 
     var dot = { id: 7, loop: new KLoop(sound, beat), pos: { x: x, y: y } };
     console.log('NEW dot');
