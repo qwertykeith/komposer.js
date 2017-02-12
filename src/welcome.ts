@@ -100,6 +100,11 @@ export class Welcome {
 
   }
 
+  get tempo(): any {
+    return this.player.tempo;
+  }
+
+
   newRandom() {
 
     this.dots = [];

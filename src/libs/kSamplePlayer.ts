@@ -18,9 +18,18 @@ export class KSamplePlayer {
   // soundsOn = new Map<string, number>();
   loop: Tone.Sequence;
 
+  get tempo(): any {
+    return Tone.Transport.bpm.value;
+  }
+
+  set tempo(bpm: any) {
+    Tone.Transport.bpm.value = bpm;
+  }
+
   constructor() {
 
     Tone.Transport.loop = true;
+    Tone.Transport.bpm.value = 140;
 
 
     this.loop = new Tone.Sequence((time, col) => {
