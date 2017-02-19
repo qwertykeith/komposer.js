@@ -115,7 +115,7 @@ export class Welcome {
     const explode = (url: string, offset: number) => {
       KLoopUtils.explode(url)
         .forEach(l => {
-          const pos = this.getRandomPos();
+          const pos = this.getRandomPos(50,50);
           pos.x = offset;
           var loop = { id: 7, loop: l, pos: pos };
 
@@ -160,7 +160,7 @@ export class Welcome {
     var vol = 1; // (Math.random() * 0.5) + 0.5;
 
     // if (Math.random() < 0.5) vol = 0.5;
-    const pos = this.getRandomPos();
+    const pos = this.getRandomPos(300,300);
 
     var dot = { id: 7, loop: new KLoop(sound, beat, vol), pos: pos };
     console.log('NEW dot');
@@ -169,7 +169,7 @@ export class Welcome {
     this.addLoop(dot);
   }
 
-  getRandomPos(): DotLocation {
+  getRandomPos(xw:number,yw:number): DotLocation {
     const x = Math.floor(300 * Math.random());
     const y = Math.floor(330 * Math.random());
     return { x: x, y: y };
