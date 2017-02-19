@@ -1,27 +1,28 @@
 <template>
   <section class="au-animate">
 
-    <div class="live-demo">
+<div class="live-demo" >
 
-<button click.trigger="newDot()">New Dot</button>
-<button click.trigger="newDotTriplets()">New Dot Triplets</button>
-<button click.trigger="newRandom()">New Everything</button>
-<p>Tempo: ${tempo}</p>
-        <!--note this annoyingly has to be a div-->
-        <div repeat.for="loop of loops" 
-                class="draggable"                
-                interact-draggable="position.bind:loop.pos" 
-                locationchange.delegate="placeDot($event)"
-                interact-mouseover.delegate="dotOver()" 
-                interact-mousedown.delegate="startTriggerDot(loop)" 
-                interact-onmouseenter.delegate="startTriggerDot(loop)" 
-                interact-mouseleave.delegate="stopTriggerDot(loop)" 
-                interact-onmouseup.delegate="stopTriggerDot(loop)" 
-                interact-dragmove.delegate="moveElementOnEvent($event)"
-        >
-          <loop-view loop.bind="loop.loop"></loop-view>
+  <button click.trigger="newDot()">New Dot</button>
+  <button click.trigger="newDotTriplets()">New Dot Triplets</button>
+  <button click.trigger="newRandom()">New Everything</button>
+  <p>Tempo: ${tempo}</p>
+          <!--note this annoyingly has to be a div-->
+          <div repeat.for="loop of loops" 
+                  class="draggable"                
+                  interact-draggable="position.bind:loop.pos" 
+                  locationchange.delegate="placeDot($event)"
+                  interact-mouseover.delegate="dotOver()" 
+                  interact-mousedown.delegate="startTriggerDot(loop)" 
+                  interact-onmouseenter.delegate="startTriggerDot(loop)" 
+                  interact-mouseleave.delegate="stopTriggerDot(loop)" 
+                  interact-onmouseup.delegate="stopTriggerDot(loop)" 
+                  interact-dragmove.delegate="moveElementOnEvent($event)"
+                  
+          >
+            <loop-view loop.bind="loop.loop"></loop-view>
 
-        </div>
+          </div>
 
 
 

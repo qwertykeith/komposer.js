@@ -52,6 +52,11 @@ export class InteractDraggableCustomAttribute {
 
     }
 
+    this.element.ontouchmove = (event) => {
+      this.dispatch('interact-mouseover', event);
+
+    }
+
     this.element.onmousedown = (event) => {
       this.dispatch('interact-mousedown', event);
     }
@@ -75,6 +80,10 @@ export class InteractDraggableCustomAttribute {
     this.element.onmouseenter = (event) => {
       this.dispatch('interact-onmouseenter', event);
     }
+
+    // this.element.touchenter = (event) => {
+    //   this.dispatch('interact-onmouseenter', event);
+    // }
 
 
     interact(this.element)
