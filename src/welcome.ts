@@ -1,8 +1,8 @@
 import { Dot } from './models/dot';
-import { Location } from './models/location';
+import { DotLocation } from './models/location';
 import interact from 'interact.js'
 import { KSamplePlayer } from './libs/kSamplePlayer'
-import { KLoop } from './models/kloop'
+import { KLoop, KLoopUtils } from './models/kloop'
 
 export class Welcome {
 
@@ -10,15 +10,15 @@ export class Welcome {
   somenum: number = 0;
   player: KSamplePlayer;
   beatLibrary = [
-    1 / 8.0, 1 / 8.0, 1 / 8.0, 1 / 8.0, 1 / 8.0,
-    1 / 16.0, 1 / 16.0, 1 / 16.0, 1 / 16.0, 1 / 16.0,
+    1 / 8.0, 1 / 8.0, 1 / 8.0, 1 / 8.0, 1 / 8.0,1 / 8.0,
+    1 / 16.0, 1 / 16.0, 1 / 16.0, 1 / 16.0, 1 / 16.0, 1 / 16.0, 1 / 16.0,
     //      1/32.0,1/32.0,
     1 / 4.0,
     1 / 6.0,
     //      1/12.0,
     //      1/24.0,
   ];
-
+//  initialDots: number = 90;
 
   soundUlrs = [
     "https://s3-ap-southeast-2.amazonaws.com/ksounds/CH.WAV",
@@ -30,13 +30,19 @@ export class Welcome {
 
     "https://s3-ap-southeast-2.amazonaws.com/ksounds/Clank/MoM+Chunk+02+56-02.wav",
     "https://s3-ap-southeast-2.amazonaws.com/ksounds/Clank/MoM+Goose+Flab+63-03.wav",
-    "https://s3-ap-southeast-2.amazonaws.com/ksounds/Clank/MoM+Rim+Tick+63-04.wav",
+    //    "https://s3-ap-southeast-2.amazonaws.com/ksounds/Clank/MoM+Rim+Tick+63-04.wav",
     "https://s3-ap-southeast-2.amazonaws.com/ksounds/Clank/MoM+Wash+Hit+62-09.wav",
     //    "https://s3-ap-southeast-2.amazonaws.com/ksounds/Clank/MoM+Clank+12+53-12.wav",
-    "https://s3-ap-southeast-2.amazonaws.com/ksounds/Snares/MoM+Ugly+Acoustic++08+64-12.wav",
+//    "https://s3-ap-southeast-2.amazonaws.com/ksounds/Snares/MoM+Ugly+Acoustic++08+64-12.wav",
     //    "https://s3-ap-southeast-2.amazonaws.com/ksounds/Snares/MoM+Mouth+Snare+63-07.wav",
-    "https://s3-ap-southeast-2.amazonaws.com/ksounds/Snares/MoM+Clang+Snare+62-02.wav",
+    //    "https://s3-ap-southeast-2.amazonaws.com/ksounds/Snares/MoM+Clang+Snare+62-02.wav",
     "https://s3-ap-southeast-2.amazonaws.com/ksounds/Kiks/MoM+Klick+Kick+62-06.wav",
+    "https://s3-ap-southeast-2.amazonaws.com/ksounds/808+Drum+Machine/Cabasa_808_PL.wav",
+    "https://s3-ap-southeast-2.amazonaws.com/ksounds/808+Drum+Machine/Closed_Hi_Hat_808_PL.wav",
+    "https://s3-ap-southeast-2.amazonaws.com/ksounds/808+Drum+Machine/Hi_Hat_Multi_PL_v1.wav",
+    "https://s3-ap-southeast-2.amazonaws.com/ksounds/808+Drum+Machine/Kick_808_PL_7.wav",
+    "https://s3-ap-southeast-2.amazonaws.com/ksounds/808+Drum+Machine/Snare_808_PL.wav",
+    // "",
     // "",
     // "",
     // "",
@@ -103,7 +109,24 @@ export class Welcome {
     //   this.player.addSound(dot.loop);
     // });
 
-    this.newRandom();
+    this.newRandom(150);
+
+
+    const explode = (url: string, offset: number) => {
+      KLoopUtils.explode(url)
+        .forEach(l => {
+          const pos = this.getRandomPos();
+          pos.x = offset;
+          var loop = { id: 7, loop: l, pos: pos };
+
+          this.addLoop(loop);
+        });
+    }
+
+    explode(this.soundUlrs[0], 400);
+    explode(this.soundUlrs[9], 350);
+    explode(this.soundUlrs[10], 450);
+
 
   }
 
@@ -113,12 +136,12 @@ export class Welcome {
 
 
 
-  newRandom() {
+  newRandom(initialDots:number) {
 
     this.loops = [];
 
     // randomly add stuff
-    for (let i = 0; i < 250; i++) {
+    for (let i = 0; i < initialDots; i++) {
       this.newDot(this.beatLibrary);
     }
   }
@@ -132,17 +155,31 @@ export class Welcome {
     const beats = theBeats || this.beatLibrary;
     const sound = this.soundUlrs[Math.floor(this.soundUlrs.length * Math.random())]
     const beat = beats[Math.floor(beats.length * Math.random())]
-    const x = Math.floor(300 * Math.random());
-    const y = Math.floor(330 * Math.random());
 
-    var loop = { id: 7, loop: new KLoop(sound, beat, 1), pos: { x: x, y: y } };
+
+    var vol = 1; // (Math.random() * 0.5) + 0.5;
+
+    // if (Math.random() < 0.5) vol = 0.5;
+    const pos = this.getRandomPos();
+
+    var dot = { id: 7, loop: new KLoop(sound, beat, vol), pos: pos };
     console.log('NEW dot');
-    console.log(loop);
+    console.log(dot);
 
-    this.loops.push(loop);
-    this.player.addSound(loop.loop);
+    this.addLoop(dot);
   }
 
+  getRandomPos(): DotLocation {
+    const x = Math.floor(300 * Math.random());
+    const y = Math.floor(330 * Math.random());
+    return { x: x, y: y };
+  }
+
+  addLoop(dot: Dot) {
+    this.loops.push(dot);
+    this.player.addSound(dot.loop);
+
+  }
 
   moveElementOnEvent(customEvent) {
 

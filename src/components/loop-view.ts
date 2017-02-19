@@ -77,9 +77,9 @@ export class LoopViewCustomElement {
     b %= 255;
     //      console.log(total);
 
+    const alpha = this.loop.volume;
 
-
-    return `background-color: rgb(${r}, ${g}, ${b}); width:${size}px; height: ${size}px;`;
+    return `background-color: rgba(${r}, ${g}, ${b}, ${alpha}); width:${size}px; height: ${size}px;`;
   }
 
   getSoundName() {

@@ -1,8 +1,8 @@
 import {KLoop} from './kloop'
-import {Location} from './location'
+import {DotLocation} from './location'
 
 export interface Dot {
   id: number;
-  pos: Location;
+  pos: DotLocation;
   loop:KLoop;
 }

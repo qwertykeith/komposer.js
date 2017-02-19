@@ -46,9 +46,9 @@ export class KSamplePlayer {
 
     if (!this.seqSamplers.has(kloop)) {
       const sampler = new Tone.Sampler(kloop.url).toMaster();
-      sampler.volume.value = (kloop.volume - 1) * 90;
+      sampler.volume.value = (kloop.volume - 1) * 40;
 
-//      if (Math.random()<0.5) sampler.volume.value=-40;
+    //  if (Math.random()<0.5) sampler.volume.value=-40;
 
       const seq = new Tone.Sequence((time, col) => {
         sampler.triggerAttack(0, time);
