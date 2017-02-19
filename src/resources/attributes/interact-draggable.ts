@@ -44,42 +44,6 @@ export class InteractDraggableCustomAttribute {
       autoScroll: true,
     };
 
-    this.element.onmouseover = (event) => {
-      console.log('pppp');
-      console.log(this.position);
-      //      debugger;
-      this.dispatch('interact-mouseover', event);
-
-    }
-
-    this.element.ontouchmove = (event) => {
-      this.dispatch('interact-mouseover', event);
-
-    }
-
-    this.element.onmousedown = (event) => {
-      this.dispatch('interact-mousedown', event);
-    }
-
-    this.element.ontouchstart = (event) => {
-      this.dispatch('interact-mousedown', event);
-    }
-
-    this.element.onmouseleave = (event) => {
-      this.dispatch('interact-mouseleave', event);
-    }
-
-    this.element.ontouchend = (event) => {
-      this.dispatch('interact-mouseleave', event);
-    }
-
-    this.element.onmouseup = (event) => {
-      this.dispatch('interact-onmouseup', event);
-    }
-
-    this.element.onmouseenter = (event) => {
-      this.dispatch('interact-onmouseenter', event);
-    }
 
     // this.element.touchenter = (event) => {
     //   this.dispatch('interact-onmouseenter', event);

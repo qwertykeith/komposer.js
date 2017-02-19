@@ -11,6 +11,44 @@ export class LoopViewCustomElement {
 
   constructor(private element: HTMLElement) {
 
+
+    /** mouse/touch interactions ***/
+
+    // this.element.onmouseover = (event) => {
+    //   this.dispatch('loop-start', this.loop);
+
+    // }
+
+    this.element.ontouchmove = (event) => {
+      this.dispatch('loop-start', this.loop);
+    }
+
+    this.element.onmousedown = (event) => {
+      this.dispatch('loop-start', this.loop);
+    }
+
+    this.element.ontouchstart = (event) => {
+      this.dispatch('loop-start', this.loop);
+    }
+
+    this.element.onmouseenter = (event) => {
+      this.dispatch('loop-start', this.loop);
+    }
+
+    this.element.onmouseleave = (event) => {
+      this.dispatch('loop-stop', this.loop);
+    }
+
+    this.element.ontouchend = (event) => {
+      this.dispatch('loop-stop', this.loop);
+    }
+
+    this.element.onmouseup = (event) => {
+      this.dispatch('loop-stop', this.loop);
+    }
+
+
+
   }
 
   attached(argument) {
@@ -34,9 +72,9 @@ export class LoopViewCustomElement {
         case 2: b += code; break;
       }
     }
-    r%=255;
-    g%=255;
-    b%=255;
+    r %= 255;
+    g %= 255;
+    b %= 255;
     //      console.log(total);
 
 
@@ -58,5 +96,16 @@ export class LoopViewCustomElement {
       , '+', ' ', '');
   }
 
+
+
+
+  dispatch(name, data) {
+    this.element.dispatchEvent(
+      new CustomEvent(name, {
+        bubbles: true,
+        detail: data
+      })
+    );
+  }
 
 }

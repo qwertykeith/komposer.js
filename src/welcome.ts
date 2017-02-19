@@ -56,14 +56,12 @@ export class Welcome {
   }
 
 
-  startTriggerDot(dot: Dot) {
-    console.log(dot);
-
-    if (dot) this.player.on(dot.loop);
+  startTriggerDot(loop: KLoop) {
+    this.player.on(loop);
   }
 
-  stopTriggerDot(dot: Dot) {
-    if (dot) this.player.off(dot.loop);
+  stopTriggerDot(loop: KLoop) {
+    this.player.off(loop);
   }
 
 
@@ -145,10 +143,6 @@ export class Welcome {
     this.player.addSound(loop.loop);
   }
 
-  dotOver() {
-    console.log('dfgsfgdfg');
-
-  }
 
   moveElementOnEvent(customEvent) {
 
