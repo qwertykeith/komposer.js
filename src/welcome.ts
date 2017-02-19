@@ -123,9 +123,9 @@ export class Welcome {
     }
   }
 
-  newDotTriplets() {
-    this.newDot([1 / 6.0, 1 / 12.0, 1 / 24.0]);
-  }
+  // newDotTriplets() {
+  //   this.newDot([1 / 6.0, 1 / 12.0, 1 / 24.0]);
+  // }
 
   // makes a new random sound for now
   newDot(theBeats) {
