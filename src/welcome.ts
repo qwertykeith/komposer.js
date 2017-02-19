@@ -6,9 +6,18 @@ import { KLoop } from './models/kloop'
 
 export class Welcome {
 
-  dots: Dot[] = [];
+  loops: Dot[] = [];
   somenum: number = 0;
   player: KSamplePlayer;
+  beatLibrary = [
+    1 / 8.0, 1 / 8.0, 1 / 8.0, 1 / 8.0, 1 / 8.0,
+    1 / 16.0, 1 / 16.0, 1 / 16.0, 1 / 16.0, 1 / 16.0,
+    //      1/32.0,1/32.0,
+    1 / 4.0,
+    1 / 6.0,
+    //      1/12.0,
+    //      1/24.0,
+  ];
 
 
   soundUlrs = [
@@ -105,37 +114,35 @@ export class Welcome {
   }
 
 
+
   newRandom() {
 
-    this.dots = [];
-
-    const beats = ['8n', '16n', '8n', '16n', '8n', '12n', '16n', '8n', '12n', '16n', '32n'];
-    // const beats=['4n','8n','12n','16n','32n'];
+    this.loops = [];
 
     // randomly add stuff
-    for (let i = 0; i < 100; i++) {
-      this.newDot(beats);
+    for (let i = 0; i < 250; i++) {
+      this.newDot(this.beatLibrary);
     }
   }
 
   newDotTriplets() {
-    this.newDot(['6n', '12n', '24n']);
+    this.newDot([1 / 6.0, 1 / 12.0, 1 / 24.0]);
   }
 
   // makes a new random sound for now
   newDot(theBeats) {
-    const beats = theBeats || ['8n', '16n', '32n'];
+    const beats = theBeats || this.beatLibrary;
     const sound = this.soundUlrs[Math.floor(this.soundUlrs.length * Math.random())]
     const beat = beats[Math.floor(beats.length * Math.random())]
     const x = Math.floor(300 * Math.random());
     const y = Math.floor(330 * Math.random());
 
-    var dot = { id: 7, loop: new KLoop(sound, beat), pos: { x: x, y: y } };
+    var loop = { id: 7, loop: new KLoop(sound, beat), pos: { x: x, y: y } };
     console.log('NEW dot');
-    console.log(dot);
+    console.log(loop);
 
-    this.dots.push(dot);
-    this.player.addSound(dot.loop);
+    this.loops.push(loop);
+    this.player.addSound(loop.loop);
   }
 
   dotOver() {

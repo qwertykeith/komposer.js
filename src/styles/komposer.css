@@ -1,17 +1,17 @@
 .draggable {
-  width: 25px;
+  /*width: 25px;
   height: 10px;
   min-height: 6.5em;
-  margin: 10%;
+  margin: 10%;*/
 
-  background-color: #A69800;
+  /*background-color: #A69800;
   color: white;
 
   border-radius: 0.75em;
   border-width: 3px;
   border-style: solid;
   border-color: #000;
-  padding: 4%;
+  padding: 4%;*/
 
   position: absolute;
 
@@ -30,6 +30,17 @@
   font-weight: bold;
 }
 
+.sound-loop{
+  /*background-color: #A69800;*/
+  color: white;
+
+  border-radius: 0.75em;
+  border-width: 3px;
+  border-style: solid;
+  border-color: #000;
+  padding: 4%;
+
+}
 
 .live-demo{
   position: absolute;
