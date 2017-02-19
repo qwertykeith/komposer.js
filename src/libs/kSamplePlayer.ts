@@ -33,16 +33,9 @@ export class KSamplePlayer {
 
 
     this.loop = new Tone.Sequence((time, col) => {
-      //      console.log(time);
-
-      // this.soundsOn.forEach((value, key) => {
-      //   if (this.seqSamplers.has(key)) {
-      //     this.seqSamplers.get(key).triggerAttack(0, time);
-      //   }
-      // });
-
     }, [0], "16n");
     //    this.loop.loopStart = '0m';
+    // this.loop.humanize = true;
     //    this.loop.loopEnd = '1m';
 
     this.loop.start();
@@ -53,7 +46,9 @@ export class KSamplePlayer {
 
     if (!this.seqSamplers.has(kloop)) {
       const sampler = new Tone.Sampler(kloop.url).toMaster();
+      sampler.volume.value = (kloop.volume - 1) * 90;
 
+//      if (Math.random()<0.5) sampler.volume.value=-40;
 
       const seq = new Tone.Sequence((time, col) => {
         sampler.triggerAttack(0, time);

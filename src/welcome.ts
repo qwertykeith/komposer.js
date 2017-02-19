@@ -32,9 +32,9 @@ export class Welcome {
     "https://s3-ap-southeast-2.amazonaws.com/ksounds/Clank/MoM+Goose+Flab+63-03.wav",
     "https://s3-ap-southeast-2.amazonaws.com/ksounds/Clank/MoM+Rim+Tick+63-04.wav",
     "https://s3-ap-southeast-2.amazonaws.com/ksounds/Clank/MoM+Wash+Hit+62-09.wav",
-//    "https://s3-ap-southeast-2.amazonaws.com/ksounds/Clank/MoM+Clank+12+53-12.wav",
+    //    "https://s3-ap-southeast-2.amazonaws.com/ksounds/Clank/MoM+Clank+12+53-12.wav",
     "https://s3-ap-southeast-2.amazonaws.com/ksounds/Snares/MoM+Ugly+Acoustic++08+64-12.wav",
-//    "https://s3-ap-southeast-2.amazonaws.com/ksounds/Snares/MoM+Mouth+Snare+63-07.wav",
+    //    "https://s3-ap-southeast-2.amazonaws.com/ksounds/Snares/MoM+Mouth+Snare+63-07.wav",
     "https://s3-ap-southeast-2.amazonaws.com/ksounds/Snares/MoM+Clang+Snare+62-02.wav",
     "https://s3-ap-southeast-2.amazonaws.com/ksounds/Kiks/MoM+Klick+Kick+62-06.wav",
     // "",
@@ -135,7 +135,7 @@ export class Welcome {
     const x = Math.floor(300 * Math.random());
     const y = Math.floor(330 * Math.random());
 
-    var loop = { id: 7, loop: new KLoop(sound, beat), pos: { x: x, y: y } };
+    var loop = { id: 7, loop: new KLoop(sound, beat, 1), pos: { x: x, y: y } };
     console.log('NEW dot');
     console.log(loop);
 
@@ -158,16 +158,15 @@ export class Welcome {
 
   }
 
-test(e)
-{
-  console.log('wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww');
-  console.log(e);
-  
-}
+  test(e) {
+    console.log('wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww');
+    console.log(e);
+
+  }
 
   moveElement(element, {x, y}) {
 
-//return;
+    //return;
 
     console.log('DOR LOC --------------------');
     console.log(element);
