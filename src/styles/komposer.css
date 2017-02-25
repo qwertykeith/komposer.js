@@ -42,6 +42,13 @@
 
 }
 
+.sound-loop-tick{
+  border-radius: 0.75em;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+
 .live-demo{
   position: absolute;
   background-color: #4F678B;

@@ -1,16 +1,26 @@
+import { setTimeout } from 'timers';
+import { log } from 'util';
+import { SampleTriggerEvents } from './../libs/sampleTriggerEvents';
 import { KLoop } from './../models/kloop';
 import { inject, bindable, bindingMode } from 'aurelia-framework';
+import { autoinject } from 'aurelia-dependency-injection';
 
-@inject(Element)
+@autoinject()
+// @inject(Element)
 export class LoopView {
 
   @bindable({ defaultBindingMode: bindingMode.twoWay })
   loop: KLoop;
 
-  // dot:Dot;
+  showTick: boolean;
 
-  constructor(private element: HTMLElement) {
+  private htmlElement: HTMLElement;
 
+  constructor(
+    private element: Element,
+    private sampleTriggerEvents: SampleTriggerEvents) {
+
+    this.htmlElement = element as HTMLElement;
 
     /** mouse/touch interactions ***/
 
@@ -19,51 +29,60 @@ export class LoopView {
 
     // }
 
-    this.element.ontouchmove = (event) => {
+    this.htmlElement.ontouchmove = (event) => {
       this.dispatch('loop-start', this.loop);
     }
 
-    this.element.onmousedown = (event) => {
+    this.htmlElement.onmousedown = (event) => {
       this.dispatch('loop-start', this.loop);
     }
 
-    this.element.ontouchstart = (event) => {
+    this.htmlElement.ontouchstart = (event) => {
       this.dispatch('loop-start', this.loop);
     }
 
-    this.element.onmouseenter = (event) => {
+    this.htmlElement.onmouseenter = (event) => {
       this.dispatch('loop-start', this.loop);
     }
 
-    this.element.onmouseleave = (event) => {
+    this.htmlElement.onmouseleave = (event) => {
       this.dispatch('loop-stop', this.loop);
     }
 
-    this.element.ontouchend = (event) => {
+    this.htmlElement.ontouchend = (event) => {
       this.dispatch('loop-stop', this.loop);
     }
 
-    this.element.onmouseup = (event) => {
+    this.htmlElement.onmouseup = (event) => {
       this.dispatch('loop-stop', this.loop);
     }
-
 
 
   }
 
   attached(argument) {
-    console.log('........................');
-    console.log(this.loop);
+
+    let lastTimeout: any = null;
+
+    this.sampleTriggerEvents.listen(this.loop.guid, () => {
+      clearTimeout(lastTimeout);
+      this.showTick = true;
+
+      lastTimeout = setTimeout(() => {
+        this.showTick = false
+      }, 20);
+    });
 
   }
 
-  getStyle() {
+  get style() {
 
     const size = 400 * this.loop.beat;
 
     // make up a color from the name
     const name = this.getSoundName();
     let r = 0, g = 0, b = 0;
+
     for (let i = 0; i < name.length; i++) {
       const code = name.charCodeAt(i);
       switch (i % 3) {
@@ -75,7 +94,6 @@ export class LoopView {
     r %= 255;
     g %= 255;
     b %= 255;
-    //      console.log(total);
 
     const alpha = this.loop.volume;
 
@@ -100,7 +118,7 @@ export class LoopView {
 
 
   dispatch(name, data) {
-    this.element.dispatchEvent(
+    this.htmlElement.dispatchEvent(
       new CustomEvent(name, {
         bubbles: true,
         detail: data

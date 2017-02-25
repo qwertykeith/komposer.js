@@ -1,14 +1,16 @@
+import { autoinject } from 'aurelia-dependency-injection';
 import { Dot } from './models/dot';
 import { DotLocation } from './models/location';
 import interact from 'interact.js'
 import { KLoopPlayer } from './libs/kLoopPlayer'
 import { KLoop, KLoopUtils } from './models/kloop'
 
+@autoinject()
 export class Welcome {
 
   loops: Dot[] = [];
   somenum: number = 0;
-  player: KLoopPlayer;
+  // player: KLoopPlayer;
   beatLibrary = [
     1 / 8.0, 1 / 8.0, 1 / 8.0, 1 / 8.0, 1 / 8.0, 1 / 8.0,
     1 / 16.0, 1 / 16.0, 1 / 16.0, 1 / 16.0, 1 / 16.0, 1 / 16.0, 1 / 16.0,
@@ -51,13 +53,9 @@ export class Welcome {
 
   ];
 
-  constructor() {
+  constructor(private player: KLoopPlayer) {
 
-
-    this.player = new KLoopPlayer();
     this.player.start();
-
-
 
   }
 

@@ -1,4 +1,5 @@
 <template>
-  <div class="sound-loop" css.bind="getStyle()" title.bind="getSoundName()">
+  <div class="sound-loop" css.bind="style" title.bind="getSoundName()">
+    <div class="sound-loop-tick" show.bind="showTick"></div>
   </div>
 </template>

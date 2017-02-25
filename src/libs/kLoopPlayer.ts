@@ -1,4 +1,7 @@
-
+import { setTimeout } from 'timers';
+import { log } from 'util';
+import { SampleTriggerEvents } from './sampleTriggerEvents';
+import { autoinject } from 'aurelia-dependency-injection';
 import Tone from 'tone'
 import { KLoop } from '../models/kloop'
 
@@ -13,10 +16,23 @@ class KSound {
 /**
  * engine for playing loops when triggered
  */
+@autoinject()
 export class KLoopPlayer {
 
   seqSamplers = new Map<KLoop, KSound>();
   loop: Tone.Sequence;
+
+  constructor(private sampleTriggerEvents: SampleTriggerEvents) {
+
+    Tone.Transport.loop = true;
+    Tone.Transport.bpm.value = 140;
+
+    this.loop = new Tone.Sequence((time, col) => {
+    }, [0], "64n");
+
+    this.loop.start();
+
+  }
 
   get tempo(): number {
     return Tone.Transport.bpm.value;
@@ -28,19 +44,6 @@ export class KLoopPlayer {
     Tone.Transport.bpm.value = bpm;
   }
 
-  constructor() {
-
-    Tone.Transport.loop = true;
-    Tone.Transport.bpm.value = 140;
-
-
-    this.loop = new Tone.Sequence((time, col) => {
-    }, [0], "64n");
-
-    this.loop.start();
-
-  }
-
   addSound(kloop: KLoop) {
 
     if (!this.seqSamplers.has(kloop)) {
@@ -49,6 +52,10 @@ export class KLoopPlayer {
 
       const seq = new Tone.Sequence((time, col) => {
         sampler.triggerAttack(0, time);
+        this.sampleTriggerEvents.dispatch(kloop.guid);
+
+        // console.log(kloop.url+' '+new Date());
+
       }, [0], kloop.beat);
 
       seq.start(0);

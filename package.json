@@ -70,7 +70,7 @@
   },
   "dependencies": {
     "aurelia-bootstrapper-webpack": "^1.1.0",
-    "aurelia-event-aggregator": "^1.0.0",
+    "aurelia-event-aggregator": "^1.0.1",
     "aurelia-fetch-client": "^1.0.1",
     "aurelia-framework": "^1.0.7",
     "aurelia-history-browser": "^1.0.0",
