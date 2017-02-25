@@ -1,8 +1,6 @@
 
 import Tone from 'tone'
 import { KLoop } from '../models/kloop'
-// import KSampler from '../models/ksampler'
-
 
 class KSound {
   constructor(
@@ -12,10 +10,12 @@ class KSound {
 
 }
 
-export class KSamplePlayer {
+/**
+ * engine for playing loops when triggered
+ */
+export class KLoopPlayer {
 
   seqSamplers = new Map<KLoop, KSound>();
-  // soundsOn = new Map<string, number>();
   loop: Tone.Sequence;
 
   get tempo(): number {

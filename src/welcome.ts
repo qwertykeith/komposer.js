@@ -1,14 +1,14 @@
 import { Dot } from './models/dot';
 import { DotLocation } from './models/location';
 import interact from 'interact.js'
-import { KSamplePlayer } from './libs/kSamplePlayer'
+import { KLoopPlayer } from './libs/kLoopPlayer'
 import { KLoop, KLoopUtils } from './models/kloop'
 
 export class Welcome {
 
   loops: Dot[] = [];
   somenum: number = 0;
-  player: KSamplePlayer;
+  player: KLoopPlayer;
   beatLibrary = [
     1 / 8.0, 1 / 8.0, 1 / 8.0, 1 / 8.0, 1 / 8.0, 1 / 8.0,
     1 / 16.0, 1 / 16.0, 1 / 16.0, 1 / 16.0, 1 / 16.0, 1 / 16.0, 1 / 16.0,
@@ -54,7 +54,7 @@ export class Welcome {
   constructor() {
 
 
-    this.player = new KSamplePlayer();
+    this.player = new KLoopPlayer();
     this.player.start();
 
 
