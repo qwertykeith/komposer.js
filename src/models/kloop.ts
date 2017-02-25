@@ -1,3 +1,6 @@
+/**
+ * describes a sound
+ */
 export class KLoop {
 
   constructor(
@@ -8,6 +11,9 @@ export class KLoop {
 
 }
 
+/**
+ * utilities for kloops
+ */
 export class KLoopUtils {
 
   static explode(url: string): KLoop[] {

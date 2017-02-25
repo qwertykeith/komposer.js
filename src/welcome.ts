@@ -10,7 +10,7 @@ export class Welcome {
   somenum: number = 0;
   player: KSamplePlayer;
   beatLibrary = [
-    1 / 8.0, 1 / 8.0, 1 / 8.0, 1 / 8.0, 1 / 8.0,1 / 8.0,
+    1 / 8.0, 1 / 8.0, 1 / 8.0, 1 / 8.0, 1 / 8.0, 1 / 8.0,
     1 / 16.0, 1 / 16.0, 1 / 16.0, 1 / 16.0, 1 / 16.0, 1 / 16.0, 1 / 16.0,
     //      1/32.0,1/32.0,
     1 / 4.0,
@@ -18,7 +18,7 @@ export class Welcome {
     //      1/12.0,
     //      1/24.0,
   ];
-//  initialDots: number = 90;
+  //  initialDots: number = 90;
 
   soundUlrs = [
     "https://s3-ap-southeast-2.amazonaws.com/ksounds/CH.WAV",
@@ -33,7 +33,7 @@ export class Welcome {
     //    "https://s3-ap-southeast-2.amazonaws.com/ksounds/Clank/MoM+Rim+Tick+63-04.wav",
     "https://s3-ap-southeast-2.amazonaws.com/ksounds/Clank/MoM+Wash+Hit+62-09.wav",
     //    "https://s3-ap-southeast-2.amazonaws.com/ksounds/Clank/MoM+Clank+12+53-12.wav",
-//    "https://s3-ap-southeast-2.amazonaws.com/ksounds/Snares/MoM+Ugly+Acoustic++08+64-12.wav",
+    //    "https://s3-ap-southeast-2.amazonaws.com/ksounds/Snares/MoM+Ugly+Acoustic++08+64-12.wav",
     //    "https://s3-ap-southeast-2.amazonaws.com/ksounds/Snares/MoM+Mouth+Snare+63-07.wav",
     //    "https://s3-ap-southeast-2.amazonaws.com/ksounds/Snares/MoM+Clang+Snare+62-02.wav",
     "https://s3-ap-southeast-2.amazonaws.com/ksounds/Kiks/MoM+Klick+Kick+62-06.wav",
@@ -115,7 +115,7 @@ export class Welcome {
     const explode = (url: string, offset: number) => {
       KLoopUtils.explode(url)
         .forEach(l => {
-          const pos = this.getRandomPos(50,50);
+          const pos = this.getRandomPos(50, 50);
           pos.x = offset;
           var loop = { id: 7, loop: l, pos: pos };
 
@@ -130,13 +130,16 @@ export class Welcome {
 
   }
 
-  get tempo(): any {
-    return this.player.tempo;
+  get tempo(): number {
+    return Math.round(this.player.tempo);
+  }
+
+  set tempo(bpm: number) {
+    this.player.tempo = bpm;
   }
 
 
-
-  newRandom(initialDots:number) {
+  newRandom(initialDots: number) {
 
     this.loops = [];
 
@@ -145,10 +148,6 @@ export class Welcome {
       this.newDot(this.beatLibrary);
     }
   }
-
-  // newDotTriplets() {
-  //   this.newDot([1 / 6.0, 1 / 12.0, 1 / 24.0]);
-  // }
 
   // makes a new random sound for now
   newDot(theBeats) {
@@ -160,7 +159,7 @@ export class Welcome {
     var vol = 1; // (Math.random() * 0.5) + 0.5;
 
     // if (Math.random() < 0.5) vol = 0.5;
-    const pos = this.getRandomPos(300,300);
+    const pos = this.getRandomPos(300, 300);
 
     var dot = { id: 7, loop: new KLoop(sound, beat, vol), pos: pos };
     console.log('NEW dot');
@@ -169,7 +168,7 @@ export class Welcome {
     this.addLoop(dot);
   }
 
-  getRandomPos(xw:number,yw:number): DotLocation {
+  getRandomPos(xw: number, yw: number): DotLocation {
     const x = Math.floor(300 * Math.random());
     const y = Math.floor(330 * Math.random());
     return { x: x, y: y };

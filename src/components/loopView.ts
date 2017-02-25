@@ -2,7 +2,7 @@ import { KLoop } from './../models/kloop';
 import { inject, bindable, bindingMode } from 'aurelia-framework';
 
 @inject(Element)
-export class LoopViewCustomElement {
+export class LoopView {
 
   @bindable({ defaultBindingMode: bindingMode.twoWay })
   loop: KLoop;

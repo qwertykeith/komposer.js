@@ -3,7 +3,15 @@
 
         <div class="live-demo">
 
-            <p>Tempo: ${tempo}</p>
+            <div>
+                Tempo
+                <input type="number"
+                    value.bind="tempo & throttle:450"
+                    class="tempo">
+
+            </div>
+
+            <!--<p>Tempo: ${tempo}</p>-->
             <!--NOTE this annoyingly has to be a div-->
             <div repeat.for="loop of loops"
                 class="draggable"

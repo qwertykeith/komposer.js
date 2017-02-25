@@ -23,6 +23,10 @@ body {
   margin-top: 50px;
 }
 
+input.tempo{
+  width: 100px;
+}
+
 .page-host {
   position: absolute;
   left: 0;

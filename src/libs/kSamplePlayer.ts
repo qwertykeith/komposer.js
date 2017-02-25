@@ -18,11 +18,13 @@ export class KSamplePlayer {
   // soundsOn = new Map<string, number>();
   loop: Tone.Sequence;
 
-  get tempo(): any {
+  get tempo(): number {
     return Tone.Transport.bpm.value;
   }
 
-  set tempo(bpm: any) {
+  set tempo(bpm: number) {
+    if (bpm < 10) bpm = 10;
+    if (bpm > 5000) bpm = 5000;
     Tone.Transport.bpm.value = bpm;
   }
 
@@ -33,10 +35,7 @@ export class KSamplePlayer {
 
 
     this.loop = new Tone.Sequence((time, col) => {
-    }, [0], "16n");
-    //    this.loop.loopStart = '0m';
-    // this.loop.humanize = true;
-    //    this.loop.loopEnd = '1m';
+    }, [0], "64n");
 
     this.loop.start();
 
@@ -47,8 +46,6 @@ export class KSamplePlayer {
     if (!this.seqSamplers.has(kloop)) {
       const sampler = new Tone.Sampler(kloop.url).toMaster();
       sampler.volume.value = (kloop.volume - 1) * 40;
-
-    //  if (Math.random()<0.5) sampler.volume.value=-40;
 
       const seq = new Tone.Sequence((time, col) => {
         sampler.triggerAttack(0, time);
@@ -64,15 +61,11 @@ export class KSamplePlayer {
   }
 
   start() {
-
     Tone.Transport.start();
-
   }
 
   stop() {
-
     Tone.Transport.stop();
-
   }
 
   on(kloop: KLoop) {
@@ -83,9 +76,6 @@ export class KSamplePlayer {
       sampler.sequence.mute = false;
     }
 
-
-    //    this.soundsOn.set(soundUrl, true);
-
   }
 
   off(kloop: KLoop) {
@@ -93,10 +83,6 @@ export class KSamplePlayer {
     if (sampler != null) {
       sampler.sequence.mute = true;
     }
-
-
-    //    this.soundsOn.delete(soundUrl);
-
 
   }
 
