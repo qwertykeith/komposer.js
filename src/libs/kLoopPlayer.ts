@@ -5,6 +5,9 @@ import { autoinject } from 'aurelia-dependency-injection';
 import Tone from 'tone'
 import { KLoop } from '../models/kloop'
 
+/**
+ * internal class to optimise lookup times
+ */
 class KSound {
   constructor(
     public sampler: Tone.Sampler,
@@ -20,17 +23,17 @@ class KSound {
 export class KLoopPlayer {
 
   seqSamplers = new Map<KLoop, KSound>();
-  loop: Tone.Sequence;
+
+  // TODO split this up into data and process
 
   constructor(private sampleTriggerEvents: SampleTriggerEvents) {
 
+    // yes this is global and shouldn't be in a class like this
     Tone.Transport.loop = true;
     Tone.Transport.bpm.value = 140;
 
-    this.loop = new Tone.Sequence((time, col) => {
-    }, [0], "64n");
-
-    this.loop.start();
+    // const loop = new Tone.Sequence((time, col) => {
+    //     }, [0], "1/16");
 
   }
 
@@ -42,6 +45,13 @@ export class KLoopPlayer {
     if (bpm < 10) bpm = 10;
     if (bpm > 5000) bpm = 5000;
     Tone.Transport.bpm.value = bpm;
+  }
+
+  getloops(): KLoop[] {
+    return Array.from(this.seqSamplers.keys());
+    // var x= Array.from(this.seqSamplers.keys());
+    // debugger;
+    // return x;
   }
 
   addSound(kloop: KLoop) {
@@ -64,6 +74,9 @@ export class KLoopPlayer {
       const ksound = new KSound(sampler, seq);
 
       this.seqSamplers.set(kloop, ksound);
+
+// var x=      Array.from(this.seqSamplers.keys());
+// debugger;
     }
   }
 

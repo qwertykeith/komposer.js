@@ -1,3 +1,6 @@
+import { AutoPlayer } from './libs/autoPlayer';
+import { log } from 'util';
+import { setInterval } from 'timers';
 import { autoinject } from 'aurelia-dependency-injection';
 import { Dot } from './models/dot';
 import { DotLocation } from './models/location';
@@ -53,10 +56,20 @@ export class Welcome {
 
   ];
 
-  constructor(private player: KLoopPlayer) {
+  constructor(
+    private player: KLoopPlayer,
+    private autoPlayer: AutoPlayer) {
 
     this.player.start();
 
+  }
+
+  set autoOn(value: boolean) {
+    this.autoPlayer.on = value;
+  }
+
+  get autoOn(): boolean {
+    return this.autoPlayer.on;
   }
 
 
@@ -125,8 +138,10 @@ export class Welcome {
     explode(this.soundUlrs[9], 350);
     explode(this.soundUlrs[10], 450);
 
+    //    this.startTestSeq();
 
   }
+
 
   get tempo(): number {
     return Math.round(this.player.tempo);
