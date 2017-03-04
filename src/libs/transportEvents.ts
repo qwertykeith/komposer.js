@@ -8,22 +8,12 @@ import Tone from 'tone'
 @autoinject()
 export class TransportEvents {
 
-  //  loop: Tone.Sequence;
-
   private ename: string = 'transporttimer';
 
   constructor(private eventAggregator: EventAggregator) {
 
-
-
-// console.log('tone is...');
-
-// console.log(Tone);
-
-// debugger;
-
     // 16th note timer to send out what fraction of the bar we are in
-    const loop = new Tone.Sequence((time, col) => {
+    Tone.Transport.scheduleRepeat((time) => {
 
       const posArr = Tone.Transport.position.split(':').map(p => p as number);
 
@@ -38,11 +28,13 @@ export class TransportEvents {
       const measure = bar + beatInMeasure + sixtenthsInMeasure;
       // console.log(measure);
 
+      console.log(Tone.Transport.position);
+      // console.log(measure);
+
+
       this.eventAggregator.publish(this.ename, measure);
 
-    }, [0], "1/16");
-
-    loop.start();
+    }, "16n");
 
   }
 

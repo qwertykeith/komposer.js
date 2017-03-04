@@ -3,6 +3,7 @@ import { KLoopPlayer } from './kLoopPlayer';
 import { KLoop } from './../models/kloop';
 import { autoinject } from 'aurelia-dependency-injection';
 import { TransportEvents } from './transportEvents';
+
 /**
  * automates a player
  */
@@ -10,74 +11,49 @@ import { TransportEvents } from './transportEvents';
 export class AutoPlayer {
 
   public on: boolean;
-  public changeNoteEvery = 0.125;
-  public changeSequenceEvery = 4;
-  public sequenceLength = 2;
-  private lastNoteChange = -1;
-  private lastSequeceChange = -1;
+  public eventsPerMeasure = 16; // 16  
+  public lengthMeasures = 2;
+  public changeEveryMeasure = 8;
   private lastLoop: KLoop;
-  private loopsSequence: KLoop[] = [];
 
   constructor(private transportEvents: TransportEvents, private kLoopPlayer: KLoopPlayer) {
 
     let i = 0;
 
+
+    const arrangeCurve = (measure: number): number => {
+      var progress = measure / this.changeEveryMeasure;
+      var rounded = Math.floor(progress)
+      var fractionPart = progress - rounded;
+
+      return (fractionPart < 0.75)
+        ? rounded
+        : progress;
+    };
+
     transportEvents.listen((measure) => {
       if (!this.on) return;
 
-      // debugger;/
+      const eventIndex = Math.floor(measure * this.eventsPerMeasure);
+      const eventLength = this.lengthMeasures * this.eventsPerMeasure;
 
-      //      console.log('@@@@');
+      let loopIndex = eventIndex % eventLength;
 
-      //    if (this.player) return;
-
-      // const msEachNote = 100;
-
-      // console.log('AAAA');
-      // console.log(this);
-
-      // should we change something?
-      const shouldChangeNote = (measure >= (this.lastNoteChange + this.changeNoteEvery));
-      if (!shouldChangeNote) return;
-      this.lastNoteChange = measure;
-
-      const shouldChangeSequence = (measure >= (this.lastSequeceChange + this.changeSequenceEvery));
-      if (shouldChangeSequence) {
-
-        this.lastSequeceChange = measure;
-        console.log('S CHANGED');
+      const addIndex = arrangeCurve(measure) * this.eventsPerMeasure;
+      console.log(`add index ${addIndex}`);
 
 
-        const loops = this.kLoopPlayer.getloops();
+      loopIndex += addIndex;
 
-        const notesInSequence = this.sequenceLength / this.changeNoteEvery;
-        this.loopsSequence = Array.apply(0, Array(notesInSequence)).map(i => {
-          const ii = Math.floor(Math.random() * loops.length);
-          return loops[ii];
-        });
-      }
+      const loops = this.kLoopPlayer.getloops();
 
-      if (!this.loopsSequence.length) return;
-
-
-
-      // const sequenceLenMeasures=this.loopsSequence.length*this.changeNoteEvery;
-      // const thisSequnceRatio=
-      const si = i % this.loopsSequence.length;
-
-      const s = this.loopsSequence[si];
+      const s = loops[Math.floor(loopIndex) % loops.length];
       this.kLoopPlayer.on(s)
-      if (this.lastLoop) this.kLoopPlayer.off(this.lastLoop)
+      if (this.lastLoop && this.lastLoop != s) this.kLoopPlayer.off(this.lastLoop)
       this.lastLoop = s;
 
-      // if (i % changeEvery == 0) {
-      //   // change a random one
-      //   const loopii = Math.floor(Math.random() * loops.length);
-      //   const seqii = Math.floor(Math.random() * seq.length);
-      //   seq[seqii] = loops[loopii];
-      // }
 
-      i++;
+      console.log(loopIndex + ' - ' + s.beat);
 
     })
 

@@ -54,6 +54,14 @@ export class KLoopPlayer {
     // return x;
   }
 
+  /**
+   * eg 1/16 should be "16n"
+   */
+  private convertToToneTime(division: number) {
+    const notesInMeasure= Math.round(1 / division);
+    return `${notesInMeasure}n`;
+  }
+
   addSound(kloop: KLoop) {
 
     if (!this.seqSamplers.has(kloop)) {
@@ -66,7 +74,8 @@ export class KLoopPlayer {
 
         // console.log(kloop.url+' '+new Date());
 
-      }, [0], kloop.beat);
+        //      }, [0], kloop.beat);
+      }, [0], this.convertToToneTime(kloop.beat));
 
       seq.start(0);
       seq.mute = true;
@@ -75,8 +84,8 @@ export class KLoopPlayer {
 
       this.seqSamplers.set(kloop, ksound);
 
-// var x=      Array.from(this.seqSamplers.keys());
-// debugger;
+      // var x=      Array.from(this.seqSamplers.keys());
+      // debugger;
     }
   }
 
