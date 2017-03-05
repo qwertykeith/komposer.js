@@ -90,7 +90,7 @@ export class LoopView {
         case 1: g += code; break;
         case 2: b += code; break;
       }
-    }
+    } 1
     r %= 255;
     g %= 255;
     b %= 255;

@@ -1,5 +1,4 @@
 import { setTimeout } from 'timers';
-import { log } from 'util';
 import { SampleTriggerEvents } from './sampleTriggerEvents';
 import { autoinject } from 'aurelia-dependency-injection';
 import Tone from 'tone'
@@ -10,7 +9,7 @@ import { KLoop } from '../models/kloop'
  */
 class KSound {
   constructor(
-    public sampler: Tone.Sampler,
+    // public sampler: Tone.Sampler,
     public sequence: Tone.Sequence
   ) { }
 
@@ -29,22 +28,11 @@ export class KLoopPlayer {
   constructor(private sampleTriggerEvents: SampleTriggerEvents) {
 
     // yes this is global and shouldn't be in a class like this
-    Tone.Transport.loop = true;
-    Tone.Transport.bpm.value = 140;
+//    Tone.Transport.bpm.value = 140;
 
     // const loop = new Tone.Sequence((time, col) => {
     //     }, [0], "1/16");
 
-  }
-
-  get tempo(): number {
-    return Tone.Transport.bpm.value;
-  }
-
-  set tempo(bpm: number) {
-    if (bpm < 10) bpm = 10;
-    if (bpm > 5000) bpm = 5000;
-    Tone.Transport.bpm.value = bpm;
   }
 
   getloops(): KLoop[] {
@@ -80,21 +68,13 @@ export class KLoopPlayer {
       seq.start(0);
       seq.mute = true;
 
-      const ksound = new KSound(sampler, seq);
+      const ksound = new KSound(seq);
 
       this.seqSamplers.set(kloop, ksound);
 
       // var x=      Array.from(this.seqSamplers.keys());
       // debugger;
     }
-  }
-
-  start() {
-    Tone.Transport.start();
-  }
-
-  stop() {
-    Tone.Transport.stop();
   }
 
   on(kloop: KLoop) {

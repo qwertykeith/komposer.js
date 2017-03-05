@@ -10,7 +10,7 @@ import { TransportEvents } from './transportEvents';
 @autoinject()
 export class AutoPlayer {
 
-  public on: boolean;
+  public on: boolean=true;
   public eventsPerMeasure = 16; // 16  
   public lengthMeasures = 2;
   public changeEveryMeasure = 8;
@@ -25,6 +25,10 @@ export class AutoPlayer {
       var progress = measure / this.changeEveryMeasure;
       var rounded = Math.floor(progress)
       var fractionPart = progress - rounded;
+
+      // return (fractionPart < (1 - 1 / 8))||(fractionPart < 0.5 && fractionPart > (0.5 - 1 / 8))
+      //   ? rounded
+      //   : progress;
 
       return (fractionPart < 0.75)
         ? rounded
