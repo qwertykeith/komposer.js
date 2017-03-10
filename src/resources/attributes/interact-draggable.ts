@@ -27,9 +27,9 @@ export class InteractDraggableCustomAttribute {
     this.dispatch('locationchange', this.position);
 
 
-    console.log(this.position);
+    // console.log(this.position);
 
-    console.log('options');
+    // console.log('options');
 
     const defaultOptions = {
       // enable inertial throwing

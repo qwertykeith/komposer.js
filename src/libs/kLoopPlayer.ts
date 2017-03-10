@@ -23,23 +23,11 @@ export class KLoopPlayer {
 
   seqSamplers = new Map<KLoop, KSound>();
 
-  // TODO split this up into data and process
-
   constructor(private sampleTriggerEvents: SampleTriggerEvents) {
-
-    // yes this is global and shouldn't be in a class like this
-//    Tone.Transport.bpm.value = 140;
-
-    // const loop = new Tone.Sequence((time, col) => {
-    //     }, [0], "1/16");
-
   }
 
   getloops(): KLoop[] {
     return Array.from(this.seqSamplers.keys());
-    // var x= Array.from(this.seqSamplers.keys());
-    // debugger;
-    // return x;
   }
 
   /**
@@ -71,9 +59,6 @@ export class KLoopPlayer {
       const ksound = new KSound(seq);
 
       this.seqSamplers.set(kloop, ksound);
-
-      // var x=      Array.from(this.seqSamplers.keys());
-      // debugger;
     }
   }
 

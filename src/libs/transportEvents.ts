@@ -28,7 +28,7 @@ export class TransportEvents {
       const measure = bar + beatInMeasure + sixtenthsInMeasure;
       // console.log(measure);
 
-      console.log(Tone.Transport.position);
+      // console.log(Tone.Transport.position);
       // console.log(measure);
 
 

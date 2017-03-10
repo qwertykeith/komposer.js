@@ -44,7 +44,7 @@ export class AutoPlayer {
       let loopIndex = eventIndex % eventLength;
 
       const addIndex = arrangeCurve(measure) * this.eventsPerMeasure;
-      console.log(`add index ${addIndex}`);
+      // console.log(`add index ${addIndex}`);
 
 
       loopIndex += addIndex;
@@ -57,7 +57,7 @@ export class AutoPlayer {
       this.lastLoop = s;
 
 
-      console.log(loopIndex + ' - ' + s.beat);
+      // console.log(loopIndex + ' - ' + s.beat);
 
     })
 
