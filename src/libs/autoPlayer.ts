@@ -11,7 +11,7 @@ import { TransportEvents } from './transportEvents';
 export class AutoPlayer {
 
   public on: boolean=true;
-  public eventsPerMeasure = 16; // 16  
+  public eventsPerMeasure = 16; // 16
   public lengthMeasures = 2;
   public changeEveryMeasure = 8;
   private lastLoop: KLoop;

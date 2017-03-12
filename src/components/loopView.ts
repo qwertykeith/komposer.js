@@ -6,7 +6,6 @@ import { inject, bindable, bindingMode } from 'aurelia-framework';
 import { autoinject } from 'aurelia-dependency-injection';
 
 @autoinject()
-// @inject(Element)
 export class LoopView {
 
   @bindable({ defaultBindingMode: bindingMode.twoWay })
@@ -100,6 +99,7 @@ export class LoopView {
     return `background-color: rgba(${r}, ${g}, ${b}, ${alpha}); width:${size}px; height: ${size}px;`;
   }
 
+  // strip off the full url and get the name of the file
   getSoundName() {
 
     function replaceAll(text, str1, str2, ignore) {

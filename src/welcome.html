@@ -5,17 +5,17 @@
 
       <div>
         <a href="https://github.com/qwertykeith/komposer.js">Github &amp; Explanation</a>
-        <label for="tempo">Tempo</label>        
-        <input id="tempo" type="number" value.bind="tempo & throttle:450" class="tempo"> 
-        <label for="auto">Auto</label>        
+        <label for="tempo">Tempo</label>
+        <input id="tempo" type="number" value.bind="tempo & throttle:450" class="tempo">
+        <label for="auto">Auto</label>
         <input id="auto" type="checkbox" checked.bind="autoOn">
       </div>
 
       <!--<p>Tempo: ${tempo}</p>-->
       <!--NOTE this annoyingly has to be a div-->
-      <div repeat.for="loop of dots" class="draggable" interact-draggable="position.bind:loop.pos" locationchange.delegate="placeDot($event)"
+      <div repeat.for="dot of dots" class="draggable" interact-draggable="position.bind:dot.pos" locationchange.delegate="placeDot($event)"
         interact-dragmove.delegate="moveElementOnEvent($event)">
-        <loop-view loop.bind="loop.loop" loop-start.delegate="startTriggerDot($event.detail)" loop-stop.delegate="stopTriggerDot($event.detail)"></loop-view>
+        <loop-view loop.bind="getLoopFrom(dot)" loop-start.delegate="startTriggerDot($event.detail)" loop-stop.delegate="stopTriggerDot($event.detail)"></loop-view>
 
       </div>
 

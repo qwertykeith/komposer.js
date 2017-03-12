@@ -7,5 +7,6 @@ import { DotLocation } from './location'
 export interface Dot {
   id: number;
   pos: DotLocation;
-  loop: KLoop;
+  // loop: KLoop;
+  loopId:string;
 }

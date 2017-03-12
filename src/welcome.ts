@@ -1,6 +1,9 @@
+import { ActivateKomposerCommandHandler } from './libs/commands/activeKomposer';
+import { KomposerState } from './libs/komposerState';
+import { ChangeTempoCommandHandler } from './libs/commands/changeTempo';
 import { LoopLibrary } from './libs/sounds/loopLibrary';
 import { VocalKit1Urls } from './libs/sounds/soundLibUrls/vocalKit1Urls';
-import { Komposer } from './libs/komposer';
+// import { Komposer } from './libs/komposer';
 import { AutoPlayer } from './libs/autoPlayer';
 import { log } from 'util';
 import { setInterval } from 'timers';
@@ -18,11 +21,14 @@ export class Welcome {
 
   constructor(
     private player: KLoopPlayer,
-    private autoPlayer: AutoPlayer) {
+    private autoPlayer: AutoPlayer,
+    private state: KomposerState,
+    private activateKomposerCommandHandler: ActivateKomposerCommandHandler,
+    private changeTempoCommandHandler: ChangeTempoCommandHandler) {
 
     console.log('%c KOMPOSER!', 'background-color:green; color: white, font-weight:bold');
 
-    Komposer.start();
+
 
   }
 
@@ -48,39 +54,33 @@ export class Welcome {
     this.moveElement(e.target, e.detail);
   }
 
-
-  private getNewRandom(initialDots: number) {
-
-    const getNewRandomDot = (loop: KLoop) => {
-
-      const pos = this.getRandomPos(300, 300);
-      var dot = { id: 7, loop: loop, pos: pos };
-      return dot;
-    }
-
-    const kloops = LoopLibrary.getBeatBox(initialDots);
-    // const kloops = LoopLibrary.lameMelody1();
-
-    return kloops.map(loop => getNewRandomDot(loop));
-
+  private getNewLoops(initialDots: number) {
+    return LoopLibrary.getBeatBox(initialDots);
   }
+
+  // private getNewRandom(kloops: KLoop[]) {
+
+
+  // }
 
   attached() {
 
-    this.dots = this.getNewRandom(150);
-    this.dots.forEach((d) => this.addDot(d));
 
+    this.activateKomposerCommandHandler.execute(true);
 
-
+    var loops = this.getNewLoops(150)
+    // this.dots = this.getNewRandom(loops);
+    // return kloops.map(loop => getNewRandomDot(loop));
+    loops.forEach((loop) => this.addLoop(loop));
 
     const explode = (url: string, offset: number) => {
       KLoopUtils.explode(url)
         .forEach(l => {
-          const pos = this.getRandomPos(50, 50);
-          pos.x = offset;
-          var loop = { id: 7, loop: l, pos: pos };
+          // const pos = this.getRandomPos(50, 50);
+          // pos.x = offset;
+          // var loop = { id: 7, loopId: l.guid, pos: pos };
 
-          this.addDot(loop);
+          this.addLoop(l);
         });
     }
 
@@ -96,11 +96,13 @@ export class Welcome {
 
 
   get tempo(): number {
-    return Math.round(Komposer.tempo);
+
+    return Math.round(this.state.tempo);
   }
 
   set tempo(bpm: number) {
-    Komposer.tempo = bpm;
+    this.changeTempoCommandHandler.execute(bpm);
+    // Komposer.tempo = bpm;
   }
 
 
@@ -111,10 +113,30 @@ export class Welcome {
     return { x: x, y: y };
   }
 
-  addDot(dot: Dot) {
-    this.dots.push(dot);
-    this.player.addSound(dot.loop);
 
+
+
+  addLoop(loop: KLoop) {
+    this.player.addLoop(loop);
+
+
+    const getNewRandomDot = (loop: KLoop) => {
+
+      const pos = this.getRandomPos(300, 300);
+      var dot = { id: 7, loopId: loop.guid, pos: pos };
+      return dot;
+    }
+
+    // const kloops = LoopLibrary.lameMelody1();
+
+    const dot = getNewRandomDot(loop);
+    this.dots.push(dot);
+  }
+
+  getLoopFrom(dot: Dot) {
+    const loops = this.player.getloops().filter(l => l.guid == dot.loopId);
+
+    return loops.length ? loops[0] : null;
   }
 
   moveElementOnEvent(customEvent) {

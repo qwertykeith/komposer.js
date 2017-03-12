@@ -10,8 +10,11 @@ import { KLoop } from '../models/kloop'
 class KSound {
   constructor(
     // public sampler: Tone.Sampler,
-    public sequence: Tone.Sequence
+    private sequence: Tone.Sequence
   ) { }
+
+  on() { this.sequence.mute = false; }
+  off() { this.sequence.mute = true; }
 
 }
 
@@ -34,11 +37,11 @@ export class KLoopPlayer {
    * eg 1/16 should be "16n"
    */
   private convertToToneTime(division: number) {
-    const notesInMeasure= Math.round(1 / division);
+    const notesInMeasure = Math.round(1 / division);
     return `${notesInMeasure}n`;
   }
 
-  addSound(kloop: KLoop) {
+  addLoop(kloop: KLoop) {
 
     if (!this.seqSamplers.has(kloop)) {
       const sampler = new Tone.Sampler(kloop.url).toMaster();
@@ -67,7 +70,7 @@ export class KLoopPlayer {
     const sampler = this.seqSamplers.get(kloop);
     if (sampler != null) {
       //      debugger;
-      sampler.sequence.mute = false;
+      sampler.on();
     }
 
   }
@@ -75,7 +78,7 @@ export class KLoopPlayer {
   off(kloop: KLoop) {
     const sampler = this.seqSamplers.get(kloop);
     if (sampler != null) {
-      sampler.sequence.mute = true;
+      sampler.off();
     }
 
   }
