@@ -51,8 +51,12 @@
 
 .live-demo{
   position: absolute;
-  background-color: #4F678B;
+  background-color: #000; /*#4F678B*/;
   width: 100%;
   height: 100%; 
   display: block;
+}
+
+label{
+  color: #fff;
 }

@@ -1,0 +1,40 @@
+export const SohoUrls = {
+  root: 'https://s3-ap-southeast-2.amazonaws.com/ksounds/1564__suonho__suonho-deconstruction-kit',
+  files: `
+25210__suonho__deconstruction-kit-bip-zip.wav
+25211__suonho__deconstruction-kit-clak01.wav
+25212__suonho__deconstruction-kit-clak02.wav
+25213__suonho__deconstruction-kit-click.wav
+25214__suonho__deconstruction-kit-clock.wav
+25215__suonho__deconstruction-kit-highhat01.wav
+25216__suonho__deconstruction-kit-highhat02.wav
+25217__suonho__deconstruction-kit-highhat03.wav
+25218__suonho__deconstruction-kit-highhat04.wav
+25219__suonho__deconstruction-kit-highhat05.wav
+25220__suonho__deconstruction-kit-hihat-double.wav
+25221__suonho__deconstruction-kit-hihat-open01.wav
+25222__suonho__deconstruction-kit-hihat-open02.wav
+25223__suonho__deconstruction-kit-hihat-open03.wav
+25224__suonho__deconstruction-kit-kick-it01.wav
+25225__suonho__deconstruction-kit-kick-it02.wav
+25226__suonho__deconstruction-kit-kick-it03.wav
+25227__suonho__deconstruction-kit-kick-it04.wav
+25228__suonho__deconstruction-kit-kick-it05.wav
+25229__suonho__deconstruction-kit-kickbox01.wav
+25230__suonho__deconstruction-kit-kickbox02.wav
+25231__suonho__deconstruction-kit-klick-in.wav
+25232__suonho__deconstruction-kit-klick-out.wav
+25233__suonho__deconstruction-kit-rim-wet01.wav
+25234__suonho__deconstruction-kit-rim-wet02.wav
+25235__suonho__deconstruction-kit-rim-wet03.wav
+25236__suonho__deconstruction-kit-rim-wet04.wav
+25237__suonho__deconstruction-kit-rim1.wav
+25238__suonho__deconstruction-kit-rim2.wav
+25239__suonho__deconstruction-kit-snare-double.wav
+25240__suonho__deconstruction-kit-snare-double2.wav
+25241__suonho__deconstruction-kit-snare-triple.wav
+25242__suonho__deconstruction-kit-snare1.wav
+25243__suonho__deconstruction-kit-snare2.wav
+25244__suonho__deconstruction-kit-snare3.wav
+25245__suonho__deconstruction-kit-tamburine.wav
+`};

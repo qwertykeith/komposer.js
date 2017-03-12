@@ -1,0 +1,44 @@
+export const DAnalogDK1Urls = {
+  root: 'https://s3-ap-southeast-2.amazonaws.com/ksounds/7945__menegass__mopho-dsi-analog-drum-kit',
+  files: `
+127393__menegass__mopho-bd0.wav
+127394__menegass__mopho-bd1.wav
+127395__menegass__mopho-bd3.wav
+127396__menegass__mopho-bd4.wav
+127397__menegass__mopho-bd5.wav
+127398__menegass__mopho-bd6.wav
+127399__menegass__mopho-bd7.wav
+127400__menegass__mopho-bd8.wav
+127401__menegass__mopho-bd9.wav
+127402__menegass__mopho-cc0.wav
+127403__menegass__mopho-cc1.wav
+127404__menegass__mopho-cc2.wav
+127405__menegass__mopho-cc3.wav
+127406__menegass__mopho-cc5.wav
+127407__menegass__mopho-cc6.wav
+127408__menegass__mopho-cc7.wav
+127409__menegass__mopho-cc8.wav
+127410__menegass__mopho-cc9.wav
+127411__menegass__mopho-co0.wav
+127412__menegass__mopho-co1.wav
+127413__menegass__mopho-hq0.wav
+127414__menegass__mopho-hq1.wav
+127415__menegass__mopho-hq2.wav
+127416__menegass__mopho-hq3.wav
+127417__menegass__mopho-pop0.wav
+127418__menegass__mopho-pop1.wav
+127419__menegass__mopho-sd0.wav
+127420__menegass__mopho-sd1.wav
+127421__menegass__mopho-sd2.wav
+127422__menegass__mopho-sd3.wav
+127423__menegass__mopho-sd4.wav
+127424__menegass__mopho-microzap0.wav
+127425__menegass__mopho-microzap1.wav
+127426__menegass__mopho-microzap2.wav
+127427__menegass__mopho-microzap3.wav
+127428__menegass__mopho-microzap4.wav
+127429__menegass__mopho-noise0.wav
+127430__menegass__mopho-noise1.wav
+127431__menegass__mopho-noise2.wav
+127432__menegass__mopho-noise3.wav
+`};
