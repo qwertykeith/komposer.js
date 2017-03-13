@@ -1,5 +1,6 @@
-import { ActivateKomposerCommandHandler } from './libs/commands/activeKomposer';
-import { KomposerState } from './libs/komposerState';
+import { newGuid } from './libs/kUtils';
+import { ActivateKomposerCommandHandler } from './libs/commands/activateKomposer';
+import { KomposerAppState } from './libs/komposerState';
 import { ChangeTempoCommandHandler } from './libs/commands/changeTempo';
 import { LoopLibrary } from './libs/sounds/loopLibrary';
 import { VocalKit1Urls } from './libs/sounds/soundLibUrls/vocalKit1Urls';
@@ -22,7 +23,7 @@ export class Welcome {
   constructor(
     private player: KLoopPlayer,
     private autoPlayer: AutoPlayer,
-    private state: KomposerState,
+    private state: KomposerAppState,
     private activateKomposerCommandHandler: ActivateKomposerCommandHandler,
     private changeTempoCommandHandler: ChangeTempoCommandHandler) {
 
@@ -55,6 +56,7 @@ export class Welcome {
   }
 
   private getNewLoops(initialDots: number) {
+    // const kloops = LoopLibrary.lameMelody1();
     return LoopLibrary.getBeatBox(initialDots);
   }
 
@@ -92,12 +94,12 @@ export class Welcome {
 
 
 
-  }
+  } 
 
 
   get tempo(): number {
 
-    return Math.round(this.state.tempo);
+    return Math.round(this.state.data.tempo);
   }
 
   set tempo(bpm: number) {
@@ -120,14 +122,13 @@ export class Welcome {
     this.player.addLoop(loop);
 
 
-    const getNewRandomDot = (loop: KLoop) => {
+    const getNewRandomDot = (loop: KLoop): Dot => {
 
       const pos = this.getRandomPos(300, 300);
-      var dot = { id: 7, loopId: loop.guid, pos: pos };
+      var dot = { id: newGuid(), loopId: loop.guid, pos: pos };
       return dot;
     }
 
-    // const kloops = LoopLibrary.lameMelody1();
 
     const dot = getNewRandomDot(loop);
     this.dots.push(dot);

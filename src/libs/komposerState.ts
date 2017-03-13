@@ -1,27 +1,50 @@
-import { DotGroup } from './dotGroup';
+import { KLoopPlayer } from './kLoopPlayer';
+
 /**
  * represents the state of the whole app
  */
-export class KomposerAppState {
-  data: KomposerState;
-  display: KomposerDisplayState;
+export interface IKomposerAppState {
+  data: IKomposerState;
+  display: IKomposerDisplayState;
 }
 
 /**
  * state of the engine
  */
-export class KomposerState {
+interface IKomposerState {
 
   tempo: number;
-
+  // player: KLoopPlayer;
 }
 
 /**
  * just the display
  */
-export class KomposerDisplayState {
+interface IKomposerDisplayState {
 
   currentDotGroupId: string;
-  dotGroups: DotGroup[] = [];
+  // dotGroups: IDotGroup[];
 
 }
+
+/**
+ * groups lists of loops togther
+ */
+export interface IDotGroup {
+  guid: string;
+  name: string;
+  //  dots: Dot[] = [];
+  autoPlay: boolean;
+}
+
+
+export class KomposerAppState implements IKomposerAppState {
+  data = {
+    tempo: 120,
+  };
+  display = {
+    currentDotGroupId: '',
+    // dotGroups: [],
+  };
+}
+

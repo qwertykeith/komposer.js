@@ -1,14 +1,14 @@
+import { KomposerAppState } from './../komposerState';
 import { ChangeTempoCommandHandler } from './changeTempo';
 
 import Tone from 'tone';
-import { KomposerState } from './../komposerState';
 import { autoinject } from 'aurelia-dependency-injection';
 
 @autoinject()
 export class ActivateKomposerCommandHandler {
 
   constructor(
-    private state: KomposerState,
+    private state: KomposerAppState,
     private changeTempoCommandHandler: ChangeTempoCommandHandler) {
 
   }
