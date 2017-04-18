@@ -1,5 +1,5 @@
 
-export interface DotLocation {
+export interface XYLocation {
   x: number;
   y: number;
 }

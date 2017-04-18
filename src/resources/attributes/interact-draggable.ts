@@ -3,8 +3,8 @@
 
 import { inject, bindable, bindingMode } from 'aurelia-framework';
 
-import { DotLocation } from '../../models/location';
-import { Dot } from '../../models/dot';
+import { XYLocation } from '../../models/location';
+import { KLoopView } from '../../models/dot';
 
 // import * as interact from "interact.js";
 const interact = require('interact.js');
@@ -16,7 +16,7 @@ export class InteractDraggableCustomAttribute {
   //@bindable({ defaultBindingMode: bindingMode.oneTime }) options;
 
   @bindable()
-  position: DotLocation;
+  position: XYLocation;
 
   constructor(private element: HTMLElement) { }
 

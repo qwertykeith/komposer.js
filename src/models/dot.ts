@@ -1,12 +1,13 @@
 import { KLoop } from './kloop'
-import { DotLocation } from './location'
+import { XYLocation } from './location'
 
 /**
  * a sound loop but with location information
  */
-export interface Dot {
+export interface KLoopView {
   id: string;
-  pos: DotLocation;
-  // loop: KLoop;
-  loopId:string;
+  pos: XYLocation;
+  loop: KLoop;
+  // loopId:string;
 }
+

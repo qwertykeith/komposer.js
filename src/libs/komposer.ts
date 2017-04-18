@@ -1,21 +1,28 @@
-// import Tone from 'tone';
+import { KLoop } from './../models/kloop';
+import { KLoopPlayer } from "./kLoopPlayer";
 
-// export class Komposer {
+export class Komposer {
 
-//   // static get tempo(): number {
-//   //   return Tone.Transport.bpm.value;
-//   // }
-
-//   // static set tempo(bpm: number) {
-//   // }
+  constructor(
+    private player: KLoopPlayer
 
 
-//   static start() {
-//   }
+  ) {
 
-//   static stop() {
-//   }
+  }
 
+  on(loop: KLoop) {
+    this.player.on(loop);
 
+  }
 
-// }
+  off(loop: KLoop) {
+    this.player.off(loop);
+  }
+
+  addLoop(loop: KLoop) {
+    this.player.addLoop(loop);
+
+  }
+
+}

@@ -15,7 +15,7 @@
       <!--NOTE this annoyingly has to be a div-->
       <div repeat.for="dot of dots" class="draggable" interact-draggable="position.bind:dot.pos" locationchange.delegate="placeDot($event)"
         interact-dragmove.delegate="moveElementOnEvent($event)">
-        <loop-view loop.bind="getLoopFrom(dot)" loop-start.delegate="startTriggerDot($event.detail)" loop-stop.delegate="stopTriggerDot($event.detail)"></loop-view>
+        <loop-view loop.bind="dot" loop-start.delegate="startTriggerDot($event.detail)" loop-stop.delegate="stopTriggerDot($event.detail)"></loop-view>
 
       </div>
 

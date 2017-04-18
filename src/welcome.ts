@@ -9,27 +9,26 @@ import { AutoPlayer } from './libs/autoPlayer';
 import { log } from 'util';
 import { setInterval } from 'timers';
 import { autoinject } from 'aurelia-dependency-injection';
-import { Dot } from './models/dot';
-import { DotLocation } from './models/location';
+import { KLoopView } from './models/dot';
+import { XYLocation } from './models/location';
 import interact from 'interact.js'
 import { KLoopPlayer } from './libs/kLoopPlayer'
 import { KLoop, KLoopUtils } from './models/kloop'
+import { Komposer } from "./libs/komposer";
 
 @autoinject()
 export class Welcome {
 
-  dots: Dot[] = [];
+  dots: KLoopView[] = [];
 
   constructor(
-    private player: KLoopPlayer,
+    private player: Komposer,
     private autoPlayer: AutoPlayer,
     private state: KomposerAppState,
     private activateKomposerCommandHandler: ActivateKomposerCommandHandler,
     private changeTempoCommandHandler: ChangeTempoCommandHandler) {
 
     console.log('%c KOMPOSER!', 'background-color:green; color: white, font-weight:bold');
-
-
 
   }
 
@@ -94,7 +93,7 @@ export class Welcome {
 
 
 
-  } 
+  }
 
 
   get tempo(): number {
@@ -109,7 +108,7 @@ export class Welcome {
 
 
 
-  getRandomPos(xw: number, yw: number): DotLocation {
+  getRandomPos(xw: number, yw: number): XYLocation {
     const x = Math.floor(300 * Math.random());
     const y = Math.floor(330 * Math.random());
     return { x: x, y: y };
@@ -122,10 +121,10 @@ export class Welcome {
     this.player.addLoop(loop);
 
 
-    const getNewRandomDot = (loop: KLoop): Dot => {
+    const getNewRandomDot = (loop: KLoop): KLoopView => {
 
       const pos = this.getRandomPos(300, 300);
-      var dot = { id: newGuid(), loopId: loop.guid, pos: pos };
+      var dot = { id: newGuid(), loopId: loop.guid, pos: pos, loop: loop };
       return dot;
     }
 
@@ -134,11 +133,11 @@ export class Welcome {
     this.dots.push(dot);
   }
 
-  getLoopFrom(dot: Dot) {
-    const loops = this.player.getloops().filter(l => l.guid == dot.loopId);
+  // getLoopFrom(dot: KLoopView) {
+  //   const loops = this.player.getloops().filter(l => l.guid == dot.loopId);
 
-    return loops.length ? loops[0] : null;
-  }
+  //   return loops.length ? loops[0] : null;
+  // }
 
   moveElementOnEvent(customEvent) {
 
@@ -155,7 +154,7 @@ export class Welcome {
   }
 
 
-  moveElement(element, {x, y}) {
+  moveElement(element, { x, y }) {
 
     //return;
 
