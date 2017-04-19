@@ -4,12 +4,11 @@ import { KomposerAppState } from './libs/komposerState';
 import { ChangeTempoCommandHandler } from './libs/commands/changeTempo';
 import { LoopLibrary } from './libs/sounds/loopLibrary';
 import { VocalKit1Urls } from './libs/sounds/soundLibUrls/vocalKit1Urls';
-// import { Komposer } from './libs/komposer';
 import { AutoPlayer } from './libs/autoPlayer';
 import { log } from 'util';
 import { setInterval } from 'timers';
 import { autoinject } from 'aurelia-dependency-injection';
-import { KLoopView } from './models/dot';
+import { KLoopViewModel } from './models/dot';
 import { XYLocation } from './models/location';
 import interact from 'interact.js'
 import { KLoopPlayer } from './libs/kLoopPlayer'
@@ -19,7 +18,7 @@ import { Komposer } from "./libs/komposer";
 @autoinject()
 export class Welcome {
 
-  dots: KLoopView[] = [];
+  dots: KLoopViewModel[] = [];
 
   constructor(
     private player: Komposer,
@@ -121,7 +120,7 @@ export class Welcome {
     this.player.addLoop(loop);
 
 
-    const getNewRandomDot = (loop: KLoop): KLoopView => {
+    const getNewRandomDot = (loop: KLoop): KLoopViewModel => {
 
       const pos = this.getRandomPos(300, 300);
       var dot = { id: newGuid(), loopId: loop.guid, pos: pos, loop: loop };

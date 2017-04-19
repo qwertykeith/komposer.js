@@ -3,6 +3,7 @@ import { SampleTriggerEvents } from './sampleTriggerEvents';
 import { autoinject } from 'aurelia-dependency-injection';
 // import { Tone } from 'tone';
 import Tone from 'tone'
+// import { Tone } from 'tone';
 import { KLoop } from '../models/kloop'
 
 /**

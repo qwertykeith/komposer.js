@@ -4,12 +4,13 @@ import { SampleTriggerEvents } from './../libs/sampleTriggerEvents';
 import { KLoop } from './../models/kloop';
 import { inject, bindable, bindingMode } from 'aurelia-framework';
 import { autoinject } from 'aurelia-dependency-injection';
+import { KLoopViewModel } from "../models/dot";
 
 @autoinject()
 export class LoopView {
 
   @bindable({ defaultBindingMode: bindingMode.twoWay })
-  loop: KLoop;
+  loop: KLoopViewModel;
 
   showTick: boolean;
 
@@ -63,7 +64,7 @@ export class LoopView {
 
     let lastTimeout: any = null;
 
-    this.sampleTriggerEvents.listen(this.loop.guid, () => {
+    this.sampleTriggerEvents.listen(this.loop.loop.guid, () => {
       clearTimeout(lastTimeout);
       this.showTick = true;
 
@@ -76,7 +77,7 @@ export class LoopView {
 
   get style() {
 
-    const size = 400 * this.loop.beat;
+    const size = 400 * this.loop.loop.beat;
 
     // make up a color from the name
     const name = this.getSoundName();
@@ -94,7 +95,7 @@ export class LoopView {
     g %= 255;
     b %= 255;
 
-    const alpha = this.loop.volume;
+    const alpha = this.loop.loop.volume;
 
     return `background-color: rgba(${r}, ${g}, ${b}, ${alpha}); width:${size}px; height: ${size}px;`;
   }
@@ -106,7 +107,7 @@ export class LoopView {
       return text.replace(new RegExp(str1.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g, "\\$&"), (ignore ? "gi" : "g")), (typeof (str2) == "string") ? str2.replace(/\$/g, "$$$$") : str2);
     }
 
-    const url = this.loop.url;
+    const url = this.loop.loop.url;
     var lastslash = url.lastIndexOf('/') + 1;
 
     return replaceAll(

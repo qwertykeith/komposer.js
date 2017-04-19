@@ -1,26 +1,36 @@
 <template>
-  <section class="au-animate">
+    <section class="au-animate">
 
-    <div class="live-demo">
+        <div class="live-demo">
 
-      <div>
-        <a href="https://github.com/qwertykeith/komposer.js">Github &amp; Explanation</a>
-        <label for="tempo">Tempo</label>
-        <input id="tempo" type="number" value.bind="tempo & throttle:450" class="tempo">
-        <label for="auto">Auto</label>
-        <input id="auto" type="checkbox" checked.bind="autoOn">
-      </div>
+            <div>
+                <a href="https://github.com/qwertykeith/komposer.js">Github &amp; Explanation</a>
+                <label for="tempo">Tempo</label>
+                <input id="tempo"
+                    type="number"
+                    value.bind="tempo & throttle:450"
+                    class="tempo">
+                <label for="auto">Auto</label>
+                <input id="auto"
+                    type="checkbox"
+                    checked.bind="autoOn">
+            </div>
 
-      <!--<p>Tempo: ${tempo}</p>-->
-      <!--NOTE this annoyingly has to be a div-->
-      <div repeat.for="dot of dots" class="draggable" interact-draggable="position.bind:dot.pos" locationchange.delegate="placeDot($event)"
-        interact-dragmove.delegate="moveElementOnEvent($event)">
-        <loop-view loop.bind="dot" loop-start.delegate="startTriggerDot($event.detail)" loop-stop.delegate="stopTriggerDot($event.detail)"></loop-view>
+            <!--<p>Tempo: ${tempo}</p>-->
+            <!--NOTE this annoyingly has to be a div-->
+            <div repeat.for="dot of dots"
+                class="draggable"
+                interact-draggable="position.bind:dot.pos"
+                locationchange.delegate="placeDot($event)"
+                interact-dragmove.delegate="moveElementOnEvent($event)">
+                <loop-view loop.bind="dot"
+                    loop-start.delegate="startTriggerDot($event.detail.loop)"
+                    loop-stop.delegate="stopTriggerDot($event.detail.loop)"></loop-view>
 
-      </div>
+            </div>
 
-    </div>
+        </div>
 
-    </form>
-  </section>
+        </form>
+    </section>
 </template>

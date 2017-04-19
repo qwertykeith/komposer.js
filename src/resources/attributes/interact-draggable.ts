@@ -4,7 +4,7 @@
 import { inject, bindable, bindingMode } from 'aurelia-framework';
 
 import { XYLocation } from '../../models/location';
-import { KLoopView } from '../../models/dot';
+import { KLoopViewModel } from '../../models/dot';
 
 // import * as interact from "interact.js";
 const interact = require('interact.js');

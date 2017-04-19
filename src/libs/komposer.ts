@@ -1,6 +1,8 @@
+import { autoinject } from 'aurelia-dependency-injection';
 import { KLoop } from './../models/kloop';
 import { KLoopPlayer } from "./kLoopPlayer";
 
+@autoinject()
 export class Komposer {
 
   constructor(

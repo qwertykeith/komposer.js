@@ -4,7 +4,7 @@ import { XYLocation } from './location'
 /**
  * a sound loop but with location information
  */
-export interface KLoopView {
+export interface KLoopViewModel {
   id: string;
   pos: XYLocation;
   loop: KLoop;
