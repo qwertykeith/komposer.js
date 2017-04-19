@@ -4,7 +4,7 @@ import { KomposerAppState } from './libs/komposerState';
 import { ChangeTempoCommandHandler } from './libs/commands/changeTempo';
 import { LoopLibrary } from './libs/sounds/loopLibrary';
 import { VocalKit1Urls } from './libs/sounds/soundLibUrls/vocalKit1Urls';
-import { AutoPlayer } from './libs/autoPlayer';
+import { AutoPlayerService } from './libs/autoPlayer';
 import { log } from 'util';
 import { setInterval } from 'timers';
 import { autoinject } from 'aurelia-dependency-injection';
@@ -21,8 +21,8 @@ export class Welcome {
   dots: KLoopViewModel[] = [];
 
   constructor(
-    private player: Komposer,
-    private autoPlayer: AutoPlayer,
+    private komposer: Komposer,
+    // private autoPlayer: AutoPlayerService,
     private state: KomposerAppState,
     private activateKomposerCommandHandler: ActivateKomposerCommandHandler,
     private changeTempoCommandHandler: ChangeTempoCommandHandler) {
@@ -32,20 +32,20 @@ export class Welcome {
   }
 
   set autoOn(value: boolean) {
-    this.autoPlayer.on = value;
+    this.komposer.setAuto(0, true);
   }
 
   get autoOn(): boolean {
-    return this.autoPlayer.on;
+    return this.komposer.getAuto(0);
   }
 
 
   startTriggerDot(loop: KLoop) {
-    this.player.on(loop);
+    this.komposer.on(loop);
   }
 
   stopTriggerDot(loop: KLoop) {
-    this.player.off(loop);
+    this.komposer.off(loop);
   }
 
 
@@ -117,7 +117,7 @@ export class Welcome {
 
 
   addLoop(loop: KLoop) {
-    this.player.addLoop(loop);
+    this.komposer.addLoop(loop, 0);
 
 
     const getNewRandomDot = (loop: KLoop): KLoopViewModel => {

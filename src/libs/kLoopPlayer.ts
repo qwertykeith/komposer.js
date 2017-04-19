@@ -6,19 +6,19 @@ import Tone from 'tone'
 // import { Tone } from 'tone';
 import { KLoop } from '../models/kloop'
 
-/**
- * internal class to optimise lookup times
- */
-class KSound {
-  constructor(
-    // public sampler: Tone.Sampler,
-    private sequence: Tone.Sequence
-  ) { }
+// /**
+//  * internal class to optimise lookup times
+//  */
+// class KSound {
+//   constructor(
+//     // public sampler: Tone.Sampler,
+//     private sequence: 
+//   ) { }
 
-  on() { this.sequence.mute = false; }
-  off() { this.sequence.mute = true; }
+//   on() { this.sequence.mute = false; }
+//   off() { this.sequence.mute = true; }
 
-}
+// }
 
 /**
  * engine for playing loops when triggered
@@ -26,7 +26,7 @@ class KSound {
 @autoinject()
 export class KLoopPlayer {
 
-  seqSamplers = new Map<KLoop, KSound>();
+  seqSamplers = new Map<KLoop, Tone.Sequence>();
 
   constructor(private sampleTriggerEvents: SampleTriggerEvents) {
   }
@@ -53,17 +53,12 @@ export class KLoopPlayer {
         sampler.triggerAttack(0, time);
         this.sampleTriggerEvents.dispatch(kloop.guid);
 
-        // console.log(kloop.url+' '+new Date());
-
-        //      }, [0], kloop.beat);
       }, [0], this.convertToToneTime(kloop.beat));
 
       seq.start(0);
       seq.mute = true;
 
-      const ksound = new KSound(seq);
-
-      this.seqSamplers.set(kloop, ksound);
+      this.seqSamplers.set(kloop, seq);
     }
   }
 
@@ -71,8 +66,7 @@ export class KLoopPlayer {
 
     const sampler = this.seqSamplers.get(kloop);
     if (sampler != null) {
-      //      debugger;
-      sampler.on();
+      sampler.mute=false;
     }
 
   }
@@ -80,7 +74,7 @@ export class KLoopPlayer {
   off(kloop: KLoop) {
     const sampler = this.seqSamplers.get(kloop);
     if (sampler != null) {
-      sampler.off();
+      sampler.mute=true;
     }
 
   }

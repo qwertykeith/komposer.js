@@ -4,64 +4,68 @@ import { KLoop } from './../models/kloop';
 import { autoinject } from 'aurelia-dependency-injection';
 import { TransportEvents } from './transportEvents';
 
-/**
- * automates a player
- */
-@autoinject()
-export class AutoPlayer {
 
-  public on: boolean=true;
+export class AutoPlayerModel {
+  public on: boolean = true;
   public eventsPerMeasure = 16; // 16
   public lengthMeasures = 2;
   public changeEveryMeasure = 8;
   private lastLoop: KLoop;
+}
 
-  constructor(private transportEvents: TransportEvents, private kLoopPlayer: KLoopPlayer) {
+/**
+ * automates a player
+ */
+@autoinject()
+export class AutoPlayerService {
 
-    let i = 0;
+  // //private kLoopPlayer: KLoopPlayer
+  // getState(data: AutoPlayerModel, loopStates: Map<KLoop, boolean>, measure: number): Map<KLoop, boolean> {
 
-
-    const arrangeCurve = (measure: number): number => {
-      var progress = measure / this.changeEveryMeasure;
-      var rounded = Math.floor(progress)
-      var fractionPart = progress - rounded;
-
-      // return (fractionPart < (1 - 1 / 8))||(fractionPart < 0.5 && fractionPart > (0.5 - 1 / 8))
-      //   ? rounded
-      //   : progress;
-
-      return (fractionPart < 0.75)
-        ? rounded
-        : progress;
-    };
-
-    transportEvents.listen((measure) => {
-      if (!this.on) return;
-
-      const eventIndex = Math.floor(measure * this.eventsPerMeasure);
-      const eventLength = this.lengthMeasures * this.eventsPerMeasure;
-
-      let loopIndex = eventIndex % eventLength;
-
-      const addIndex = arrangeCurve(measure) * this.eventsPerMeasure;
-      // console.log(`add index ${addIndex}`);
+  //   let i = 0;
 
 
-      loopIndex += addIndex;
+  //   const arrangeCurve = (measure: number): number => {
+  //     var progress = measure / data.changeEveryMeasure;
+  //     var rounded = Math.floor(progress)
+  //     var fractionPart = progress - rounded;
 
-      const loops = this.kLoopPlayer.getloops();
+  //     // return (fractionPart < (1 - 1 / 8))||(fractionPart < 0.5 && fractionPart > (0.5 - 1 / 8))
+  //     //   ? rounded
+  //     //   : progress;
 
-      const s = loops[Math.floor(loopIndex) % loops.length];
-      this.kLoopPlayer.on(s)
-      if (this.lastLoop && this.lastLoop != s) this.kLoopPlayer.off(this.lastLoop)
-      this.lastLoop = s;
+  //     return (fractionPart < 0.75)
+  //       ? rounded
+  //       : progress;
+  //   };
+
+  //   /////-------------------
+  //   if (!data.on) return;
+
+  //   const eventIndex = Math.floor(measure * data.eventsPerMeasure);
+  //   const eventLength = data.lengthMeasures * data.eventsPerMeasure;
+
+  //   let loopIndex = eventIndex % eventLength;
+
+  //   const addIndex = arrangeCurve(measure) * data.eventsPerMeasure;
+  //   // console.log(`add index ${addIndex}`);
 
 
-      // console.log(loopIndex + ' - ' + s.beat);
+  //   loopIndex += addIndex;
 
-    })
+  //   // const loops = data.kLoopPlayer.getloops();
 
-  }
+  //   const s = loops[Math.floor(loopIndex) % loops.length];
+  //   data.kLoopPlayer.on(s)
+  //   if (data.lastLoop && data.lastLoop != s) data.kLoopPlayer.off(data.lastLoop)
+  //   data.lastLoop = s; ``
+
+
+  //   // console.log(loopIndex + ' - ' + s.beat);
+  //   /////-------------------
+
+
+  // }
 
 
 }
