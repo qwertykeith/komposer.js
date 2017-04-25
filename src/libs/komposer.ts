@@ -6,12 +6,12 @@ import { TransportEvents } from "./transportEvents";
 import { AutoPlayerModel, AutoPlayerService } from "./autoPlayer";
 
 
-export class KLoopState {
-  channel: number;
-  on: boolean;
-}
+// class KLoopState {
+//   channel: number;
+//   on: boolean;
+// }
 
-class KChannel {
+class KChannelInfo {
   autoPlayerData = new AutoPlayerModel();
   loopStates = new Map<KLoop, boolean>();
 }
@@ -19,8 +19,8 @@ class KChannel {
 @autoinject()
 export class Komposer {
 
-  channels: KChannel[] = [];
-  loopState = new Map<KLoop, KLoopState>();
+  channels = new Map<number, KChannelInfo>();
+  // loopState = new Map<KLoop, boolean>();
 
   constructor(
     private transportEvents: TransportEvents,
@@ -29,10 +29,8 @@ export class Komposer {
 
   ) {
 
-    //    add one bank to start
-    this.channels.push(<KChannel>{
-      autoPlayerData: new AutoPlayerModel()
-    });
+    // add one channel to start
+    this.channels.set(0, new KChannelInfo());
 
     // start a background clock
     transportEvents.listen((measure) => {
@@ -45,38 +43,52 @@ export class Komposer {
 
   private playAuto(measure: number) {
 
-    // this.banks.forEach(b => {
+    this.channels.forEach((info, chan) => {
+      if (info.autoPlayerData.on) {
+        const newState = this.auto.getState(info.autoPlayerData, info.loopStates, measure);
 
-    //   var r = this.auto
-
-    // });
+        newState.forEach((value, loop) => {
+          this.loopOn(loop, value);
+        });
+      }
+    });
 
   }
 
   setAuto(channel: number, on: boolean) {
-    this.channels[channel].autoPlayerData.on = on;
+    const c = this.channels.get(channel);
+    if (c) c.autoPlayerData.on = on;
+    //    this.channels[channel].autoPlayerData.on = on;
   }
 
   getAuto(channel: number): boolean {
-    return this.channels[channel].autoPlayerData.on;
+    const c = this.channels.get(channel);
+    return c ? c.autoPlayerData.on : false;
+    //    return this.channels[channel].autoPlayerData.on;
   }
 
-  on(loop: KLoop) {
-    this.player.on(loop);
+  loopOn(loop: KLoop, on: boolean) {
+    if (on) { this.player.on(loop) } else { this.player.off(loop) }
 
+    this.channels.forEach((info, channelNum) => {
+      const hasLoop = info.loopStates.has(loop);
+      if (hasLoop) info.loopStates.set(loop, on);
+    });
   }
 
-  off(loop: KLoop) {
-    // if(this.banks.get)
-    this.player.off(loop);
-  }
 
   addLoop(loop: KLoop, channel: number) {
 
-    this.loopState.set(loop, <KLoopState>{ channel: channel, on: false })
+    let loopsThisChannel = this.channels.get(channel);
+    // add the channel if needed
+    if (!loopsThisChannel) {
+      loopsThisChannel = new KChannelInfo();
+      this.channels.set(channel, loopsThisChannel);
+    }
+    // add the loop
+    loopsThisChannel.loopStates.set(loop, false);
 
     this.player.addLoop(loop);
-    //    this.banks[channel].loopStates.set(loop, false);
   }
 
 }

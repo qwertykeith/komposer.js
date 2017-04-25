@@ -32,7 +32,7 @@ export class Welcome {
   }
 
   set autoOn(value: boolean) {
-    this.komposer.setAuto(0, true);
+    this.komposer.setAuto(0, value);
   }
 
   get autoOn(): boolean {
@@ -41,11 +41,11 @@ export class Welcome {
 
 
   startTriggerDot(loop: KLoop) {
-    this.komposer.on(loop);
+    this.komposer.loopOn(loop, true);
   }
 
   stopTriggerDot(loop: KLoop) {
-    this.komposer.off(loop);
+    this.komposer.loopOn(loop, false);
   }
 
 
