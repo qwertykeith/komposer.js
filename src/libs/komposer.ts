@@ -5,12 +5,6 @@ import { KLoopPlayer } from "./kLoopPlayer";
 import { TransportEvents } from "./transportEvents";
 import { AutoPlayerModel, AutoPlayerService } from "./autoPlayer";
 
-
-// class KLoopState {
-//   channel: number;
-//   on: boolean;
-// }
-
 class KChannelInfo {
   autoPlayerData = new AutoPlayerModel();
   loopStates = new Map<KLoop, boolean>();
@@ -20,7 +14,6 @@ class KChannelInfo {
 export class Komposer {
 
   channels = new Map<number, KChannelInfo>();
-  // loopState = new Map<KLoop, boolean>();
 
   constructor(
     private transportEvents: TransportEvents,
@@ -58,6 +51,7 @@ export class Komposer {
   setAuto(channel: number, on: boolean) {
     const c = this.channels.get(channel);
     if (c) c.autoPlayerData.on = on;
+    if (!on) this.mute(channel);
     //    this.channels[channel].autoPlayerData.on = on;
   }
 
@@ -74,6 +68,15 @@ export class Komposer {
       const hasLoop = info.loopStates.has(loop);
       if (hasLoop) info.loopStates.set(loop, on);
     });
+  }
+
+  mute(channel: number) {
+    const c = this.channels.get(channel);
+    if (c) {
+      c.loopStates.forEach((on, loop) => {
+        this.loopOn(loop, false);
+      });
+    }
   }
 
 
