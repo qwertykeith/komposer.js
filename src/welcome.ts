@@ -22,7 +22,6 @@ export class Welcome {
 
   constructor(
     private komposer: Komposer,
-    // private autoPlayer: AutoPlayerService,
     private state: KomposerAppState,
     private activateKomposerCommandHandler: ActivateKomposerCommandHandler,
     private changeTempoCommandHandler: ChangeTempoCommandHandler) {
@@ -30,6 +29,11 @@ export class Welcome {
     console.log('%c KOMPOSER!', 'background-color:green; color: white, font-weight:bold');
 
   }
+
+  get channels(): string[] {
+    return this.komposer.channelNames;
+  }
+
 
   set autoOn(value: boolean) {
     this.komposer.setAuto(0, value);
@@ -89,8 +93,6 @@ export class Welcome {
     // explode(this.testSounds[10], 450);
 
     //       this.startTestSeq();
-
-
 
   }
 

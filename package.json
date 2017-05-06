@@ -127,7 +127,7 @@
     "karma-webpack": "^1.8.0",
     "protractor": "^5.1.1",
     "ts-node": "^3.0.2",
-    "typescript": "^2.3.0",
+    "typescript": "^2.3.2",
     "wait-on": "^2.0.1",
     "wallaby-webpack": "0.0.38",
     "webpack": "2.4.1",
