@@ -62,6 +62,7 @@ section {
 }
 
 
+
 /* animate page transitions */
 
 section.au-enter-active {
@@ -84,11 +85,11 @@ div.au-stagger {
     background-color: #333;
     border: 1px solid #666;
     color: #ccc;
+    cursor: pointer;
 }
 
-.channel-select-btn.current{
+.channel-select-btn.current {
     background-color: #000;
-  
 }
 
 .card-container.au-enter {
@@ -148,6 +149,7 @@ div.au-stagger {
     border-radius: 50%;
     border: 2px #FFF solid;
 }
+
 
 
 /* animation definitions */

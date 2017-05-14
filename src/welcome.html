@@ -13,7 +13,7 @@
 
                 <span repeat.for="c of channels"
                     class="channel-select-btn ${$index==currentChannel ? 'current' : ''}"
-                    click.delegate="setChannel($index)">${c.name}</span>
+                    click.trigger="setChannel($index)">${c.name}</span>
 
 
                 <label for="auto">Auto</label>
