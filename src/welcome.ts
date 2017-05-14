@@ -30,11 +30,6 @@ export class Welcome {
 
   }
 
-  // get channels(): string[] {
-  //   return this.komposer.channelNames;
-  // }
-
-
   set autoOn(value: boolean) {
     this.komposer.autoPlayerData.on = value;
   }
@@ -61,11 +56,6 @@ export class Welcome {
     // const kloops = LoopLibrary.lameMelody1();
     return LoopLibrary.getBeatBox(initialDots);
   }
-
-  // private getNewRandom(kloops: KLoop[]) {
-
-
-  // }
 
   attached() {
 
@@ -131,12 +121,6 @@ export class Welcome {
     this.dots.push(dot);
   }
 
-  // getLoopFrom(dot: KLoopView) {
-  //   const loops = this.player.getloops().filter(l => l.guid == dot.loopId);
-
-  //   return loops.length ? loops[0] : null;
-  // }
-
   moveElementOnEvent(customEvent) {
 
     // debugger;
@@ -153,15 +137,6 @@ export class Welcome {
 
 
   moveElement(element, { x, y }) {
-
-    //return;
-
-    // console.log('DOR LOC --------------------');
-    // console.log(element);
-    // console.log(x);
-    // console.log(y);
-
-    // debugger;
 
     // translate the element
     element.style.webkitTransform =

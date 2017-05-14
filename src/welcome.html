@@ -24,8 +24,8 @@
                 locationchange.delegate="placeDot($event)"
                 interact-dragmove.delegate="moveElementOnEvent($event)">
                 <loop-view loop.bind="dot"
-                    loop-start.delegate="startTriggerDot($event.detail.loop)"
-                    loop-stop.delegate="stopTriggerDot($event.detail.loop)"></loop-view>
+                    loop-start.delegate="startTriggerDot($event.detail.player)"
+                    loop-stop.delegate="stopTriggerDot($event.detail.player)"></loop-view>
 
             </div>
 

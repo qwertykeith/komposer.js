@@ -52,30 +52,12 @@ export class AutoPlayer {
 
     loopIndex = Math.floor(loopIndex + addIndex) % loopPlayers.length;
 
-    // const loops = data.kLoopPlayer.getloops();
-
-    //    const loops = loopStates.keys();
-    // const toPlay = loopStates. [loopIndex) ];
-
-    // const newLoopStates = new Map<KLoop, boolean>();
-
     let ii = 0;
     loopPlayers.forEach(loop => {
       const isOn = ii == loopIndex;
       loop.on = isOn;
       ii++;
     });
-
-//    return newLoopStates;
-
-    // data.kLoopPlayer.on(toPlay)
-    // if (data.lastLoop && data.lastLoop != toPlay) data.kLoopPlayer.off(data.lastLoop)
-    // data.lastLoop = toPlay; ``
-
-
-    // console.log(loopIndex + ' - ' + s.beat);
-    /////-------------------
-
 
   }
 
