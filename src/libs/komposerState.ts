@@ -1,50 +1,50 @@
 
-// /**
-//  * represents the state of the whole app
-//  */
-// export interface IKomposerAppState {
-//   data: IKomposerState;
-//   display: IKomposerDisplayState;
-// }
-
-/**
- * state of the engine
- */
-interface IKomposerState {
-
-  tempo: number;
-  // player: KLoopPlayer;
-}
+// // /**
+// //  * represents the state of the whole app
+// //  */
+// // export interface IKomposerAppState {
+// //   data: IKomposerState;
+// //   display: IKomposerDisplayState;
+// // }
 
 // /**
-//  * just the display
+//  * state of the engine
 //  */
-// interface IKomposerDisplayState {
+// interface IKomposerState {
 
-//   currentDotGroupId: string;
-//   // dotGroups: IDotGroup[];
-
+//   tempo: number;
+//   // player: KLoopPlayer;
 // }
 
-/**
- * groups lists of loops togther
- */
-export interface IDotGroup {
-  guid: string;
-  name: string;
-  //  dots: Dot[] = [];
-  autoPlay: boolean;
-}
+// // /**
+// //  * just the display
+// //  */
+// // interface IKomposerDisplayState {
+
+// //   currentDotGroupId: string;
+// //   // dotGroups: IDotGroup[];
+
+// // }
+
+// /**
+//  * groups lists of loops togther
+//  */
+// export interface IDotGroup {
+//   guid: string;
+//   name: string;
+//   //  dots: Dot[] = [];
+//   autoPlay: boolean;
+// }
 
 
-export class KomposerAppState {
-  data = {
-    tempo: 120,
-    // channels: <KChannelInfo[]>[],
-  };
-  display = {
-    // currentDotGroupId: '',
-    // dotGroups: [],
-  };
-}
+// export class KomposerAppState {
+//   data = {
+//     tempo: 120,
+//     // channels: <KChannelInfo[]>[],
+//   };
+//   display = {
+//     // currentDotGroupId: '',
+//     // dotGroups: [],
+//   };
+// }
 

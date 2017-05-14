@@ -82,7 +82,9 @@ export class LoopView {
 
   get style() {
 
-    const size = 400 * this.getLoopInfo().beat;
+    const size =  400 * this.getLoopInfo().beat;
+
+
 
     // make up a color from the name
     const name = this.getSoundName();

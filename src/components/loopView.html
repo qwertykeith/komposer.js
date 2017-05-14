@@ -1,8 +1,11 @@
 <template>
     <div class="sound-loop"
+        if.bind="loop.player.isLoaded"
         css.bind="style"
         title.bind="getSoundName()">
         <div class="sound-loop-tick"
             show.bind="showTick"></div>
+        <!--<img if.bind="!loop.player.isLoaded"
+            src="http://www.loadinfo.net/main/download?spinner=14454&disposition=inline">-->
     </div>
 </template>

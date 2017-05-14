@@ -1,7 +1,7 @@
 import { KomposerChannel } from './libs/komposerChannel';
 import { newGuid } from './libs/kUtils';
 import { ActivateKomposerCommandHandler } from './libs/commands/activateKomposer';
-import { KomposerAppState } from './libs/komposerState';
+// import { KomposerAppState } from './libs/komposerState';
 import { ChangeTempoCommandHandler } from './libs/commands/changeTempo';
 import { LoopLibrary } from './libs/sounds/loopLibrary';
 import { VocalKit1Urls } from './libs/sounds/soundLibUrls/vocalKit1Urls';
@@ -14,6 +14,7 @@ import { XYLocation } from './models/location';
 import interact from 'interact.js'
 import { KLoopPlayer, KLoop } from './libs/kLoopPlayer'
 import { KLoopUtils } from "./libs/kLoopUtils";
+import { Komposer } from "./libs/komposer";
 
 @autoinject()
 export class Welcome {
@@ -22,7 +23,7 @@ export class Welcome {
 
   constructor(
     private komposer: KomposerChannel,
-    private state: KomposerAppState,
+    // private state: KomposerAppState,
     private activateKomposerCommandHandler: ActivateKomposerCommandHandler,
     private changeTempoCommandHandler: ChangeTempoCommandHandler) {
 
@@ -88,8 +89,9 @@ export class Welcome {
 
 
   get tempo(): number {
+    return Komposer.tempo;
 
-    return Math.round(this.state.data.tempo);
+//    return Math.round(this.state.data.tempo);
   }
 
   set tempo(bpm: number) {
