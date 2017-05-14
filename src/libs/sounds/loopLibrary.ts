@@ -56,6 +56,11 @@ export const LoopLibrary = {
     return getRandomLoops(20, urls, Array(10).fill(1 / 8).concat([1 / 4, 1 / 2, 1 / 16]));
   },
 
+  getSimpleBeat2Fast: () => {
+    var urls = getSouldUrls(SohoUrls);
+    return getRandomLoops(20, urls, Array(10).fill(1 / 8).concat([1 / 16, 1 / 2, 1 / 16]));
+  },
+
   lameMelody1: () => {
     var urls = getSouldUrls(DBassUrls);
     return getRandomLoops(40, urls, Array(20).fill(1 / 2).concat([1 / 32, 1 / 24, 1 / 4, 1 / 12, 1 / 16]));

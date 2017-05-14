@@ -10,6 +10,12 @@
                     type="number"
                     value.bind="tempo & throttle:450"
                     class="tempo">
+
+                <span repeat.for="c of channels"
+                    class="channel-select-btn ${$index==currentChannel ? 'current' : ''}"
+                    click.delegate="setChannel($index)">${c.name}</span>
+
+
                 <label for="auto">Auto</label>
                 <input id="auto"
                     type="checkbox"
@@ -19,6 +25,7 @@
             <!--<p>Tempo: ${tempo}</p>-->
             <!--NOTE this annoyingly has to be a div-->
             <div repeat.for="dot of dots"
+                if.bind="dot.channel==currentChannel"
                 class="draggable"
                 interact-draggable="position.bind:dot.pos"
                 locationchange.delegate="placeDot($event)"

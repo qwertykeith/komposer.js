@@ -20,10 +20,18 @@ export class InteractDraggableCustomAttribute {
 
   constructor(private element: HTMLElement) { }
 
+  // private sorted = false;
+
+  detached() {
+
+    interact(this.element).unset()
+  }
 
   attached() {
 
+    // console.log(this.sorted);
 
+    // this.sorted = true;
     this.dispatch('locationchange', this.position);
 
 

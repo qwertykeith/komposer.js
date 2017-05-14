@@ -8,6 +8,7 @@ export interface KLoopViewModel {
   id: string;
   pos: XYLocation;
   player: KLoopPlayer;
+  channel: number;
   // loopId:string;
 }
 

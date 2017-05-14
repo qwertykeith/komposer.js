@@ -20,9 +20,11 @@ import { Komposer } from "./libs/komposer";
 export class Welcome {
 
   dots: KLoopViewModel[] = [];
+  // currentDots: KLoopViewModel[] = [];
+  komposer: Komposer = new Komposer();
+  currentChannel: number = 0;
 
   constructor(
-    private komposer: KomposerChannel,
     // private state: KomposerAppState,
     private activateKomposerCommandHandler: ActivateKomposerCommandHandler,
     private changeTempoCommandHandler: ChangeTempoCommandHandler) {
@@ -32,11 +34,15 @@ export class Welcome {
   }
 
   set autoOn(value: boolean) {
-    this.komposer.autoPlayerData.on = value;
+    if (this.currentChannel >= this.komposer.channels.length) return;
+    var c = this.komposer.channels[this.currentChannel];
+    c.autoPlayerData.on = value;
+    if (!value) c.allOff();
   }
 
   get autoOn(): boolean {
-    return this.komposer.autoPlayerData.on;
+    if (this.currentChannel >= this.komposer.channels.length) return false;
+    return this.komposer.channels[this.currentChannel].autoPlayerData.on;
   }
 
 
@@ -48,14 +54,33 @@ export class Welcome {
     loop.on = false;
   }
 
+  get channels() {
+
+    return this.komposer.channels;
+    //return [];
+    // return [...Array(this.channels.length)]; //.map(v=>v);
+    //    return Array.from({ length: this.channels.length }, (value, key) => key)
+  }
+
+  setChannel(channelNumber: number) {
+
+    if (channelNumber >= this.komposer.channels.length) return;
+
+    // const c = this.komposer.channels[channelNumber];
+
+    //    this.currentDots = this.dots.filter(d => d.channel == this.currentChannel);
+
+    this.currentChannel = channelNumber;
+  }
 
   placeDot(e) {
     this.moveElement(e.target, e.detail);
   }
 
-  private getNewLoops(initialDots: number) {
-    // const kloops = LoopLibrary.lameMelody1();
-    return LoopLibrary.getBeatBox(initialDots);
+  private addLoops(name, loops) {
+    const c = this.komposer.addChannel(name, loops);
+    const players = c.players;
+    this.addPlayers(players, this.komposer.channels.length - 1);
   }
 
   attached() {
@@ -63,21 +88,22 @@ export class Welcome {
 
     this.activateKomposerCommandHandler.execute(true);
 
-    var loops = this.getNewLoops(150)
-    // this.dots = this.getNewRandom(loops);
-    // return kloops.map(loop => getNewRandomDot(loop));
-    loops.forEach((loop) => this.addLoop(loop));
+    this.addLoops("1", LoopLibrary.getBeatBox(150));
+    this.addLoops("2", LoopLibrary.getSimpleBeat1());
+    this.addLoops("3", LoopLibrary.getSimpleBeat2Fast());
 
-    const explode = (url: string, offset: number) => {
-      KLoopUtils.explode(url)
-        .forEach(l => {
-          // const pos = this.getRandomPos(50, 50);
-          // pos.x = offset;
-          // var loop = { id: 7, loopId: l.guid, pos: pos };
+    this.setChannel(0);
 
-          this.addLoop(l);
-        });
-    }
+    // const explode = (url: string, offset: number) => {
+    //   KLoopUtils.explode(url)
+    //     .forEach(l => {
+    //       // const pos = this.getRandomPos(50, 50);
+    //       // pos.x = offset;
+    //       // var loop = { id: 7, loopId: l.guid, pos: pos };
+
+    //       this.addLoop(l);
+    //     });
+    // }
 
     // explode(this.testSounds[0], 400);
     // explode(this.testSounds[9], 350);
@@ -91,14 +117,13 @@ export class Welcome {
   get tempo(): number {
     return Komposer.tempo;
 
-//    return Math.round(this.state.data.tempo);
+    //    return Math.round(this.state.data.tempo);
   }
 
   set tempo(bpm: number) {
     this.changeTempoCommandHandler.execute(bpm);
     // Komposer.tempo = bpm;
   }
-
 
 
   getRandomPos(xw: number, yw: number): XYLocation {
@@ -108,19 +133,18 @@ export class Welcome {
   }
 
 
-
-
-  addLoop(loop: KLoop) {
-    const player = this.komposer.addLoop(loop);
-
-    const getNewRandomDot = (loop: KLoop): KLoopViewModel => {
+  addPlayers(players: KLoopPlayer[], channel: number) {
+    const getNewRandomDot = (player: KLoopPlayer): KLoopViewModel => {
       const pos = this.getRandomPos(300, 300);
-      var dot = <KLoopViewModel>{ id: newGuid(), pos: pos, player: player };
+      var dot = <KLoopViewModel>{ id: newGuid(), pos: pos, player: player, channel: channel };
       return dot;
     }
 
-    const dot = getNewRandomDot(loop);
-    this.dots.push(dot);
+    players.forEach(p => {
+      const dot = getNewRandomDot(p);
+      this.dots.push(dot);
+    });
+
   }
 
   moveElementOnEvent(customEvent) {
