@@ -8,8 +8,9 @@ import { EventAggregator } from 'aurelia-event-aggregator';
 export class SampleTriggerEvents {
 
   private ename: string = 'soundOn';
+  private eventAggregator: EventAggregator=new EventAggregator();
 
-  constructor(private eventAggregator: EventAggregator) { }
+  constructor() { }
 
   listen(guid: string, callback: () => void) {
     this.eventAggregator.subscribe(this.ename + '_' + guid, response => {

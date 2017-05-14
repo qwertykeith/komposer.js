@@ -14,7 +14,7 @@ class KChannelInfo {
 @autoinject()
 export class Komposer {
 
-private  channels: KChannelInfo[] = [];
+  private channels: KChannelInfo[] = [];
 
   constructor(
     private transportEvents: TransportEvents,
@@ -73,22 +73,22 @@ private  channels: KChannelInfo[] = [];
     return c ? c.autoPlayerData.on : false;
   }
 
-  loopOn(loop: KLoop, on: boolean) {
-    if (on) { this.player.on(loop) } else { this.player.off(loop) }
+  // loopOn(loop: KLoop, on: boolean) {
+  //   if (on) { this.player.on(loop) } else { this.player.off(loop) }
 
-    this.channels.forEach(c => {
-      const hasLoop = c.loopStates.has(loop);
-      if (hasLoop) c.loopStates.set(loop, on);
-    });
-  }
+  //   this.channels.forEach(c => {
+  //     const hasLoop = c.loopStates.has(loop);
+  //     if (hasLoop) c.loopStates.set(loop, on);
+  //   });
+  // }
 
-  mute(channel: number) {
-    if (channel >= this.channels.length) false;
-    const c = this.channels[channel];
-    c.loopStates.forEach((on, loop) => {
-      this.loopOn(loop, false);
-    });
-  }
+  // mute(channel: number) {
+  //   if (channel >= this.channels.length) false;
+  //   const c = this.channels[channel];
+  //   c.loopStates.forEach((on, loop) => {
+  //     this.loopOn(loop, false);
+  //   });
+  // }
 
 
   addLoop(loop: KLoop, channel: number) {

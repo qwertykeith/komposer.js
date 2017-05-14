@@ -1,3 +1,4 @@
+import { KLoop } from './models/kloop';
 import { newGuid } from './libs/kUtils';
 import { ActivateKomposerCommandHandler } from './libs/commands/activateKomposer';
 import { KomposerAppState } from './libs/komposerState';
@@ -12,8 +13,8 @@ import { KLoopViewModel } from './models/dot';
 import { XYLocation } from './models/location';
 import interact from 'interact.js'
 import { KLoopPlayer } from './libs/kLoopPlayer'
-import { KLoop, KLoopUtils } from './models/kloop'
 import { Komposer } from "./libs/komposer";
+import { KLoopUtils } from "./libs/kLoopUtils";
 
 @autoinject()
 export class Welcome {

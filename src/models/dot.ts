@@ -1,4 +1,4 @@
-import { KLoop } from './kloop'
+import { KLoopPlayer } from './../libs/kLoopPlayer';
 import { XYLocation } from './location'
 
 /**
@@ -7,7 +7,7 @@ import { XYLocation } from './location'
 export interface KLoopViewModel {
   id: string;
   pos: XYLocation;
-  loop: KLoop;
+  loop: KLoopPlayer;
   // loopId:string;
 }
 

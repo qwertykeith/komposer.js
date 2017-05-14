@@ -1,38 +1,47 @@
+import { KLoop } from './../models/kloop';
 import { setTimeout } from 'timers';
 import { SampleTriggerEvents } from './sampleTriggerEvents';
 import { autoinject } from 'aurelia-dependency-injection';
-// import { Tone } from 'tone';
 import Tone from 'tone'
-// import { Tone } from 'tone';
-import { KLoop } from '../models/kloop'
 
-// /**
-//  * internal class to optimise lookup times
-//  */
-// class KSound {
-//   constructor(
-//     // public sampler: Tone.Sampler,
-//     private sequence: 
-//   ) { }
-
-//   on() { this.sequence.mute = false; }
-//   off() { this.sequence.mute = true; }
-
-// }
-
-/**
- * engine for playing loops when triggered
- */
 @autoinject()
 export class KLoopPlayer {
 
-  seqSamplers = new Map<KLoop, Tone.Sequence>();
+  private seq: Tone.Sequence;
+  private sampleTriggerEvents: SampleTriggerEvents = new SampleTriggerEvents();
 
-  constructor(private sampleTriggerEvents: SampleTriggerEvents) {
+  isLoaded = false;
+
+  constructor(private kloop: KLoop) {
+    this.load();
   }
 
-  getloops(): KLoop[] {
-    return Array.from(this.seqSamplers.keys());
+  getLoop(): KLoop {
+    return this.kloop;
+  }
+
+  private load() {
+
+    const wavLoaded = () => {
+      this.isLoaded = true;
+    };
+
+    // create the sampler .. and start the sequence when loaded
+    const sampler = new Tone.Sampler(this.kloop.url, wavLoaded).toMaster();
+    sampler.volume.value = (this.kloop.volume - 1) * 40;
+
+    // create the sequence 
+    const seq = new Tone.Sequence((time, col) => {
+
+      if (this.isLoaded) sampler.triggerAttack(0, time);
+      this.sampleTriggerEvents.dispatch(this.kloop.guid);
+
+    }, [0], this.convertToToneTime(this.kloop.beat));
+
+    seq.mute = true;
+    seq.start(0);
+    this.seq = seq;
+
   }
 
   /**
@@ -43,40 +52,12 @@ export class KLoopPlayer {
     return `${notesInMeasure}n`;
   }
 
-  addLoop(kloop: KLoop) {
-
-    if (!this.seqSamplers.has(kloop)) {
-      const sampler = new Tone.Sampler(kloop.url).toMaster();
-      sampler.volume.value = (kloop.volume - 1) * 40;
-
-      const seq = new Tone.Sequence((time, col) => {
-        sampler.triggerAttack(0, time);
-        this.sampleTriggerEvents.dispatch(kloop.guid);
-
-      }, [0], this.convertToToneTime(kloop.beat));
-
-      seq.start(0);
-      seq.mute = true;
-
-      this.seqSamplers.set(kloop, seq);
-    }
-  }
-
-  on(kloop: KLoop) {
-
-    const sampler = this.seqSamplers.get(kloop);
-    if (sampler != null) {
-      sampler.mute=false;
-    }
-
+  on() {
+    this.seq.mute = false;
   }
 
   off(kloop: KLoop) {
-    const sampler = this.seqSamplers.get(kloop);
-    if (sampler != null) {
-      sampler.mute=true;
-    }
-
+    this.seq.mute = true;
   }
 
 }
