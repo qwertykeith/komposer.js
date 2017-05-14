@@ -1,19 +1,18 @@
-import { KLoop } from './models/kloop';
+import { KomposerChannel } from './libs/komposerChannel';
 import { newGuid } from './libs/kUtils';
 import { ActivateKomposerCommandHandler } from './libs/commands/activateKomposer';
 import { KomposerAppState } from './libs/komposerState';
 import { ChangeTempoCommandHandler } from './libs/commands/changeTempo';
 import { LoopLibrary } from './libs/sounds/loopLibrary';
 import { VocalKit1Urls } from './libs/sounds/soundLibUrls/vocalKit1Urls';
-import { AutoPlayerService } from './libs/autoPlayer';
+import { AutoPlayer } from './libs/autoPlayer';
 import { log } from 'util';
 import { setInterval } from 'timers';
 import { autoinject } from 'aurelia-dependency-injection';
 import { KLoopViewModel } from './models/dot';
 import { XYLocation } from './models/location';
 import interact from 'interact.js'
-import { KLoopPlayer } from './libs/kLoopPlayer'
-import { Komposer } from "./libs/komposer";
+import { KLoopPlayer, KLoop } from './libs/kLoopPlayer'
 import { KLoopUtils } from "./libs/kLoopUtils";
 
 @autoinject()
@@ -22,7 +21,7 @@ export class Welcome {
   dots: KLoopViewModel[] = [];
 
   constructor(
-    private komposer: Komposer,
+    private komposer: KomposerChannel,
     private state: KomposerAppState,
     private activateKomposerCommandHandler: ActivateKomposerCommandHandler,
     private changeTempoCommandHandler: ChangeTempoCommandHandler) {
@@ -31,26 +30,26 @@ export class Welcome {
 
   }
 
-  get channels(): string[] {
-    return this.komposer.channelNames;
-  }
+  // get channels(): string[] {
+  //   return this.komposer.channelNames;
+  // }
 
 
   set autoOn(value: boolean) {
-    this.komposer.setAuto(0, value);
+    this.komposer.autoPlayerData.on = value;
   }
 
   get autoOn(): boolean {
-    return this.komposer.getAuto(0);
+    return this.komposer.autoPlayerData.on;
   }
 
 
-  startTriggerDot(loop: KLoop) {
-    this.komposer.loopOn(loop, true);
+  startTriggerDot(loop: KLoopPlayer) {
+    loop.on = true;
   }
 
-  stopTriggerDot(loop: KLoop) {
-    this.komposer.loopOn(loop, false);
+  stopTriggerDot(loop: KLoopPlayer) {
+    loop.on = false;
   }
 
 
@@ -120,16 +119,13 @@ export class Welcome {
 
 
   addLoop(loop: KLoop) {
-    this.komposer.addLoop(loop, 0);
-
+    const player = this.komposer.addLoop(loop);
 
     const getNewRandomDot = (loop: KLoop): KLoopViewModel => {
-
       const pos = this.getRandomPos(300, 300);
-      var dot = { id: newGuid(), loopId: loop.guid, pos: pos, loop: loop };
+      var dot = <KLoopViewModel>{ id: newGuid(), pos: pos, player: player };
       return dot;
     }
-
 
     const dot = getNewRandomDot(loop);
     this.dots.push(dot);

@@ -1,10 +1,26 @@
-import { KLoop } from './../models/kloop';
 import { setTimeout } from 'timers';
 import { SampleTriggerEvents } from './sampleTriggerEvents';
-import { autoinject } from 'aurelia-dependency-injection';
 import Tone from 'tone'
+import { newGuid } from "./kUtils";
 
-@autoinject()
+
+/**
+ * describes a sound
+ */
+export class KLoop {
+
+  guid: string;
+
+  constructor(
+    public url: string,
+    public beat: number,
+    public volume: number
+  ) {
+    this.guid = newGuid();
+  }
+}
+
+
 export class KLoopPlayer {
 
   private seq: Tone.Sequence;
@@ -34,7 +50,7 @@ export class KLoopPlayer {
     const seq = new Tone.Sequence((time, col) => {
 
       if (this.isLoaded) sampler.triggerAttack(0, time);
-      this.sampleTriggerEvents.dispatch(this.kloop.guid);
+      this.sampleTriggerEvents.dispatch();
 
     }, [0], this.convertToToneTime(this.kloop.beat));
 
@@ -42,6 +58,12 @@ export class KLoopPlayer {
     seq.start(0);
     this.seq = seq;
 
+  }
+
+  listen(callback: () => void) {
+    this.sampleTriggerEvents.listen(() => {
+      callback();
+    })
   }
 
   /**
@@ -52,12 +74,9 @@ export class KLoopPlayer {
     return `${notesInMeasure}n`;
   }
 
-  on() {
-    this.seq.mute = false;
+  set on(value: boolean) {
+    this.seq.mute = !value;
   }
 
-  off(kloop: KLoop) {
-    this.seq.mute = true;
-  }
 
 }

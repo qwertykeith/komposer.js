@@ -1,5 +1,4 @@
 import { VocalKit1Urls } from './soundLibUrls/vocalKit1Urls';
-import { KLoop } from './../../models/kloop';
 import { getSouldUrls } from './soundUrlUtils';
 import { DAnalogDK1Urls } from './soundLibUrls/dAnalogDK1Urls';
 import { DBassUrls } from './soundLibUrls/dBassUrls';
@@ -8,6 +7,7 @@ import { PercUrls } from './soundLibUrls/percUrls';
 import { SohoUrls } from './soundLibUrls/sohoUrls';
 import { BeatBoxUrls } from './soundLibUrls/beatBoxUrls';
 import { WizkitUrls } from './soundLibUrls/wizkitUrls';
+import { KLoop } from "../kLoopPlayer";
 
 const someBeats = [
   1 / 8.0, 1 / 8.0, 1 / 8.0, 1 / 8.0, 1 / 8.0, 1 / 8.0,

@@ -7,7 +7,7 @@ import { XYLocation } from './location'
 export interface KLoopViewModel {
   id: string;
   pos: XYLocation;
-  loop: KLoopPlayer;
+  player: KLoopPlayer;
   // loopId:string;
 }
 

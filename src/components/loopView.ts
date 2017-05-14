@@ -1,7 +1,8 @@
+import { KLoopPlayer } from './../libs/kLoopPlayer';
+import { LoopLibrary } from './../libs/sounds/loopLibrary';
 import { setTimeout } from 'timers';
 import { log } from 'util';
 import { SampleTriggerEvents } from './../libs/sampleTriggerEvents';
-import { KLoop } from './../models/kloop';
 import { inject, bindable, bindingMode } from 'aurelia-framework';
 import { autoinject } from 'aurelia-dependency-injection';
 import { KLoopViewModel } from "../models/dot";
@@ -16,18 +17,9 @@ export class LoopView {
 
   private htmlElement: HTMLElement;
 
-  constructor(
-    private element: Element,
-    private sampleTriggerEvents: SampleTriggerEvents) {
+  constructor(private element: Element) {
 
     this.htmlElement = element as HTMLElement;
-
-    /** mouse/touch interactions ***/
-
-    // this.element.onmouseover = (event) => {
-    //   this.dispatch('loop-start', this.loop);
-
-    // }
 
     this.htmlElement.ontouchmove = (event) => {
       this.dispatch('loop-start', this.loop);
@@ -57,27 +49,36 @@ export class LoopView {
       this.dispatch('loop-stop', this.loop);
     }
 
-
   }
 
   private getLoopInfo() {
-    return this.loop.loop.getLoop();
+    return this.loop.player.getLoop();
   }
 
-  attached(argument) {
+  loopChanged(newLoop: KLoopViewModel, oldLoop: KLoopViewModel) {
+    if (oldLoop != newLoop) {
 
-    let lastTimeout: any = null;
+      let lastTimeout: any = null;
 
-    this.sampleTriggerEvents.listen(this.getLoopInfo().guid, () => {
-      clearTimeout(lastTimeout);
-      this.showTick = true;
+      this.loop.player.listen(() => {
+        // debugger;
+        clearTimeout(lastTimeout);
+        this.showTick = true;
 
-      lastTimeout = setTimeout(() => {
-        this.showTick = false
-      }, 20);
-    });
+        lastTimeout = setTimeout(() => {
+          this.showTick = false
+        }, 20);
+      });
 
+    }
   }
+
+
+
+  // attached(argument) {
+
+
+  // }
 
   get style() {
 

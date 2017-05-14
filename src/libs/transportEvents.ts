@@ -9,8 +9,9 @@ import Tone from 'tone'
 export class TransportEvents {
 
   private ename: string = 'transporttimer';
+  private eventAggregator: EventAggregator = new EventAggregator();
 
-  constructor(private eventAggregator: EventAggregator) {
+  constructor() {
 
     // 16th note timer to send out what fraction of the bar we are in
     Tone.Transport.scheduleRepeat((time) => {

@@ -1,7 +1,8 @@
 /**
  * utilities for kloops
  */
-import { KLoop } from "../models/kloop";
+
+import { KLoop } from "./kLoopPlayer";
 
 export class KLoopUtils {
 
