@@ -63,6 +63,7 @@ section {
 
 
 
+
 /* animate page transitions */
 
 section.au-enter-active {
@@ -152,6 +153,7 @@ div.au-stagger {
 
 
 
+
 /* animation definitions */
 
 @-webkit-keyframes fadeInRight {
@@ -198,4 +200,10 @@ div.au-stagger {
     100% {
         opacity: 1;
     }
+}
+
+
+.channel-strip {
+    background-color: red;
+    display: block;
 }
