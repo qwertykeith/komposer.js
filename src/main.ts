@@ -1,7 +1,7 @@
 ﻿import { Aurelia } from 'aurelia-framework';
 // we want font-awesome to load as soon as possible to show the fa-spinner
 import '../styles/styles.css';
-import '../styles/test.css';
+// import '../styles/test.less';
 import 'font-awesome/css/font-awesome.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap';

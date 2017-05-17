@@ -11,6 +11,7 @@ import * as envDev from '@easy-webpack/config-env-development';
 import * as aurelia from '@easy-webpack/config-aurelia';
 import * as typescript from '@easy-webpack/config-typescript';
 import * as html from '@easy-webpack/config-html';
+import * as less from '@easy-webpack/config-less'
 import * as css from '@easy-webpack/config-css';
 import * as fontAndImages from '@easy-webpack/config-fonts-and-images';
 import * as globalBluebird from '@easy-webpack/config-global-bluebird';
@@ -89,29 +90,30 @@ let config = generateConfig(
    * For Webpack docs, see: https://webpack.js.org/configuration/
    */
 
-  ENV === 'test' || ENV === 'development' ? 
-    envDev(ENV !== 'test' ? {} : {devtool: 'inline-source-map'}) :
+  ENV === 'test' || ENV === 'development' ?
+    envDev(ENV !== 'test' ? {} : { devtool: 'inline-source-map' }) :
     envProd({ /* devtool: '...' */ }),
 
-  aurelia({root: rootDir, src: srcDir, title: title, baseUrl: baseUrl}),
+  aurelia({ root: rootDir, src: srcDir, title: title, baseUrl: baseUrl }),
   typescript(ENV !== 'test' ? {} : { options: { doTypeCheck: false, sourceMap: false, inlineSourceMap: true, inlineSources: true } }),
   html(),
+  less({ filename: 'styles.css', allChunks: true, sourceMap: false }),
   css({ filename: 'styles.css', allChunks: true, sourceMap: false }),
   fontAndImages(),
   globalBluebird(),
   globalJquery(),
-  generateIndexHtml({minify: ENV === 'production'}),
+  generateIndexHtml({ minify: ENV === 'production' }),
 
   ...(ENV === 'production' || ENV === 'development' ? [
-      commonChunksOptimize({appChunkName: 'app', firstChunk: 'aurelia-bootstrap'}),
-      copyFiles({patterns: [{ from: 'favicon.ico', to: 'favicon.ico' }]})
-    ] : [
-    /* ENV === 'test' */
-    generateCoverage({ options: { esModules: true } })
-  ]),
+    commonChunksOptimize({ appChunkName: 'app', firstChunk: 'aurelia-bootstrap' }),
+    copyFiles({ patterns: [{ from: 'favicon.ico', to: 'favicon.ico' }] })
+  ] : [
+      /* ENV === 'test' */
+      generateCoverage({ options: { esModules: true } })
+    ]),
 
   ENV === 'production' ?
-    uglify({debug: false, mangle: { except: ['cb', '__webpack_require__'] }}) : {}
+    uglify({ debug: false, mangle: { except: ['cb', '__webpack_require__'] } }) : {}
 );
 
 module.exports = stripMetadata(config);
