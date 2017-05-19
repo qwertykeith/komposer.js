@@ -33,17 +33,19 @@ export class Welcome {
 
   }
 
-  set autoOn(value: boolean) {
-    if (this.currentChannel >= this.komposer.channels.length) return;
-    var c = this.komposer.channels[this.currentChannel];
-    c.autoPlayerData.on = value;
-    if (!value) c.allOff();
-  }
 
-  get autoOn(): boolean {
-    if (this.currentChannel >= this.komposer.channels.length) return false;
-    return this.komposer.channels[this.currentChannel].autoPlayerData.on;
-  }
+
+  // set autoOn(value: boolean) {
+  //   if (this.currentChannel >= this.komposer.channels.length) return;
+  //   var c = this.komposer.channels[this.currentChannel];
+  //   c.autoPlayerData.on = value;
+  //   if (!value) c.allOff();
+  // }
+
+  // get autoOn(): boolean {
+  //   if (this.currentChannel >= this.komposer.channels.length) return false;
+  //   return this.komposer.channels[this.currentChannel].autoPlayerData.on;
+  // }
 
 
   startTriggerDot(loop: KLoopPlayer) {
@@ -62,9 +64,27 @@ export class Welcome {
     //    return Array.from({ length: this.channels.length }, (value, key) => key)
   }
 
-  setChannel(channelNumber: number) {
 
-    if (channelNumber >= this.komposer.channels.length) return;
+  trashDrop(event) {
+    debugger;
+  }
+
+  test(e, dot) {
+    console.log(e);
+    console.log(dot);
+    alert(e);
+  }
+
+  toggleAuto(channel: KomposerChannel) {
+    channel.autoPlayerData.on = !channel.autoPlayerData.on;
+    if (!channel.autoPlayerData.on) channel.allOff();
+  }
+
+  setChannel(channel: KomposerChannel) {
+
+    const channelNumber = this.komposer.channels.indexOf(channel);
+
+    if (channelNumber < 0 || channelNumber >= this.komposer.channels.length) return;
 
     // const c = this.komposer.channels[channelNumber];
 
@@ -92,7 +112,7 @@ export class Welcome {
     this.addLoops("2", LoopLibrary.getSimpleBeat1());
     this.addLoops("3", LoopLibrary.getSimpleBeat2Fast());
 
-    this.setChannel(0);
+    //    this.setChannel(0);
 
     // const explode = (url: string, offset: number) => {
     //   KLoopUtils.explode(url)
@@ -145,6 +165,23 @@ export class Welcome {
       this.dots.push(dot);
     });
 
+  }
+
+  // edit(dot: KLoopViewModel) {
+  //   dot.isEditing = true;
+  //   console.log(dot);
+  // }
+
+  deleteLoopView(dot: KLoopViewModel) {
+    // debugger;
+
+    // delete the player
+    const c = this.komposer.channels[dot.channel];
+    c.delete(dot.player);
+
+    // delete the ui
+    var i = this.dots.indexOf(dot);
+    this.dots.splice(i, 1);
   }
 
   moveElementOnEvent(customEvent) {

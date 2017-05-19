@@ -10,13 +10,10 @@ import { KLoopViewModel } from '../../models/dot';
 const interact = require('interact.js');
 
 @inject(Element)
-export class InteractDraggableCustomAttribute {
+export class InteractDroppableCustomAttribute {
 
   // we make options bindable, so that the interact draggable options can be customized declaratively
   //@bindable({ defaultBindingMode: bindingMode.oneTime }) options;
-
-  @bindable()
-  position: XYLocation;
 
   constructor(private element: HTMLElement) { }
 
@@ -29,28 +26,18 @@ export class InteractDraggableCustomAttribute {
 
   attached() {
 
-    // console.log(this.sorted);
-
-    // this.sorted = true;
-    this.dispatch('locationchange', this.position);
-
-
-    // console.log(this.position);
-
-    // console.log('options');
-
-    const defaultOptions = {
-      // enable inertial throwing
-      inertia: true,
-      // keep the element within the area of it's parent
-      restrict: {
-        restriction: "parent",
-        endOnly: true,
-        elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
-      },
-      // enable autoScroll
-      autoScroll: true,
-    };
+    // const defaultOptions = {
+    //   // enable inertial throwing
+    //   inertia: true,
+    //   // keep the element within the area of it's parent
+    //   restrict: {
+    //     restriction: "parent",
+    //     endOnly: true,
+    //     elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+    //   },
+    //   // enable autoScroll
+    //   autoScroll: true,
+    // };
 
 
     // this.element.touchenter = (event) => {
@@ -59,26 +46,25 @@ export class InteractDraggableCustomAttribute {
 
 
     interact(this.element)
-      // we can set default options if we want, overriding any options that were passed in
-      .draggable(Object.assign({}, defaultOptions))
-      // for each event, we dispatch an bubbling, HTML5 CustomEvent, which the aurelia
-      // binding engine will be able to listen for
-      .on('dragstart', (event) => this.dispatch('interact-dragstart', event))
-      .on('dragmove', (event) => this.dispatch('interact-dragmove', event))
-      //    .on('dragEnter', (event) => this.dispatch('interact-dragenter', event))
-      .on('draginertiastart', (event) => this.dispatch('interact-draginertiastart', event))
-      .on('dragend', (event) => this.dispatch('interact-dragend', event))
-      // .on('dragleave', (event) => this.dispatch('interact-dragleave', event))
-      .on('drop', (event) => this.dispatch('interact-drop', event))
-      .on('doubletap', (event) => this.dispatch('interact-doubletap', event))
-      .on('tap', (event) => this.dispatch('interact-tap', event))
-      ;
+    // we can set default options if we want, overriding any options that were passed in
+    //      .draggable(Object.assign({}, defaultOptions))
+    // for each event, we dispatch an bubbling, HTML5 CustomEvent, which the aurelia
+    // binding engine will be able to listen for
+    //   .on('dragstart', (event) => this.dispatch('interact-dragstart', event))
+    //   .on('dragmove', (event) => this.dispatch('interact-dragmove', event))
+    //   .on('dragEnter', (event) => this.dispatch('interact-dragenter', event))
+    //   .on('draginertiastart', (event) => this.dispatch('interact-draginertiastart', event))
+    //   .on('dragend', (event) => this.dispatch('interact-dragend', event))
+    //   .on('dragleave', (event) => this.dispatch('interact-dragleave', event))
+    //   .on('drop', (event) => this.dispatch('interact-drop', event))
+    //   ;
 
-    // interact(document.getElementsByClassName("trash"))
-    //   .dropzone({
-    //     // accept: '.trash',
-    //     // overlap: 'pointer' || 'center'
-    //   })
+    interact(this.element)
+      .dropzone({
+        // accept: '.trash',
+        // overlap: 'pointer' || 'center'
+      })
+      .on('drop', (event) => this.dispatch('interact-drop', event))
 
     //   ;
 

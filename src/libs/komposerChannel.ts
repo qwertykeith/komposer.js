@@ -16,6 +16,18 @@ export class KomposerChannel {
     this.startClock();
   }
 
+
+  delete(player: KLoopPlayer) {
+    //    const player = this.players.filter(p => p.getLoop() == loop);
+    const playerIndex = this.players.indexOf(player);
+    if (playerIndex >= 0) this.players.splice(playerIndex, 1);
+    console.log("deleted");
+    console.log(playerIndex);
+  }
+
+
+
+
   allOff() {
     this.players.forEach(p => p.on = false);
   }

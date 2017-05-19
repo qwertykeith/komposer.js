@@ -5,7 +5,9 @@
         title.bind="getSoundName()">
         <div class="sound-loop-tick"
             show.bind="showTick"></div>
-        <!--<img if.bind="!loop.player.isLoaded"
-            src="http://www.loadinfo.net/main/download?spinner=14454&disposition=inline">-->
+        <!--${loop.isEditing}
+        <div if.bind="loop.isEditing">
+            Close
+        </div>-->
     </div>
 </template>

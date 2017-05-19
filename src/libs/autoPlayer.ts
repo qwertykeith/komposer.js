@@ -5,7 +5,7 @@ import { TransportEvents } from './transportEvents';
 
 
 export class AutoPlayerModel {
-  public on: boolean = true;
+  public on: boolean = false;
   public eventsPerMeasure = 16; // 16
   public lengthMeasures = 2;
   public changeEveryMeasure = 8;

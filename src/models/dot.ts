@@ -9,6 +9,7 @@ export interface KLoopViewModel {
   pos: XYLocation;
   player: KLoopPlayer;
   channel: number;
+  // isEditing: boolean;
   // loopId:string;
 }
 

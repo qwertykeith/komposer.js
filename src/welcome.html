@@ -11,38 +11,39 @@
                     value.bind="tempo & throttle:450"
                     class="tempo">
 
-                <span repeat.for="c of channels"
-                    class="channel-select-btn ${$index==currentChannel ? 'current' : ''}"
-                    click.trigger="setChannel($index)">${c.name}</span>
-
-
-                <label for="auto">Auto</label>
-                <input id="auto"
-                    type="checkbox"
-                    checked.bind="autoOn">
             </div>
 
             <!--<p>Tempo: ${tempo}</p>-->
             <!--NOTE this annoyingly has to be a div-->
-            <div repeat.for="dot of dots"
-                if.bind="dot.channel==currentChannel"
-                class="draggable"
-                interact-draggable="position.bind:dot.pos"
-                locationchange.delegate="placeDot($event)"
-                interact-dragmove.delegate="moveElementOnEvent($event)">
-                <loop-view loop.bind="dot"
-                    loop-start.delegate="startTriggerDot($event.detail.player)"
-                    loop-stop.delegate="stopTriggerDot($event.detail.player)"></loop-view>
-
+            <div class="dot-canvas">
+                <div repeat.for="dot of dots"
+                    show.bind="dot.channel==currentChannel"
+                    class="draggable"
+                    interact-draggable="position.bind:dot.pos"
+                    locationchange.delegate="placeDot($event)"
+                    interact-dragmove.delegate="moveElementOnEvent($event)"
+                    interact-doubletap.delegate="deleteLoopView(dot)">
+                    <loop-view loop.bind="dot"
+                        loop-start.delegate="startTriggerDot($event.detail.player)"
+                        loop-stop.delegate="stopTriggerDot($event.detail.player)"></loop-view>
+                </div>
+                <!--<div class="trash"
+                    interact-droppable>TRASH</div>-->
             </div>
 
-            <channel-strip repeat.for="c of komposer.channels"
-                channel.bind="c">
+            <div class="channel-strips">
+                <channel-strip repeat.for="c of komposer.channels"
+                    is-current.bind="$index==currentChannel"
+                    channel.bind="c"
+                    on-select.delegate="setChannel(c)"
+                    on-auto-toggle.delegate="toggleAuto(c)">
 
-            </channel-strip>
+                </channel-strip>
 
+            </div>
         </div>
 
-        </form>
+
+
     </section>
 </template>

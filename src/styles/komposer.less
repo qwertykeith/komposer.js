@@ -1,3 +1,5 @@
+@import './channels.less';
+
 .draggable {
   /*width: 25px;
   height: 10px;
@@ -60,3 +62,41 @@
 label{
   color: #fff;
 }
+
+.k-toggle-btn {
+    margin: 10px;
+    display: inline-block;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #666;
+    color: #ccc;
+    cursor: pointer;
+    background-color: #000;
+
+    &.on {
+    background-color: #333;
+  }
+}
+
+.dot-canvas{
+    width: 500px;
+    height: 500px;
+    background: #666;
+    top: 46px;
+    left: 0;
+    position: absolute;
+}
+
+.trash{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    color: #fff;
+    display: block;
+    width: 70px;
+    height: 71px;
+    background-color: #0f0000;
+    border-radius: 10px;
+    padding: 10px;
+    border: dotted;
+  }
