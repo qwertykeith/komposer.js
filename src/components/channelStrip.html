@@ -1,9 +1,13 @@
 <template>
 
-  <div class="channel-strip">
-    <toggle-button prop.bind="channel.autoPlayerData.on" click.delegate="autoClick()">AUTO</toggle-button>
-    <toggle-button prop.bind="isCurrent" click.delegate="selectClick()">PLAY</toggle-button>
-    ${channel.name}
-  </div>
+    <div class="channel-strip">
+        Measures
+        <exponential-select value.bind="channel.autoPlayerData.lengthMeasures"></exponential-select>
+        <toggle-button prop.bind="channel.autoPlayerData.on"
+            click.delegate="autoClick()">AUTO</toggle-button>
+        <toggle-button prop.bind="isCurrent"
+            click.delegate="selectClick()">PLAY</toggle-button>
+        ${channel.name}
+    </div>
 
 </template>

@@ -1,5 +1,5 @@
 export function configure(aurelia) {
   aurelia.globalResources(
-    './loopView', './channelStrip', './toggleButton'
+    './loopView', './channelStrip', './toggleButton', './exponentialSelect'
   );
 }
