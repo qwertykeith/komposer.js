@@ -15,6 +15,7 @@ import interact from 'interact.js'
 import { KLoopPlayer, KLoop } from './libs/kLoopPlayer'
 import { KLoopUtils } from "./libs/kLoopUtils";
 import { Komposer } from "./libs/komposer";
+import { Mutator } from "./libs/commands/mutate";
 
 @autoinject()
 export class Welcome {
@@ -23,16 +24,24 @@ export class Welcome {
   // currentDots: KLoopViewModel[] = [];
   komposer: Komposer = new Komposer();
   currentChannel: number = 0;
+  mutateMode: string = Mutator.MODE_DELETE;
 
   constructor(
     // private state: KomposerAppState,
     private activateKomposerCommandHandler: ActivateKomposerCommandHandler,
-    private changeTempoCommandHandler: ChangeTempoCommandHandler) {
+    private changeTempoCommandHandler: ChangeTempoCommandHandler,
+    private mutator: Mutator) {
 
     console.log('%c KOMPOSER!', 'background-color:green; color: white, font-weight:bold');
 
   }
 
+
+  toggleMutateMode() {
+    this.mutateMode = this.mutateMode == Mutator.MODE_DELETE
+      ? Mutator.MODE_EXPLODE
+      : Mutator.MODE_DELETE;
+  }
 
 
   // set autoOn(value: boolean) {
@@ -97,20 +106,42 @@ export class Welcome {
     this.moveElement(e.target, e.detail);
   }
 
-  private addLoops(name, loops) {
-    const c = this.komposer.addChannel(name, loops);
-    const players = c.players;
-    this.addPlayers(players, this.komposer.channels.length - 1);
+  private addLoopsAndChannel(channelName: string, loops: KLoop[]) {
+    const c = this.komposer.addChannel(channelName);
+
+    this.addLoops(c, loops);
   }
+
+  private addLoops(channel: KomposerChannel, loops: KLoop[]) {
+    const chanIndex = this.komposer.channels.indexOf(channel);
+    loops.forEach(loop => {
+      const player = channel.addLoop(loop);
+      this.addPlayer(player, chanIndex);
+    });
+    //    const players = channel.players;
+  }
+
+  private addPlayer(player: KLoopPlayer, channel: number) {
+    const getNewRandomDot = (player: KLoopPlayer): KLoopViewModel => {
+      const pos = this.getRandomPos(300, 300);
+      var dot = <KLoopViewModel>{ id: newGuid(), pos: pos, player: player, channel: channel };
+      return dot;
+    }
+
+    const dot = getNewRandomDot(player);
+    this.dots.push(dot);
+
+  }
+
 
   attached() {
 
 
     this.activateKomposerCommandHandler.execute(true);
 
-    this.addLoops("1", LoopLibrary.getBeatBox(150));
-    this.addLoops("2", LoopLibrary.getSimpleBeat1());
-    this.addLoops("3", LoopLibrary.getSimpleBeat2Fast());
+    this.addLoopsAndChannel("1", LoopLibrary.getBeatBox(150));
+    this.addLoopsAndChannel("2", LoopLibrary.getSimpleBeat1());
+    this.addLoopsAndChannel("3", LoopLibrary.getSimpleBeat2Fast());
 
     //    this.setChannel(0);
 
@@ -152,36 +183,35 @@ export class Welcome {
     return { x: x, y: y };
   }
 
-
-  addPlayers(players: KLoopPlayer[], channel: number) {
-    const getNewRandomDot = (player: KLoopPlayer): KLoopViewModel => {
-      const pos = this.getRandomPos(300, 300);
-      var dot = <KLoopViewModel>{ id: newGuid(), pos: pos, player: player, channel: channel };
-      return dot;
-    }
-
-    players.forEach(p => {
-      const dot = getNewRandomDot(p);
-      this.dots.push(dot);
-    });
-
-  }
-
   // edit(dot: KLoopViewModel) {
   //   dot.isEditing = true;
   //   console.log(dot);
   // }
 
-  deleteLoopView(dot: KLoopViewModel) {
+  mutate(dot: KLoopViewModel) {
     // debugger;
 
     // delete the player
-    const c = this.komposer.channels[dot.channel];
-    c.delete(dot.player);
 
-    // delete the ui
-    var i = this.dots.indexOf(dot);
-    this.dots.splice(i, 1);
+
+    if (this.mutateMode == Mutator.MODE_DELETE) {
+      const c = this.komposer.channels[dot.channel];
+      c.delete(dot.player);
+
+      // delete the ui
+      var i = this.dots.indexOf(dot);
+      this.dots.splice(i, 1);
+
+    }
+    else if (this.mutateMode == Mutator.MODE_EXPLODE) {
+      const loops = KLoopUtils.explode(dot.player.getLoop().url);
+      const channel = this.komposer.channels[this.currentChannel];
+      this.addLoops(channel, loops);
+    }
+
+
+    //    this.mutator.execute(this.komposer, this.dots, dot, this.mutateMode);
+
   }
 
   moveElementOnEvent(customEvent) {

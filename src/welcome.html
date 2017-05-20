@@ -10,7 +10,8 @@
                     type="number"
                     value.bind="tempo & throttle:450"
                     class="tempo">
-
+                <button class="k-toggle-btn"
+                    click.delegate="toggleMutateMode()">Mutate mode: ${mutateMode}</toggle-button>
             </div>
 
             <!--<p>Tempo: ${tempo}</p>-->
@@ -22,7 +23,7 @@
                     interact-draggable="position.bind:dot.pos"
                     locationchange.delegate="placeDot($event)"
                     interact-dragmove.delegate="moveElementOnEvent($event)"
-                    interact-doubletap.delegate="deleteLoopView(dot)">
+                    interact-tap.delegate="mutate(dot)">
                     <loop-view loop.bind="dot"
                         loop-start.delegate="startTriggerDot($event.detail.player)"
                         loop-stop.delegate="stopTriggerDot($event.detail.player)"></loop-view>

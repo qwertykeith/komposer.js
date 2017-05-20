@@ -18,15 +18,10 @@ export class Komposer {
     return Tone.Transport.bpm.value;
   }
 
-  addChannel(name: string, loops?: KLoop[]): KomposerChannel {
+  addChannel(name: string): KomposerChannel {
     const c = new KomposerChannel();
     c.name = name;
     this.channels.push(c);
-
-    if (loops) {
-      loops.forEach(loop => c.addLoop(loop));
-    }
-
     return c;
   }
 
