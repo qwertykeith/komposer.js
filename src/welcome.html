@@ -11,14 +11,14 @@
                     value.bind="tempo & throttle:450"
                     class="tempo">
                 <button class="k-toggle-btn"
-                    click.delegate="toggleMutateMode()">Mutate mode: ${mutateMode}</toggle-button>
+                    click.delegate="toggleMutateMode()">Mutate mode: ${model.mutateMode}</toggle-button>
             </div>
 
             <!--<p>Tempo: ${tempo}</p>-->
             <!--NOTE this annoyingly has to be a div-->
             <div class="dot-canvas">
-                <div repeat.for="dot of dots"
-                    show.bind="dot.channel==currentChannel"
+                <div repeat.for="dot of model.dots"
+                    show.bind="dot.channel==model.currentChannel"
                     class="draggable"
                     interact-draggable="position.bind:dot.pos"
                     locationchange.delegate="placeDot($event)"
@@ -33,8 +33,8 @@
             </div>
 
             <div class="channel-strips">
-                <channel-strip repeat.for="c of komposer.channels"
-                    is-current.bind="$index==currentChannel"
+                <channel-strip repeat.for="c of model.komposer.channels"
+                    is-current.bind="$index==model.currentChannel"
                     channel.bind="c"
                     on-select.delegate="setChannel(c)"
                     on-auto-toggle.delegate="toggleAuto(c)">

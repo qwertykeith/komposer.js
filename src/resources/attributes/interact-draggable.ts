@@ -2,9 +2,7 @@
 // https://github.com/Ullfis/interact.js-aurelia-typescript-webpack
 
 import { inject, bindable, bindingMode } from 'aurelia-framework';
-
-import { XYLocation } from '../../models/location';
-import { KLoopViewModel } from '../../models/dot';
+import { XYLocation } from "../../viewModels/location";
 
 // import * as interact from "interact.js";
 const interact = require('interact.js');

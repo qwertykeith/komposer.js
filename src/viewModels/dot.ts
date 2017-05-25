@@ -1,10 +1,15 @@
-// import { KLoop } from '../models/kloop';
-// import { XYLocation } from './../models/location';
+import { KLoopPlayer } from './../libs/kLoopPlayer';
+import { XYLocation } from "./location";
 
-// /**
-//  * a sound loop but with location information
-//  */
-// export interface DotViewModel {
-//   pos: XYLocation;
-//   loop: KLoop;
-// }
+/**
+ * a sound loop but with location information
+ */
+export interface KLoopViewModel {
+  id: string;
+  pos: XYLocation;
+  player: KLoopPlayer;
+  channel: number;
+  // isEditing: boolean;
+  // loopId:string;
+}
+

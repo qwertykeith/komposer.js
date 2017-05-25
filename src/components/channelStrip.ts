@@ -4,7 +4,7 @@ import { bindable } from 'aurelia-framework';
 
 // @autoinject()
 @inject(Element)
-export class ChannelStrip {
+export class ChannelStripCustomElement {
 
   @bindable()
   channel: KomposerChannel;
@@ -23,12 +23,5 @@ export class ChannelStrip {
     );
   }
 
-  autoClick() {
-    this.element.dispatchEvent(
-      new CustomEvent("on-auto-toggle", {
-        bubbles: true,
-      })
-    );
-  }
 
 }

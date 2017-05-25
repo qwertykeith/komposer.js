@@ -5,10 +5,10 @@ import { log } from 'util';
 import { SampleTriggerEvents } from './../libs/sampleTriggerEvents';
 import { inject, bindable, bindingMode } from 'aurelia-framework';
 import { autoinject } from 'aurelia-dependency-injection';
-import { KLoopViewModel } from "../models/dot";
+import { KLoopViewModel } from "../viewModels/dot";
 
 @autoinject()
-export class LoopView {
+export class LoopViewCustomElement {
 
   @bindable({ defaultBindingMode: bindingMode.twoWay })
   loop: KLoopViewModel;
@@ -82,7 +82,7 @@ export class LoopView {
 
   get style() {
 
-    const size =  400 * this.getLoopInfo().beat;
+    const size = 400 * this.getLoopInfo().beat;
 
 
 

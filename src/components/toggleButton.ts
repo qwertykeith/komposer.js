@@ -1,6 +1,6 @@
 import { bindable, bindingMode } from 'aurelia-framework';
 
-export class ToggleButton {
+export class ToggleButtonCustomElement {
 
   // @bindable({ defaultBindingMode: bindingMode.twoWay })
   @bindable()
