@@ -8,7 +8,7 @@ export class KomposerChannel {
 
   name: string = "Channel";
   autoPlayerData = new AutoPlayerModel();
-  // pos: XYLocation;
+  pos = <XYLocation>{ x: 0, y: 0 };
 
   players: KLoopPlayer[] = [];
   private auto: AutoPlayer = new AutoPlayer();

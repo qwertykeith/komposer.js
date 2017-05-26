@@ -58,9 +58,9 @@ export class Welcome {
   }
 
 
-  trashDrop(event) {
-    debugger;
-  }
+  // trashDrop(event) {
+  //   debugger;
+  // }
 
   test(e, dot) {
     console.log(e);
@@ -82,10 +82,6 @@ export class Welcome {
     this.model.currentChannel = channelNumber;
   }
 
-  placeDot(e) {
-    this.moveElement(e.target, e.detail);
-  }
-
   private addLoopsAndChannel(channelName: string, loops: KLoop[]) {
     const c = this.model.komposer.addChannel(channelName);
 
@@ -97,10 +93,7 @@ export class Welcome {
     this.addLoopsCommand.execute(this.model, channel, loops);
   }
 
-
-
   attached() {
-
 
     this.activateKomposerCommandHandler.execute(true);
 
@@ -138,6 +131,10 @@ export class Welcome {
 
   }
 
+  placeElement(e) {
+    // debugger;
+    this.moveElement(e.target, e.detail);
+  }
 
   moveElement(element, { x, y }) {
 
