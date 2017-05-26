@@ -1,6 +1,5 @@
 import { ActivateKomposerCommandHandler } from './libs/commands/activateKomposer';
 import { ChangeTempoCommandHandler } from './libs/commands/changeTempo';
-import { Mutator } from './libs/commands/mutate';
 import { KLoop, KLoopPlayer } from './libs/kLoopPlayer';
 import { KLoopUtils } from './libs/kLoopUtils';
 import { Komposer } from './libs/komposer';
@@ -12,6 +11,7 @@ import { KLoopViewModel } from "./viewModels/dot";
 import { XYLocation } from "./viewModels/location";
 import { KomposerViewModel } from "./viewModels/komposerViewModel";
 import { AddLoopsCommand } from "./libs/commands/addLoops";
+import { MutateDelete, MutateExplode, MutateDeleteSound, ILoopMutator, MutateDeleteQuieter } from "./libs/loopMutators";
 
 @autoinject()
 export class Welcome {
@@ -22,18 +22,31 @@ export class Welcome {
     // private state: KomposerAppState,
     private activateKomposerCommandHandler: ActivateKomposerCommandHandler,
     private changeTempoCommandHandler: ChangeTempoCommandHandler,
-    private addLoopsCommand: AddLoopsCommand,
-    private mutator: Mutator) {
+    private addLoopsCommand: AddLoopsCommand) {
 
     console.log('%c KOMPOSER!', 'background-color:green; color: white, font-weight:bold');
 
   }
 
+  getMutators(): ILoopMutator[] {
 
-  toggleMutateMode() {
-    this.model.mutateMode = this.model.mutateMode == Mutator.MODE_DELETE
-      ? Mutator.MODE_EXPLODE
-      : Mutator.MODE_DELETE;
+    function* list() {
+      yield new MutateDelete();
+      yield new MutateExplode();
+      yield new MutateDeleteSound();
+      yield new MutateDeleteQuieter();
+    }
+
+    return Array.from(list());
+
+  }
+
+  setMutator(m: ILoopMutator) {
+    this.model.mutator = m;
+  }
+
+  mutate(dot: KLoopViewModel) {
+    this.model.mutator.mutate(this.model, dot);
   }
 
   startTriggerDot(loop: KLoopPlayer) {
@@ -43,11 +56,6 @@ export class Welcome {
   stopTriggerDot(loop: KLoopPlayer) {
     loop.on = false;
   }
-
-  // get channels() {
-
-  //   return this.komposer.channels;
-  // }
 
 
   trashDrop(event) {
@@ -96,9 +104,9 @@ export class Welcome {
 
     this.activateKomposerCommandHandler.execute(true);
 
-    this.addLoopsAndChannel("1", LoopLibrary.getBeatBox(150));
-    this.addLoopsAndChannel("2", LoopLibrary.getSimpleBeat1());
-    this.addLoopsAndChannel("3", LoopLibrary.getSimpleBeat2Fast());
+    this.addLoopsAndChannel("Beat Box", LoopLibrary.getBeatBox(150));
+    this.addLoopsAndChannel("Simple 1", LoopLibrary.getSimpleBeat1());
+    this.addLoopsAndChannel("Fast 1", LoopLibrary.getSimpleBeat2Fast());
 
   }
 
@@ -115,15 +123,6 @@ export class Welcome {
   }
 
 
-
-  mutate(dot: KLoopViewModel) {
-    // debugger;
-
-    // delete the player
-    this.mutator.execute(this.model, dot);
-
-
-  }
 
   moveElementOnEvent(customEvent) {
 

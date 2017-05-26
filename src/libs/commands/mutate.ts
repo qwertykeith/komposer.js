@@ -1,38 +1,45 @@
-import { AddLoopsCommand } from './addLoops';
-import { KLoopViewModel } from './../../viewModels/dot';
-import { KLoopPlayer } from './../kLoopPlayer';
-import { KomposerChannel } from '../komposerChannel';
-import { Komposer } from "../komposer";
-import { KLoopUtils } from "../kLoopUtils";
-import { KomposerViewModel } from "../../viewModels/komposerViewModel";
+// import { autoinject } from 'aurelia-dependency-injection';
+// import { AddLoopsCommand } from './addLoops';
+// import { KLoopViewModel } from './../../viewModels/dot';
+// import { KLoopPlayer } from './../kLoopPlayer';
+// import { KomposerChannel } from '../komposerChannel';
+// import { Komposer } from "../komposer";
+// import { KLoopUtils } from "../kLoopUtils";
+// import { KomposerViewModel } from "../../viewModels/komposerViewModel";
+// import { ILoopMutator, MutateDelete, MutateExplode } from "../../models/loopMutator";
 
-export class Mutator {
+// @autoinject()
+// export class Mutator {
 
-  static MODE_DELETE = "delete";
-  static MODE_EXPLODE = "explode";
+//   static MODE_DELETE = "delete";
+//   static MODE_EXPLODE = "explode";
 
-  constructor(private addLoopsCommand: AddLoopsCommand) {
+//   constructor(private addLoopsCommand: AddLoopsCommand) {
 
-  }
+//   }
 
-  execute(model: KomposerViewModel, dot: KLoopViewModel) {
+//   getMutators(): ILoopMutator[] {
 
-    if (model.mutateMode == Mutator.MODE_DELETE) {
-      const c = model.komposer.channels[dot.channel];
-      c.delete(dot.player);
+//     function* list() {
+//       yield new MutateDelete();
+//       yield new MutateExplode();
+//     }
 
-      // delete the ui
-      var i = model.dots.indexOf(dot);
-      model.dots.splice(i, 1);
+//     return Array.from(list());
 
-    }
-    else if (model.mutateMode == Mutator.MODE_EXPLODE) {
-      const loops = KLoopUtils.explode(dot.player.getLoop().url);
-      const channel = model.komposer.channels[model.currentChannel];
-      this.addLoopsCommand.execute(model, channel, loops);
-    }
+//   }
+
+//   execute(model: KomposerViewModel, dot: KLoopViewModel) {
+
+//     // debugger;
+
+//     if (model.mutateMode == Mutator.MODE_DELETE) {
+
+//     }
+//     else if (model.mutateMode == Mutator.MODE_EXPLODE) {
+//     }
 
 
-  }
+//   }
 
-}
+// }

@@ -1,13 +1,15 @@
 <template>
 
     <div class="channel-strip">
-        <autoplayer auto-player.bind="channel.autoPlayerData"></autoplayer>
-        <toggle-button prop.bind="isCurrent"
-            click.delegate="selectClick()">Edit</toggle-button>
         <div>
             ${channel.name}
-
         </div>
+
+        <autoplayer auto-player.bind="channel.autoPlayerData"></autoplayer>
+
+        <toggle-button prop.bind="isCurrent"
+            click.delegate="selectClick()">Edit</toggle-button>
+
     </div>
 
 </template>

@@ -1,8 +1,6 @@
-
-
 import { KLoopViewModel } from "./dot";
 import { Komposer } from "../libs/komposer";
-import { Mutator } from "../libs/commands/mutate";
+import { MutateDelete, ILoopMutator } from "../libs/loopMutators";
 
 export class KomposerViewModel {
 
@@ -11,7 +9,7 @@ export class KomposerViewModel {
   currentChannel: number = 0;
   dots: KLoopViewModel[] = [];
 
-  mutateMode: string = Mutator.MODE_DELETE;
+  mutator: ILoopMutator = new MutateDelete();
 
 
 }

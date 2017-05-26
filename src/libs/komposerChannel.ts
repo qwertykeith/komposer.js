@@ -2,11 +2,13 @@ import { get } from '@easy-webpack/core';
 import { KLoopPlayer, KLoop } from "./kLoopPlayer";
 import { TransportEvents } from "./transportEvents";
 import { AutoPlayerModel, AutoPlayer } from "./autoPlayer";
+import { XYLocation } from "../viewModels/location";
 
 export class KomposerChannel {
 
   name: string = "Channel";
   autoPlayerData = new AutoPlayerModel();
+  // pos: XYLocation;
 
   players: KLoopPlayer[] = [];
   private auto: AutoPlayer = new AutoPlayer();

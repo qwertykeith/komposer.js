@@ -10,8 +10,9 @@
                     type="number"
                     value.bind="tempo & throttle:450"
                     class="tempo">
-                <button class="k-toggle-btn"
-                    click.delegate="toggleMutateMode()">Mutate mode: ${model.mutateMode}</toggle-button>
+                <button repeat.for="m of getMutators()"
+                    class="k-toggle-btn ${model.mutator.name==m.name?'on':''}"
+                    click.delegate="setMutator(m)">${m.name}</button>
             </div>
 
             <!--<p>Tempo: ${tempo}</p>-->

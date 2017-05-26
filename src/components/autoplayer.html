@@ -1,13 +1,20 @@
 <template>
 
-    ${autoPlayer.eventsPerMeasure} Events/Measure
-    <exponential-select value.bind="autoPlayer.eventsPerMeasure"></exponential-select>
-    ${autoPlayer.changeEveryMeasure} Changes/Measure
-    <exponential-select value.bind="autoPlayer.changeEveryMeasure"></exponential-select>
-    ${autoPlayer.lengthMeasures} Loop in measures
-    <exponential-select value.bind="autoPlayer.lengthMeasures"></exponential-select>
+
     <toggle-button prop.bind="autoPlayer.on"
         click.delegate="autoClick()">AUTO</toggle-button>
+
+    <div if.bind="autoPlayer.on">
+        ${autoPlayer.lengthMeasures | fixFraction} measures
+        <exponential-select value.bind="autoPlayer.lengthMeasures"></exponential-select>
+
+        ${autoPlayer.eventsPerMeasure | fixFraction} Events
+        <exponential-select value.bind="autoPlayer.eventsPerMeasure"></exponential-select>
+
+        Vary on ${autoPlayer.changeEveryMeasure | fixFraction}
+        <exponential-select value.bind="autoPlayer.changeEveryMeasure"></exponential-select>
+
+    </div>
 
 
 </template>

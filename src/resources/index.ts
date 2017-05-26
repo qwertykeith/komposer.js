@@ -5,7 +5,8 @@ export function configure(aurelia: FrameworkConfiguration) {
   // attributes
   aurelia.globalResources([
     './attributes/interact-draggable',
-    './attributes/interact-droppable'
+    './attributes/interact-droppable',
+    './valueConverters/fixFraction',
   ]);
 
 }
