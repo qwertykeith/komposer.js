@@ -33,15 +33,15 @@ export class LoopViewCustomElement {
       this.dispatch('loop-start', this.loop);
     }
 
+    this.htmlElement.ontouchend = (event) => {
+      this.dispatch('loop-stop', this.loop);
+    }
+
     this.htmlElement.onmouseenter = (event) => {
       this.dispatch('loop-start', this.loop);
     }
 
     this.htmlElement.onmouseleave = (event) => {
-      this.dispatch('loop-stop', this.loop);
-    }
-
-    this.htmlElement.ontouchend = (event) => {
       this.dispatch('loop-stop', this.loop);
     }
 

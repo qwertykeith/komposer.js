@@ -24,7 +24,7 @@ export class Welcome {
     private changeTempoCommandHandler: ChangeTempoCommandHandler,
     private addLoopsCommand: AddLoopsCommand) {
 
-    console.log('%c KOMPOSER!', 'background-color:green; color: white, font-weight:bold');
+    console.log('%c************ KOMPOSER! ************', 'background-color:green; color: white, font-weight:bold');
 
   }
 
