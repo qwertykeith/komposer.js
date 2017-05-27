@@ -32,6 +32,7 @@ export class MutateDeleteSound implements ILoopMutator {
 
     model.dots
       .filter(d => d.player.getLoop().url == url)
+      .filter(d => d.channel == model.currentChannel)
       .forEach(d => deleteer.mutate(model, d));
 
   }
@@ -47,6 +48,7 @@ export class MutateDeleteQuieter implements ILoopMutator {
 
     model.dots
       .filter(d => d.player.getLoop().volume <= vol)
+      .filter(d => d.channel == model.currentChannel)
       .forEach(d => deleteer.mutate(model, d));
 
   }

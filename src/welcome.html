@@ -19,6 +19,17 @@
             <!--NOTE this annoyingly has to be a div-->
             <div class="dot-canvas">
 
+                <div repeat.for="c of model.komposer.channels"
+                    class="draggable"
+                    interact-draggable="position.bind:c.pos"
+                    locationchange.delegate="placeElement($event)"
+                    interact-dragmove.delegate="moveElementOnEvent($event)">
+                    <channel-strip is-current.bind="$index==model.currentChannel"
+                        channel.bind="c"
+                        on-select.delegate="setChannel(c)"
+                        on-auto-toggle.delegate="toggleAuto(c)"></channel-strip>
+                </div>
+
                 <div repeat.for="dot of model.dots"
                     show.bind="dot.channel==model.currentChannel"
                     class="draggable"
@@ -31,16 +42,6 @@
                         loop-stop.delegate="stopTriggerDot($event.detail.player)"></loop-view>
                 </div>
 
-                <div repeat.for="c of model.komposer.channels"
-                    class="draggable"
-                    interact-draggable="position.bind:c.pos"
-                    locationchange.delegate="placeElement($event)"
-                    interact-dragmove.delegate="moveElementOnEvent($event)">
-                    <channel-strip is-current.bind="$index==model.currentChannel"
-                        channel.bind="c"
-                        on-select.delegate="setChannel(c)"
-                        on-auto-toggle.delegate="toggleAuto(c)"></channel-strip>
-                </div>
 
             </div>
 

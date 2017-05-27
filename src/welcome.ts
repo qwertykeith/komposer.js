@@ -42,11 +42,17 @@ export class Welcome {
   }
 
   setMutator(m: ILoopMutator) {
-    this.model.mutator = m;
+    if (this.model.mutator == m) {
+      this.model.mutator = undefined;
+
+    }
+    else {
+      this.model.mutator = m;
+    }
   }
 
   mutate(dot: KLoopViewModel) {
-    this.model.mutator.mutate(this.model, dot);
+    if (this.model.mutator) this.model.mutator.mutate(this.model, dot);
   }
 
   startTriggerDot(loop: KLoopPlayer) {

@@ -9,7 +9,7 @@ export class KomposerViewModel {
   currentChannel: number = 0;
   dots: KLoopViewModel[] = [];
 
-  mutator: ILoopMutator = new MutateDelete();
+  mutator?: ILoopMutator; //= new MutateDelete();
 
 
 }
