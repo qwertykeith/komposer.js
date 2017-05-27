@@ -36,8 +36,8 @@ export class ToggleButtonCustomElement {
 
   // }
 
-  click() {
-    //    alert("dgsdfg");
-  }
+  // click() {
+  //   //    alert("dgsdfg");
+  // }
 
 }

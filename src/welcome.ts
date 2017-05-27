@@ -1,17 +1,21 @@
 import { ActivateKomposerCommandHandler } from './libs/commands/activateKomposer';
+import { AddLoopsCommand } from './libs/commands/addLoops';
 import { ChangeTempoCommandHandler } from './libs/commands/changeTempo';
 import { KLoop, KLoopPlayer } from './libs/kLoopPlayer';
-import { KLoopUtils } from './libs/kLoopUtils';
 import { Komposer } from './libs/komposer';
 import { KomposerChannel } from './libs/komposerChannel';
-import { newGuid } from './libs/kUtils';
+import {
+  ILoopMutator,
+  MutateDelete,
+  MutateDeleteQuieter,
+  MutateDeleteSound,
+  MutateExplode
+} from './libs/loopMutators';
 import { LoopLibrary } from './libs/sounds/loopLibrary';
+import { KLoopViewModel } from './viewModels/dot';
+import { KomposerViewModel } from './viewModels/komposerViewModel';
 import { autoinject } from 'aurelia-dependency-injection';
-import { KLoopViewModel } from "./viewModels/dot";
-import { XYLocation } from "./viewModels/location";
-import { KomposerViewModel } from "./viewModels/komposerViewModel";
-import { AddLoopsCommand } from "./libs/commands/addLoops";
-import { MutateDelete, MutateExplode, MutateDeleteSound, ILoopMutator, MutateDeleteQuieter } from "./libs/loopMutators";
+import { DragUtils } from "./libs/dragUtils";
 
 @autoinject()
 export class Welcome {
@@ -22,7 +26,8 @@ export class Welcome {
     // private state: KomposerAppState,
     private activateKomposerCommandHandler: ActivateKomposerCommandHandler,
     private changeTempoCommandHandler: ChangeTempoCommandHandler,
-    private addLoopsCommand: AddLoopsCommand) {
+    private addLoopsCommand: AddLoopsCommand,
+    public dragUtils: DragUtils) {
 
     console.log('%c************ KOMPOSER! ************', 'background-color:green; color: white, font-weight:bold');
 
@@ -68,11 +73,17 @@ export class Welcome {
   //   debugger;
   // }
 
-  test(e, dot) {
-    console.log(e);
-    console.log(dot);
-    alert(e);
+  // test(e, dot) {
+  //   console.log(e);
+  //   console.log(dot);
+  //   alert(e);
+  // }
+
+
+  get currentChannel(): KomposerChannel {
+    return this.model.komposer.channels[this.model.currentChannel];
   }
+
 
   toggleAuto(channel: KomposerChannel) {
     channel.autoPlayerData.on = !channel.autoPlayerData.on;
@@ -122,38 +133,6 @@ export class Welcome {
   }
 
 
-
-  moveElementOnEvent(customEvent) {
-
-    // debugger;
-    let event = customEvent.detail;
-    let target = event.target;
-
-    // keep the dragged position in the data-x/data-y attributes
-    let x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
-    let y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
-
-    this.moveElement(target, { x, y })
-
-  }
-
-  placeElement(e) {
-    // debugger;
-    this.moveElement(e.target, e.detail);
-  }
-
-  moveElement(element, { x, y }) {
-
-    // translate the element
-    element.style.webkitTransform =
-      element.style.transform =
-      'translate(' + x + 'px, ' + y + 'px)';
-
-    // update the posiion attributes
-    element.setAttribute('data-x', x);
-    element.setAttribute('data-y', y);
-
-  }
 
 
 }

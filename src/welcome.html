@@ -4,52 +4,73 @@
         <div class="live-demo">
 
             <div>
-                <a href="https://github.com/qwertykeith/komposer.js">Github &amp; Explanation</a>
-                <label for="tempo">Tempo</label>
-                <input id="tempo"
-                    type="number"
-                    value.bind="tempo & throttle:450"
-                    class="tempo">
-                <button repeat.for="m of getMutators()"
-                    class="k-toggle-btn ${model.mutator.name==m.name?'on':''}"
-                    click.delegate="setMutator(m)">${m.name}</button>
+                <div id="logo-bit">
+                    Komposer
+                    <br />
+                    <a href="https://github.com/qwertykeith/komposer.js">Github &amp; Explanation</a>
+                </div>
+                <div id="tempo-bit">
+                    <label for="tempo">Tempo</label>
+                    <input id="tempo"
+                        type="number"
+                        value.bind="tempo & throttle:450"
+                        class="tempo">
+
+                </div>
             </div>
 
-            <!--<p>Tempo: ${tempo}</p>-->
-            <!--NOTE this annoyingly has to be a div-->
-            <div class="dot-canvas">
+            <div class="main-bit">
+                <div class="dot-view">
 
-                <div repeat.for="c of model.komposer.channels"
-                    class="draggable"
-                    interact-draggable="position.bind:c.pos"
-                    locationchange.delegate="placeElement($event)"
-                    interact-dragmove.delegate="moveElementOnEvent($event)">
-                    <channel-strip is-current.bind="$index==model.currentChannel"
-                        channel.bind="c"
-                        on-select.delegate="setChannel(c)"
-                        on-auto-toggle.delegate="toggleAuto(c)"></channel-strip>
+                    <div class="left-col">
+                        <channel-strip channel.bind="currentChannel"
+                            on-select.delegate="setChannel(currentChannel)"
+                            on-auto-toggle.delegate="toggleAuto(currentChannel)"></channel-strip>
+                    </div>
+
+                    <!--<p>Tempo: ${tempo}</p>-->
+                    <!--NOTE this annoyingly has to be a div-->
+                    <div class="dot-canvas">
+                        <div repeat.for="dot of model.dots"
+                            show.bind="dot.channel==model.currentChannel"
+                            class="draggable"
+                            interact-draggable="position.bind:dot.pos"
+                            locationchange.delegate="dragUtils.placeElement($event)"
+                            interact-dragmove.delegate="dragUtils.moveElementOnEvent($event)"
+                            interact-tap.delegate="mutate(dot)">
+                            <loop-view loop.bind="dot"
+                                loop-start.delegate="startTriggerDot($event.detail.player)"
+                                loop-stop.delegate="stopTriggerDot($event.detail.player)"></loop-view>
+                        </div>
+                    </div>
+
+
+                    <div class="right-col">
+                        <button repeat.for="m of getMutators()"
+                            class="k-toggle-btn ${model.mutator.name==m.name?'on':''}"
+                            click.delegate="setMutator(m)">${m.name}</button>
+
+                    </div>
+
                 </div>
 
-                <div repeat.for="dot of model.dots"
-                    show.bind="dot.channel==model.currentChannel"
-                    class="draggable"
-                    interact-draggable="position.bind:dot.pos"
-                    locationchange.delegate="placeElement($event)"
-                    interact-dragmove.delegate="moveElementOnEvent($event)"
-                    interact-tap.delegate="mutate(dot)">
-                    <loop-view loop.bind="dot"
-                        loop-start.delegate="startTriggerDot($event.detail.player)"
-                        loop-stop.delegate="stopTriggerDot($event.detail.player)"></loop-view>
-                </div>
+                <div>
 
+                    <div class="channel-canvas">
+                        <div repeat.for="c of model.komposer.channels">
+                            <channel-strip is-current.bind="$index==model.currentChannel"
+                                channel.bind="c"
+                                on-select.delegate="setChannel(c)"
+                                on-auto-toggle.delegate="toggleAuto(c)"></channel-strip>
+                        </div>
+
+                    </div>
+
+                </div>
 
             </div>
 
-            <!--<div class="channel-strips">
-
-            </div>-->
         </div>
-
 
 
     </section>

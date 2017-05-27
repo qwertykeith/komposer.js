@@ -18,13 +18,13 @@ export class TouchButtonCustomElement {
     this.htmlElement = element as HTMLElement;
 
     // this makes sure that touch works when the element is draggable
-    this.htmlElement.ontouchstart = (event) => {
-      this.htmlElement.dispatchEvent(
-        new CustomEvent("click", {
-          bubbles: true,
-        })
-      );
-    }
+    // this.htmlElement.ontouchstart = (event) => {
+    //   this.htmlElement.dispatchEvent(
+    //     new CustomEvent("click", {
+    //       bubbles: true,
+    //     })
+    //   );
+    // }
 
     // this.htmlElement.ontouchend = (event) => {
     //   this.htmlElement.dispatchEvent(

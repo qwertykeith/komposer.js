@@ -1,37 +1,4 @@
-// @import './channels.less';
-
-.draggable {
-  /*width: 25px;
-  height: 10px;
-  min-height: 6.5em;
-  margin: 10%;*/
-
-  /*background-color: #A69800;
-  color: white;
-
-  border-radius: 0.75em;
-  border-width: 3px;
-  border-style: solid;
-  border-color: #000;
-  padding: 4%;*/
-
-  position: absolute;
-
-  -webkit-transform: translate(0px, 0px);
-          transform: translate(0px, 0px);
-
-}
-
-// .draggable p{
-//   font-size: 7px;
-//   margin: -20px 0 0 -20px;
-// }
-
-#drag-me::before {
-  content: "#" attr(id);
-  font-weight: bold;
-}
-
+@import './vars.less';
 
 .live-demo{
   position: absolute;
@@ -45,41 +12,76 @@ label{
   color: #fff;
 }
 
-.k-toggle-btn {
-    margin: 5px;
-    display: inline-block;
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #666;
-    color: #ccc;
-    cursor: pointer;
-    background-color: #000;
-    text-transform: uppercase;
-
-    &.on {
-    background-color: #333;
-  }
+#logo-bit{
+  color: #fff;
+  position: absolute;
+  padding: 5px;
+  left: 0;
+  top: 0;
 }
 
-.exponential-btn{
-  font-size: 12px;
-
-  .k-toggle-btn{
-    padding: 5px;
-    margin: 5px;
-  }
+#tempo-bit{
+  position: absolute;
+  padding: 5px;
+  right: 0;
+  top: 0;
 }
 
-.trash{
+
+.canvas-base{
+    background: #666;
+    // top: @header-height;
+    top:0;
+    bottom: 0px;
     position: absolute;
+    // height: calc(~'100%' - @header-height);
+    height: calc(100%);
+}
+
+.main-bit{
+
+  position: absolute;
+  width: 100%;
+  top: @header-height;
+  bottom: @footer-height;
+  left: 0;
+  right: 0;
+
+  .channel-canvas{
+    position: absolute;
+    .canvas-base;
+    width: 100%;
+    top: 0;
+    left:0;
     right: 0;
-    bottom: 0;
-    color: #fff;
-    display: block;
-    width: 70px;
-    height: 71px;
-    background-color: #0f0000;
-    border-radius: 10px;
-    padding: 10px;
-    border: dotted;
   }
+
+
+  .dot-view{
+
+    .left-col{
+      position: absolute;
+      padding: 5px;
+      width: @dots-left-buffer;
+      top: 0;
+      left: 0;
+      bottom: 0;
+    }
+
+    .dot-canvas{
+      .canvas-base;
+      width: calc(~'100%' - (@dots-left-buffer + @dots-right-buffer));
+      left:@dots-left-buffer;
+      right: @dots-right-buffer;
+    }
+
+    .right-col{
+      position: absolute;
+      padding: 5px;
+      width: @dots-right-buffer;
+      top: 0;
+      right: 0;
+      bottom: 0;
+    }
+  }
+}
