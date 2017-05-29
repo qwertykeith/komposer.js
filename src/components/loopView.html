@@ -1,13 +1,9 @@
 <template>
     <div class="sound-loop"
-        if.bind="loop.player.isLoaded"
+        if.bind="player.isLoaded"
         css.bind="style"
         title.bind="getSoundName()">
         <div class="sound-loop-tick"
             show.bind="showTick"></div>
-        <!--${loop.isEditing}
-        <div if.bind="loop.isEditing">
-            Close
-        </div>-->
     </div>
 </template>

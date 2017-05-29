@@ -1,0 +1,22 @@
+<template>
+
+    <button repeat.for="m of getMutators()"
+        class="k-toggle-btn ${model.mutator.name==m.name?'on':''}"
+        click.delegate="setMutator(m)">${m.name}</button>
+
+    <!--NOTE this annoyingly has to be a div-->
+    <div class="dot-canvas">
+        <div repeat.for="player of channel.players"
+            class="draggable"
+            interact-draggable="position.bind:player.pos"
+            locationchange.delegate="dragUtils.placeElement($event)"
+            interact-dragmove.delegate="dragUtils.moveElementOnEvent($event)"
+            interact-tap.delegate="mutate(player)">
+            <loop-view player.bind="player"
+                loop-start.delegate="startPlayer($event.detail)"
+                loop-stop.delegate="stopPlayer($event.detail)"></loop-view>
+        </div>
+    </div>
+
+
+</template>

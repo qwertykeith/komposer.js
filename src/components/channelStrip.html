@@ -5,11 +5,17 @@
             ${channel.name}
         </div>
 
-        <autoplayer auto-player.bind="channel.autoPlayerData"></autoplayer>
+        <autoplayer auto-player.bind="channel.autoPlayerData"
+            on-auto-toggle.delegate="toggleAuto(c)"></autoplayer>
 
-        <toggle-button prop.bind="isCurrent"
-            click.delegate="selectClick()">Edit</toggle-button>
+        <!--<toggle-button prop.bind="isCurrent"
+            click.delegate="selectClick()">Edit</toggle-button>-->
 
     </div>
+
+    <player-canvas channel.bind="channel">
+
+    </player-canvas>
+
 
 </template>

@@ -15,6 +15,12 @@ export class ChannelStripCustomElement {
 
   }
 
+  toggleAuto(channel: KomposerChannel) {
+    this.channel.autoPlayerData.on = !this.channel.autoPlayerData.on;
+    if (!this.channel.autoPlayerData.on) this.channel.allOff();
+  }
+
+
   selectClick() {
     this.element.dispatchEvent(
       new CustomEvent("on-select", {

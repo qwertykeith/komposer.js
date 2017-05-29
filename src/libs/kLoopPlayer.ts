@@ -2,6 +2,7 @@ import { setTimeout } from 'timers';
 import { SampleTriggerEvents } from './sampleTriggerEvents';
 import Tone from 'tone'
 import { newGuid } from "./kUtils";
+import { XYLocation } from "../viewModels/location";
 
 
 /**
@@ -9,14 +10,12 @@ import { newGuid } from "./kUtils";
  */
 export class KLoop {
 
-  guid: string;
-
   constructor(
     public url: string,
     public beat: number,
     public volume: number
   ) {
-    this.guid = newGuid();
+
   }
 }
 
@@ -26,6 +25,7 @@ export class KLoopPlayer {
   private seq: Tone.Sequence;
   private sampleTriggerEvents: SampleTriggerEvents = new SampleTriggerEvents();
 
+  pos: XYLocation;
   isLoaded = false;
 
   constructor(private kloop: KLoop) {

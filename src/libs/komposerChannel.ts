@@ -18,7 +18,6 @@ export class KomposerChannel {
     this.startClock();
   }
 
-
   delete(player: KLoopPlayer) {
     //    const player = this.players.filter(p => p.getLoop() == loop);
     const playerIndex = this.players.indexOf(player);
@@ -26,9 +25,6 @@ export class KomposerChannel {
     console.log("deleted");
     console.log(playerIndex);
   }
-
-
-
 
   allOff() {
     this.players.forEach(p => p.on = false);

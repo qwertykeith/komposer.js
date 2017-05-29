@@ -12,7 +12,6 @@ import {
   MutateExplode
 } from './libs/loopMutators';
 import { LoopLibrary } from './libs/sounds/loopLibrary';
-import { KLoopViewModel } from './viewModels/dot';
 import { KomposerViewModel } from './viewModels/komposerViewModel';
 import { autoinject } from 'aurelia-dependency-injection';
 import { DragUtils } from "./libs/dragUtils";
@@ -27,77 +26,26 @@ export class Welcome {
     private activateKomposerCommandHandler: ActivateKomposerCommandHandler,
     private changeTempoCommandHandler: ChangeTempoCommandHandler,
     private addLoopsCommand: AddLoopsCommand,
-    public dragUtils: DragUtils) {
+  ) {
 
     console.log('%c************ KOMPOSER! ************', 'background-color:green; color: white, font-weight:bold');
 
   }
 
-  getMutators(): ILoopMutator[] {
-
-    function* list() {
-      yield new MutateDelete();
-      yield new MutateExplode();
-      yield new MutateDeleteSound();
-      yield new MutateDeleteQuieter();
-    }
-
-    return Array.from(list());
-
-  }
-
-  setMutator(m: ILoopMutator) {
-    if (this.model.mutator == m) {
-      this.model.mutator = undefined;
-
-    }
-    else {
-      this.model.mutator = m;
-    }
-  }
-
-  mutate(dot: KLoopViewModel) {
-    if (this.model.mutator) this.model.mutator.mutate(this.model, dot);
-  }
-
-  startTriggerDot(loop: KLoopPlayer) {
-    loop.on = true;
-  }
-
-  stopTriggerDot(loop: KLoopPlayer) {
-    loop.on = false;
-  }
-
-
-  // trashDrop(event) {
-  //   debugger;
-  // }
-
-  // test(e, dot) {
-  //   console.log(e);
-  //   console.log(dot);
-  //   alert(e);
+  // get currentChannel(): KomposerChannel {
+  //   return this.model.komposer.channels[this.model.currentChannel];
   // }
 
 
-  get currentChannel(): KomposerChannel {
-    return this.model.komposer.channels[this.model.currentChannel];
-  }
 
+  // setChannel(channel: KomposerChannel) {
 
-  toggleAuto(channel: KomposerChannel) {
-    channel.autoPlayerData.on = !channel.autoPlayerData.on;
-    if (!channel.autoPlayerData.on) channel.allOff();
-  }
+  //   const channelNumber = this.model.komposer.channels.indexOf(channel);
 
-  setChannel(channel: KomposerChannel) {
+  //   if (channelNumber < 0 || channelNumber >= this.model.komposer.channels.length) return;
 
-    const channelNumber = this.model.komposer.channels.indexOf(channel);
-
-    if (channelNumber < 0 || channelNumber >= this.model.komposer.channels.length) return;
-
-    this.model.currentChannel = channelNumber;
-  }
+  //   this.model.currentChannel = channelNumber;
+  // }
 
   private addLoopsAndChannel(channelName: string, loops: KLoop[]) {
     const c = this.model.komposer.addChannel(channelName);
@@ -107,7 +55,7 @@ export class Welcome {
 
   private addLoops(channel: KomposerChannel, loops: KLoop[]) {
 
-    this.addLoopsCommand.execute(this.model, channel, loops);
+    this.addLoopsCommand.execute(channel, loops);
   }
 
   attached() {
@@ -117,6 +65,10 @@ export class Welcome {
     this.addLoopsAndChannel("Beat Box", LoopLibrary.getBeatBox(150));
     this.addLoopsAndChannel("Simple 1", LoopLibrary.getSimpleBeat1());
     this.addLoopsAndChannel("Fast 1", LoopLibrary.getSimpleBeat2Fast());
+    this.addLoopsAndChannel("Lots", LoopLibrary.lots());
+    // this.addLoopsAndChannel("Melody", LoopLibrary.lameMelody1());
+
+    // this.addLoopsAndChannel("Test", LoopLibrary.getTest());
 
   }
 

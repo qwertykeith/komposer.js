@@ -66,6 +66,18 @@ export const LoopLibrary = {
     return getRandomLoops(40, urls, Array(20).fill(1 / 2).concat([1 / 32, 1 / 24, 1 / 4, 1 / 12, 1 / 16]));
   },
 
+  lots: () => {
+    var urls = getSouldUrls(PercUrls);
+    return getRandomLoops(40, urls, Array(40).fill(1 / 8).concat([1 / 32, 1 / 24, 1 / 4, 1 / 12, 1 / 16]));
+  },
+
+  getTest: () => {
+    var urls = getSouldUrls(SohoUrls);
+    return getRandomLoops(3, urls, Array(4).fill(1 / 8).concat([1 / 16, 1 / 2, 1 / 16]));
+  },
+
+
+
   //   soundUlrsDBass = getSouldUrls(DBass);
 
   // soundUlrsDAnalogDK1 = getSouldUrls(DAnalogDK1);

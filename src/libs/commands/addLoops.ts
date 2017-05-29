@@ -1,4 +1,3 @@
-import { KLoopViewModel } from '../../viewModels/dot';
 import { XYLocation } from '../../viewModels/location';
 import { KLoop, KLoopPlayer } from '../kLoopPlayer';
 import { KomposerChannel } from '../komposerChannel';
@@ -7,25 +6,25 @@ import { KomposerViewModel } from './../../viewModels/komposerViewModel';
 
 export class AddLoopsCommand {
 
-  execute(model: KomposerViewModel, channel: KomposerChannel, loops: KLoop[]) {
+  execute(channel: KomposerChannel, loops: KLoop[]) {
 
-    const chanIndex = model.komposer.channels.indexOf(channel);
     loops.forEach(loop => {
       const player = channel.addLoop(loop);
-      this.addPlayer(model, player, chanIndex);
+      this.addPlayer(channel, player);
     });
 
   }
 
-  private addPlayer(model: KomposerViewModel, player: KLoopPlayer, channel: number) {
-    const getNewRandomDot = (player: KLoopPlayer): KLoopViewModel => {
+  private addPlayer(channel: KomposerChannel, player: KLoopPlayer) {
+    const setRandomLocation = (player: KLoopPlayer) => {
       const pos = this.getRandomPos(300, 300);
-      var dot = <KLoopViewModel>{ id: newGuid(), pos: pos, player: player, channel: channel };
-      return dot;
+      player.pos = pos;
+      // var dot = <KLoopPlayer>{ pos: pos, player: player, channel: channel };
+      //      return player;
     }
 
-    const dot = getNewRandomDot(player);
-    model.dots.push(dot);
+    setRandomLocation(player);
+    //    channel.players.push(p);
 
   }
 

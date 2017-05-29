@@ -5,13 +5,12 @@ import { log } from 'util';
 import { SampleTriggerEvents } from './../libs/sampleTriggerEvents';
 import { inject, bindable, bindingMode } from 'aurelia-framework';
 import { autoinject } from 'aurelia-dependency-injection';
-import { KLoopViewModel } from "../viewModels/dot";
 
 @autoinject()
 export class LoopViewCustomElement {
 
   @bindable({ defaultBindingMode: bindingMode.twoWay })
-  loop: KLoopViewModel;
+  player: KLoopPlayer;
 
   showTick: boolean;
 
@@ -22,45 +21,45 @@ export class LoopViewCustomElement {
     this.htmlElement = element as HTMLElement;
 
     this.htmlElement.ontouchmove = (event) => {
-      this.dispatch('loop-start', this.loop);
+      this.dispatch('loop-start', this.player);
     }
 
     this.htmlElement.onmousedown = (event) => {
-      this.dispatch('loop-start', this.loop);
+      this.dispatch('loop-start', this.player);
     }
 
     this.htmlElement.ontouchstart = (event) => {
-      this.dispatch('loop-start', this.loop);
+      this.dispatch('loop-start', this.player);
     }
 
     this.htmlElement.ontouchend = (event) => {
-      this.dispatch('loop-stop', this.loop);
+      this.dispatch('loop-stop', this.player);
     }
 
     this.htmlElement.onmouseenter = (event) => {
-      this.dispatch('loop-start', this.loop);
+      this.dispatch('loop-start', this.player);
     }
 
     this.htmlElement.onmouseleave = (event) => {
-      this.dispatch('loop-stop', this.loop);
+      this.dispatch('loop-stop', this.player);
     }
 
     this.htmlElement.onmouseup = (event) => {
-      this.dispatch('loop-stop', this.loop);
+      this.dispatch('loop-stop', this.player);
     }
 
   }
 
   private getLoopInfo() {
-    return this.loop.player.getLoop();
+    return this.player.getLoop();
   }
 
-  loopChanged(newLoop: KLoopViewModel, oldLoop: KLoopViewModel) {
+  playerChanged(newLoop: KLoopPlayer, oldLoop: KLoopPlayer) {
     if (oldLoop != newLoop) {
 
       let lastTimeout: any = null;
 
-      this.loop.player.listen(() => {
+      this.player.listen(() => {
         // debugger;
         clearTimeout(lastTimeout);
         this.showTick = true;

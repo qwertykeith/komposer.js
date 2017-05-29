@@ -6,5 +6,6 @@ export function configure(aurelia) {
     './exponentialSelect',
     './autoplayer',
     './touchButton',
+    './playerCanvas',
   );
 }
