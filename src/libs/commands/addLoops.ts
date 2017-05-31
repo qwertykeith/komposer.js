@@ -29,8 +29,8 @@ export class AddLoopsCommand {
   }
 
   private getRandomPos(xw: number, yw: number): XYLocation {
-    const x = Math.floor(300 * Math.random());
-    const y = Math.floor(330 * Math.random());
+    const x = Math.floor(350 * Math.random());
+    const y = Math.floor(250 * Math.random());
     return { x: x, y: y };
   }
 

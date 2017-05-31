@@ -10,6 +10,8 @@ export interface ILoopMutator {
 
 }
 
+
+
 export class MutateDelete implements ILoopMutator {
   name = "Delete";
   mutate(channel: KomposerChannel, player: KLoopPlayer) {

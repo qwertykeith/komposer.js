@@ -80,10 +80,12 @@ export class LoopViewCustomElement {
   // }
 
   get style() {
+    const size = 50;
 
-    const size = 400 * this.getLoopInfo().beat;
+    // const size = 400 * this.getLoopInfo().beat;
+    let border = (60 * (1 / (this.getLoopInfo().beat))) / size;
 
-
+    if (border > size / 2) border = size / 2;
 
     // make up a color from the name
     const name = this.getSoundName();
@@ -103,7 +105,7 @@ export class LoopViewCustomElement {
 
     const alpha = this.getLoopInfo().volume;
 
-    return `background-color: rgba(${r}, ${g}, ${b}, ${alpha}); width:${size}px; height: ${size}px;`;
+    return `width: ${size}px; height: ${size}px; border-color: rgba(${r}, ${g}, ${b}, ${alpha}); border-width:${border}px;`;
   }
 
   // strip off the full url and get the name of the file

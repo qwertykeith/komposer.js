@@ -20,6 +20,7 @@ export class KomposerChannel {
 
   delete(player: KLoopPlayer) {
     //    const player = this.players.filter(p => p.getLoop() == loop);
+    player.on = false;
     const playerIndex = this.players.indexOf(player);
     if (playerIndex >= 0) this.players.splice(playerIndex, 1);
     console.log("deleted");
@@ -48,5 +49,8 @@ export class KomposerChannel {
     this.players.push(player);
     return player;
   }
+
+
+
 
 }

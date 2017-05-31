@@ -1,9 +1,10 @@
 import { autoinject, inject } from 'aurelia-dependency-injection';
 import { KomposerChannel } from '../libs/komposerChannel';
 import { bindable } from 'aurelia-framework';
+import { GenerateRandomCommand } from "../libs/commands/generateRandom";
 
 // @autoinject()
-@inject(Element)
+@inject(Element, GenerateRandomCommand)
 export class ChannelStripCustomElement {
 
   @bindable()
@@ -11,7 +12,9 @@ export class ChannelStripCustomElement {
   @bindable()
   isCurrent: boolean;
 
-  constructor(private element: HTMLElement) {
+  constructor(
+    private element: HTMLElement,
+    private generateRandomCommand: GenerateRandomCommand) {
 
   }
 
@@ -20,6 +23,9 @@ export class ChannelStripCustomElement {
     if (!this.channel.autoPlayerData.on) this.channel.allOff();
   }
 
+  random() {
+    this.generateRandomCommand.execute(this.channel);
+  }
 
   selectClick() {
     this.element.dispatchEvent(

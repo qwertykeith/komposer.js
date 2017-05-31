@@ -36,6 +36,52 @@ function getRandomLoops(count: number, urls: string[], beats: number[]) {
 
 export const LoopLibrary = {
 
+  getRandomSounds(): KLoop[] {
+
+    const urlses = [
+      VocalKit1Urls,
+      DAnalogDK1Urls,
+      DBassUrls,
+      Kwahmah02Urls,
+      PercUrls,
+      SohoUrls,
+      BeatBoxUrls,
+      WizkitUrls,
+    ];
+
+    var urls = getRandom(urlses);
+    var count = Math.floor(Math.random() * 20);
+    var sounds = getSouldUrls(urls);
+    var beats = Array(10).fill(1 / 16)
+      .concat(Array(10).fill(1 / 4))
+      .concat(Array(10).fill(1 / 8))
+      .concat(Array(10).fill(1 / 1))
+      .concat(Array(10).fill(1 / 32))
+      ;
+
+    return getRandomLoops(count, sounds, beats);
+
+    // function* getSomVariations(){
+    // const looptimes=Math.floor(Math.random()*5);
+
+    // for (var i = 0; i < looptimes; i++) {
+    //     const sound = getRandom(urls);
+    //     const beat = getRandom(beats);
+    //     var vol = 1;
+    //     loops.push(new KLoop(sound, beat, vol));
+
+    // }
+
+
+    // }
+
+
+
+    //     return getRandomLoops(20, urls, Array(10).fill(1 / 16).concat(1 / 32));
+
+
+  },
+
   getBeatBox: (count: number) => {
     var urls = getSouldUrls(BeatBoxUrls);
     return getRandomLoops(count, urls, someBeats);
