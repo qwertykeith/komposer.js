@@ -4,16 +4,24 @@
     <toggle-button prop.bind="autoPlayer.on"
         click.delegate="autoClick()">AUTO</toggle-button>
 
-    <div if.bind="autoPlayer.on">
-        ${autoPlayer.lengthMeasures | fixFraction} measures
-        <exponential-select value.bind="autoPlayer.lengthMeasures"></exponential-select>
+    <div if.bind="autoPlayer.on"
+        class="auto-player">
 
-        ${autoPlayer.eventsPerMeasure | fixFraction} Events
-        <exponential-select value.bind="autoPlayer.eventsPerMeasure"></exponential-select>
+        <div class="auto-prop">
+            ${autoPlayer.lengthMeasures | fixFraction} measures
+            <exponential-select value.bind="autoPlayer.lengthMeasures"></exponential-select>
+        </div>
 
-        Vary on ${autoPlayer.changeEveryMeasure | fixFraction}
-        <exponential-select value.bind="autoPlayer.changeEveryMeasure"></exponential-select>
+        <div class="auto-prop">
+            ${autoPlayer.eventsPerMeasure | fixFraction} Events
+            <exponential-select value.bind="autoPlayer.eventsPerMeasure"></exponential-select>
+        </div>
 
+        <div class="auto-prop">
+            Vary on ${autoPlayer.changeEveryMeasure | fixFraction}
+            <exponential-select value.bind="autoPlayer.changeEveryMeasure"></exponential-select>
+
+        </div>
     </div>
 
 

@@ -2,7 +2,8 @@
 
 .live-demo{
   position: absolute;
-  background-color: #000; /*#4F678B*/;
+  // background-color: #000; /*#4F678B*/;
+  background-color: #fff;
   width: 100%;
   height: 100%; 
   display: block;
@@ -12,19 +13,34 @@ label{
   color: #fff;
 }
 
+.card{
+  box-shadow: 0 4px 2px -2px gray;
+  margin-bottom: 5px;
+
+}
+
+.header-bit{
+
+position: fixed;
+height: @header-height;
+background-color: #000;
+    width: 100%;
+z-index: 99999;
+
 #logo-bit{
-  color: #fff;
-  position: absolute;
   padding: 5px;
-  left: 0;
-  top: 0;
+  color: #fff;
+  float: left;
+  width: 200px;
 }
 
 #tempo-bit{
-  // position: absolute;
+//  position: absolute;
   padding: 5px;
-  right: 0;
-  top: 0;
+float: right;
+}
+
+
 }
 
 
@@ -39,6 +55,8 @@ label{
 // }
 
 .main-bit{
+
+padding-top: @header-height;
 
   // position: absolute;
   width: 100%;

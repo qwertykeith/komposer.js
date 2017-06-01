@@ -3,7 +3,7 @@
 
         <div class="live-demo">
 
-            <div>
+            <div class="header-bit">
                 <div id="logo-bit">
                     Komposer
                     <br />
@@ -24,24 +24,11 @@
             <div class="main-bit">
 
 
-                <div repeat.for="c of model.komposer.channels">
+                <div class="card"
+                    repeat.for="c of model.komposer.channels">
                     <channel-strip is-current.bind="$index==model.currentChannel"
                         channel.bind="c"></channel-strip>
                 </div>
-
-
-                <!--<div class="dot-view">
-                    <div class="left-col">
-                    </div>
-                    <div class="right-col">
-                    </div>
-                </div>
-                <div>
-                    <div class="channel-canvas">
-                    </div>
-
-                </div>-->
-
             </div>
 
         </div>

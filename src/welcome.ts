@@ -32,21 +32,6 @@ export class Welcome {
 
   }
 
-  // get currentChannel(): KomposerChannel {
-  //   return this.model.komposer.channels[this.model.currentChannel];
-  // }
-
-
-
-  // setChannel(channel: KomposerChannel) {
-
-  //   const channelNumber = this.model.komposer.channels.indexOf(channel);
-
-  //   if (channelNumber < 0 || channelNumber >= this.model.komposer.channels.length) return;
-
-  //   this.model.currentChannel = channelNumber;
-  // }
-
   private addLoopsAndChannel(channelName: string, loops: KLoop[]) {
     const c = this.model.komposer.addChannel(channelName);
 
@@ -62,10 +47,15 @@ export class Welcome {
 
     this.activateKomposerCommandHandler.execute(true);
 
-    this.addLoopsAndChannel("Beat Box", LoopLibrary.getBeatBox(150));
-    this.addLoopsAndChannel("Simple 1", LoopLibrary.getSimpleBeat1());
-    this.addLoopsAndChannel("Fast 1", LoopLibrary.getSimpleBeat2Fast());
-    this.addLoopsAndChannel("Lots", LoopLibrary.lots());
+    this.addLoopsAndChannel("d.kfhd.khfg", LoopLibrary.getRandomSounds());
+    this.addLoopsAndChannel("d.kfhd.khfg", LoopLibrary.getRandomSounds());
+    this.addLoopsAndChannel("d.kfhd.khfg", LoopLibrary.getRandomSounds());
+    this.addLoopsAndChannel("d.kfhd.khfg", LoopLibrary.getRandomSounds());
+
+    // this.addLoopsAndChannel("Beat Box", LoopLibrary.getBeatBox(150));
+    // this.addLoopsAndChannel("Simple 1", LoopLibrary.getSimpleBeat1());
+    // this.addLoopsAndChannel("Fast 1", LoopLibrary.getSimpleBeat2Fast());
+    // this.addLoopsAndChannel("Lots", LoopLibrary.lots());
     // this.addLoopsAndChannel("Melody", LoopLibrary.lameMelody1());
 
     // this.addLoopsAndChannel("Test", LoopLibrary.getTest());
