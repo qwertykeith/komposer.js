@@ -11,12 +11,12 @@ export class AutoplayerCustomElement {
 
   }
 
-  autoClick() {
-    this.element.dispatchEvent(
-      new CustomEvent("on-auto-toggle", {
-        bubbles: true,
-      })
-    );
-  }
+  // autoClick() {
+  //   this.element.dispatchEvent(
+  //     new CustomEvent("on-auto-toggle", {
+  //       bubbles: true,
+  //     })
+  //   );
+  // }
 
 }

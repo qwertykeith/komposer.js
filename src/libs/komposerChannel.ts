@@ -3,6 +3,7 @@ import { KLoopPlayer, KLoop } from "./kLoopPlayer";
 import { TransportEvents } from "./transportEvents";
 import { AutoPlayerModel, AutoPlayer } from "./autoPlayer";
 import { XYLocation } from "../viewModels/location";
+import { ChannelTriggerEvents } from "./channelTriggerEvents";
 
 export class KomposerChannel {
 
@@ -10,11 +11,14 @@ export class KomposerChannel {
   autoPlayerData = new AutoPlayerModel();
   pos = <XYLocation>{ x: 0, y: 0 };
 
+  //  showTick: boolean;
+
   players: KLoopPlayer[] = [];
   private auto: AutoPlayer = new AutoPlayer();
 
-  constructor() {
+  private triggerEvents: ChannelTriggerEvents = new ChannelTriggerEvents();
 
+  constructor() {
     this.startClock();
   }
 
@@ -44,9 +48,22 @@ export class KomposerChannel {
 
   }
 
+  listen(callback: () => void) {
+    this.triggerEvents.listen(() => {
+      callback();
+    })
+  }
+
   addLoop(loop: KLoop): KLoopPlayer {
     const player = new KLoopPlayer(loop);
     this.players.push(player);
+
+    let lastTimeout: any = null;
+
+    player.listen(() => {
+      this.triggerEvents.dispatch();
+    });
+
     return player;
   }
 

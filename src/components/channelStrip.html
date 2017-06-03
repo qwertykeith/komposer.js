@@ -1,26 +1,38 @@
 <template>
 
     <div class="channel-strip">
-        <div>
-            ${channel.name}
+        <div class="controls-wrapper">
+            <div>
+                ${channel.name}
+            </div>
+
+            <a class="channel-something ${showTick?'tick-on':''}"></a>
+            <!--${showTick}-->
+
+            <toggle-button prop.bind="autoPlayer.on"
+                click.delegate="toggleAuto()">AUTO</toggle-button>
+
+
+
+            <!--<toggle-button prop.bind="isCurrent"
+              click.delegate="selectClick()">Edit</toggle-button>-->
+
+            <button class="k-toggle-btn"
+                click.delegate="random()">
+                Random
+            </button>
+
+            <button class="k-toggle-btn"
+                click.delegate="showExtra=!showExtra">
+                Open
+            </button>
+
         </div>
 
-        <autoplayer auto-player.bind="channel.autoPlayerData"
-            on-auto-toggle.delegate="toggleAuto(c)"></autoplayer>
-
-        <!--<toggle-button prop.bind="isCurrent"
-            click.delegate="selectClick()">Edit</toggle-button>-->
-
-        <button class="k-toggle-btn"
-            click.delegate="random()">
-            Random
-        </button>
-
+        <div if.bind="showExtra">
+            <autoplayer auto-player.bind="channel.autoPlayerData"></autoplayer>
+            <player-canvas channel.bind="channel"></player-canvas>
+        </div>
     </div>
-
-    <player-canvas channel.bind="channel">
-
-    </player-canvas>
-
 
 </template>
