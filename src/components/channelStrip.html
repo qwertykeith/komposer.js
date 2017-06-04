@@ -2,9 +2,9 @@
 
     <div class="channel-strip">
         <div class="controls-wrapper">
-            <div>
-                ${channel.name}
-            </div>
+            <input type="text"
+                class="channel-name"
+                value.bind="channel.name">
 
             <a class="channel-something ${showTick?'tick-on':''}"></a>
             <!--${showTick}-->

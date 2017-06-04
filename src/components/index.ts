@@ -7,5 +7,6 @@ export function configure(aurelia) {
     './autoplayer',
     './touchButton',
     './playerCanvas',
+    './header'
   );
 }

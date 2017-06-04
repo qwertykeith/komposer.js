@@ -12,10 +12,12 @@
 
 // }
 
+  @channel-background:#000;
+
   .channel-strip {
     .box-base;
     // pointer-events:all;
-    background-color: #000;
+    background-color: @channel-background;
     display: block;
     margin: 0;
     padding: 10px;
@@ -44,5 +46,16 @@
       }
 
     }
+
+    .channel-name{
+      background-color: @channel-background;
+    max-width: 150px;
+    border: none;
+    
+:focused{
+      border: 1px dotted #666;
+}
+
+        }
   }
 

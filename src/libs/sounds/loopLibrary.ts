@@ -50,7 +50,7 @@ export const LoopLibrary = {
     ];
 
     var urls = getRandom(urlses);
-    var count = Math.floor(Math.random() * 20);
+    var count = Math.floor(Math.random() * 220);
     var sounds = getSouldUrls(urls);
     var beats = Array(10).fill(1 / 16)
       .concat(Array(10).fill(1 / 4))

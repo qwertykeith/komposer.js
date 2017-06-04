@@ -1,20 +1,10 @@
 import { ActivateKomposerCommandHandler } from './libs/commands/activateKomposer';
 import { AddLoopsCommand } from './libs/commands/addLoops';
-import { ChangeTempoCommandHandler } from './libs/commands/changeTempo';
-import { KLoop, KLoopPlayer } from './libs/kLoopPlayer';
-import { Komposer } from './libs/komposer';
+import { KLoop } from './libs/kLoopPlayer';
 import { KomposerChannel } from './libs/komposerChannel';
-import {
-  ILoopMutator,
-  MutateDelete,
-  MutateDeleteQuieter,
-  MutateDeleteSound,
-  MutateExplode
-} from './libs/loopMutators';
 import { LoopLibrary } from './libs/sounds/loopLibrary';
 import { KomposerViewModel } from './viewModels/komposerViewModel';
 import { autoinject } from 'aurelia-dependency-injection';
-import { DragUtils } from "./libs/dragUtils";
 
 @autoinject()
 export class Welcome {
@@ -24,7 +14,7 @@ export class Welcome {
   constructor(
     // private state: KomposerAppState,
     private activateKomposerCommandHandler: ActivateKomposerCommandHandler,
-    private changeTempoCommandHandler: ChangeTempoCommandHandler,
+    // private changeTempoCommandHandler: ChangeTempoCommandHandler,
     private addLoopsCommand: AddLoopsCommand,
   ) {
 
@@ -63,16 +53,16 @@ export class Welcome {
   }
 
 
-  get tempo(): number {
-    return Komposer.tempo;
+  // get tempo(): number {
+  //   return Komposer.tempo;
 
-    //    return Math.round(this.state.data.tempo);
-  }
+  //   //    return Math.round(this.state.data.tempo);
+  // }
 
-  set tempo(bpm: number) {
-    this.changeTempoCommandHandler.execute(bpm);
-    // Komposer.tempo = bpm;
-  }
+  // set tempo(bpm: number) {
+  //   this.changeTempoCommandHandler.execute(bpm);
+  //   // Komposer.tempo = bpm;
+  // }
 
 
 
