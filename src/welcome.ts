@@ -37,10 +37,10 @@ export class Welcome {
 
     this.activateKomposerCommandHandler.execute(true);
 
-    this.addLoopsAndChannel("d.kfhd.khfg", LoopLibrary.getRandomSounds());
-    this.addLoopsAndChannel("d.kfhd.khfg", LoopLibrary.getRandomSounds());
-    this.addLoopsAndChannel("d.kfhd.khfg", LoopLibrary.getRandomSounds());
-    this.addLoopsAndChannel("d.kfhd.khfg", LoopLibrary.getRandomSounds());
+    this.addLoopsAndChannel("1", LoopLibrary.getRandomSounds());
+    this.addLoopsAndChannel("2", LoopLibrary.getRandomSounds());
+    this.addLoopsAndChannel("3", LoopLibrary.getRandomSounds());
+    this.addLoopsAndChannel("4", LoopLibrary.getRandomSounds());
 
     // this.addLoopsAndChannel("Beat Box", LoopLibrary.getBeatBox(150));
     // this.addLoopsAndChannel("Simple 1", LoopLibrary.getSimpleBeat1());
