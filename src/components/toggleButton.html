@@ -1,7 +1,9 @@
 <template>
-    <touch-button class="k-toggle-btn ${prop ? 'on' : ''}"
-        click.delegate="">
-        <slot></slot>
-    </touch-button>
+    <div class="k-toggle-btn ${prop ? 'btn-on' : ''}">
+        <touch-button click.delegate="">
+            <slot></slot>
+
+        </touch-button>
+    </div>
 
 </template>

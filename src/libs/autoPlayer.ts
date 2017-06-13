@@ -5,10 +5,13 @@ import { TransportEvents } from './transportEvents';
 
 
 export class AutoPlayerModel {
-  public on: boolean = false;
-  public eventsPerMeasure = 16; // 16
-  public lengthMeasures = 2;
-  public changeEveryMeasure = 8;
+  on: boolean = false;
+  eventsPerMeasure = 16; // 16
+  phraseLength = 2;
+  loopLength = 8;
+  changeEveryMeasure = 8;
+
+  fillOn = false;
   // private lastLoop: KLoop;
 }
 
@@ -24,16 +27,12 @@ export class AutoPlayer {
     let i = 0;
 
 
-    const arrangeCurve = (measure: number): number => {
+    const arrangeCurve = (measure: number, fill: boolean): number => {
       var progress = measure / data.changeEveryMeasure;
       var rounded = Math.floor(progress);
       var fractionPart = progress - rounded;
 
-      // return (fractionPart < (1 - 1 / 8))||(fractionPart < 0.5 && fractionPart > (0.5 - 1 / 8))
-      //   ? rounded
-      //   : progress;
-
-      return (fractionPart < 0.75)
+      return (fractionPart < 0.75 && fill)
         ? rounded
         : progress;
     };
@@ -41,12 +40,18 @@ export class AutoPlayer {
     /////-------------------
     if (!data.on) return;
 
+    measure = measure % data.loopLength;
+
+    // measure=measure>=1
+    //   ? measure%data.loopLength
+    //   :
+
     const eventIndex = Math.floor(measure * data.eventsPerMeasure);
-    const eventLength = data.lengthMeasures * data.eventsPerMeasure;
+    const eventLength = data.phraseLength * data.eventsPerMeasure;
 
     let loopIndex = eventIndex % eventLength;
 
-    const addIndex = arrangeCurve(measure) * data.eventsPerMeasure;
+    const addIndex = arrangeCurve(measure, data.fillOn) * data.eventsPerMeasure;
     // console.log(`add index ${addIndex}`);
 
 

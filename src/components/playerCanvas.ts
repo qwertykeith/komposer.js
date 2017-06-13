@@ -11,6 +11,7 @@ export class PlayerCanvasCustomElement {
   @bindable()
   channel: KomposerChannel;
 
+  @bindable()
   mutator?: ILoopMutator; //= new MutateDelete();
 
 
@@ -19,6 +20,7 @@ export class PlayerCanvasCustomElement {
   }
 
   setMutator(m: ILoopMutator) {
+    // debugger;
     this.mutator = m;
   }
 
@@ -28,7 +30,7 @@ export class PlayerCanvasCustomElement {
       yield new MutateDelete();
       yield new MutateExplode();
       yield new MutateDeleteSound();
-      yield new MutateDeleteQuieter();
+      // yield new MutateDeleteQuieter();
     }
 
     return Array.from(list());

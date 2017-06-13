@@ -17,9 +17,12 @@ export class MutateDelete implements ILoopMutator {
   mutate(channel: KomposerChannel, player: KLoopPlayer) {
     channel.delete(player);
 
-    // delete the ui
-    var i = channel.players.indexOf(player);
-    channel.players.splice(i, 1);
+    // // delete the ui
+    // var i = channel.players.indexOf(player);
+    // console.log("--------------");
+    // console.log(i);
+    // console.log("--------------");
+    // channel.players.splice(i, 1);
   }
 }
 

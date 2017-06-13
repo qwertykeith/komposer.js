@@ -5,9 +5,18 @@
     <div if.bind="autoPlayer.on"
         class="auto-player">
 
+        <toggle-button prop.bind="autoPlayer.fillOn"
+            click.delegate="autoPlayer.fillOn=!autoPlayer.fillOn">Fill</toggle-button>
+
+
         <div class="auto-prop">
-            ${autoPlayer.lengthMeasures | fixFraction} measures
-            <exponential-select value.bind="autoPlayer.lengthMeasures"></exponential-select>
+            ${autoPlayer.loopLength | fixFraction} loop length
+            <exponential-select value.bind="autoPlayer.loopLength"></exponential-select>
+        </div>
+
+        <div class="auto-prop">
+            ${autoPlayer.phraseLength | fixFraction} phrase length
+            <exponential-select value.bind="autoPlayer.phraseLength"></exponential-select>
         </div>
 
         <div class="auto-prop">

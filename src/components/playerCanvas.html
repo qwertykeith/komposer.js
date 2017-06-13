@@ -1,8 +1,8 @@
 <template>
 
-    <button repeat.for="m of getMutators()"
-        class="k-toggle-btn ${model.mutator.name==m.name?'on':''}"
-        click.delegate="setMutator(m)">${m.name}</button>
+    <toggle-button repeat.for="m of getMutators()"
+        prop.bind="m===mutator"
+        click.delegate="setMutator(m)">${m.name}</toggle-button>
 
     <!--NOTE this annoyingly has to be a div-->
     <div class="dot-canvas">

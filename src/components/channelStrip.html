@@ -9,7 +9,7 @@
             <a class="channel-something ${showTick?'tick-on':''}"></a>
             <!--${showTick}-->
 
-            <toggle-button prop.bind="autoPlayer.on"
+            <toggle-button prop.bind="channel.autoPlayerData.on"
                 click.delegate="toggleAuto()">AUTO</toggle-button>
 
 
@@ -22,10 +22,10 @@
                 Random
             </button>
 
-            <button class="k-toggle-btn"
+            <toggle-button prop.bind="showExtra"
                 click.delegate="showExtra=!showExtra">
                 Open
-            </button>
+            </toggle-button>
 
         </div>
 
