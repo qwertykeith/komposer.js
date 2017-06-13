@@ -6,18 +6,20 @@ import { TransportEvents } from './transportEvents';
 
 export class AutoPlayerModel {
   on: boolean = false;
-  eventsPerMeasure = 16; // 16
-  phraseLength = 2;
-  loopLength = 8;
-  changeEveryMeasure = 8;
+  // eventsPerMeasure = 16; // 16
+  // phraseLength = 2;
+  loopLength = 2;
+  speed = 8;
+  offset = 0;
+  // changeEveryMeasure = 8;
 
-  fillOn = false;
+  // fillOn = false;
   // private lastLoop: KLoop;
 }
 
 /**
  * automates a player
- */
+*/
 @autoinject()
 export class AutoPlayer {
 
@@ -27,35 +29,35 @@ export class AutoPlayer {
     let i = 0;
 
 
-    const arrangeCurve = (measure: number, fill: boolean): number => {
-      var progress = measure / data.changeEveryMeasure;
-      var rounded = Math.floor(progress);
-      var fractionPart = progress - rounded;
+    // const arrangeCurve = (measure: number, fill: boolean): number => {
+    //   var rounded = Math.floor(progress);
+    //   var fractionPart = progress - rounded;
 
-      return (fractionPart < 0.75 && fill)
-        ? rounded
-        : progress;
-    };
+    //   return (fractionPart < 0.75 && fill)
+    //     ? rounded
+    //     : progress;
+    // };
 
     /////-------------------
     if (!data.on) return;
 
-    measure = measure % data.loopLength;
+    const index = (((measure)) % data.loopLength) * data.speed;
 
     // measure=measure>=1
     //   ? measure%data.loopLength
     //   :
 
-    const eventIndex = Math.floor(measure * data.eventsPerMeasure);
-    const eventLength = data.phraseLength * data.eventsPerMeasure;
+    //    const eventIndex = Math.floor(measure * data.eventsPerMeasure);
+    // const eventLength = data.phraseLength * data.eventsPerMeasure;
 
-    let loopIndex = eventIndex % eventLength;
+    // let loopIndex = index % loopPlayers.length;
 
-    const addIndex = arrangeCurve(measure, data.fillOn) * data.eventsPerMeasure;
+    // var addIndex = measure / data.changeEveryMeasure;
+    // const addIndex = progress * data.eventsPerMeasure;
     // console.log(`add index ${addIndex}`);
 
 
-    loopIndex = Math.floor(loopIndex + addIndex) % loopPlayers.length;
+    const loopIndex = Math.floor(index + data.offset) % loopPlayers.length;
 
     let ii = 0;
     loopPlayers.forEach(loop => {

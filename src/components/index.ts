@@ -4,6 +4,7 @@ export function configure(aurelia) {
     './channelStrip',
     './toggleButton',
     './exponentialSelect',
+    './incrementSelect',
     './autoplayer',
     './touchButton',
     './playerCanvas',

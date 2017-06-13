@@ -38,7 +38,7 @@ export const LoopLibrary = {
 
   getRandomSounds(): KLoop[] {
 
-    const urlses = [
+    const soundBanks = [
       VocalKit1Urls,
       DAnalogDK1Urls,
       DBassUrls,
@@ -49,9 +49,9 @@ export const LoopLibrary = {
       WizkitUrls,
     ];
 
-    var urls = getRandom(urlses);
-    var count = Math.floor(Math.random() * 8); // low is good
-    var sounds = getSouldUrls(urls);
+    var soundBank = getRandom(soundBanks);
+    var count = Math.floor(Math.random() * 16); // low is good
+    var sounds = getSouldUrls(soundBank);
     var beats = Array(10).fill(1 / 16)
       .concat(Array(10).fill(1 / 4))
       .concat(Array(10).fill(1 / 8))
